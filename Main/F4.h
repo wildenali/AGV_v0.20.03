@@ -7,8 +7,32 @@ void F4E_MachineSet();
 void F4A_MachineSet(){
   pageF4A.show();
   Serial.println("F4A_MachineSet");
+  Gspeed = EEPROM.read(addressGspeed);
+  Gaccel = EEPROM.read(addressGaccel);
+  nF4ASpeed.setValue(Gspeed);
+  nF4AAccel.setValue(Gaccel);
+  Number = numF4ASpeed;   // kondisi awal yg aktfi si numF4ASpeed
+  bool LnumSpeed = false;   // L for Local variable
+  bool LnumAccel = false;
   while(true){
     nexLoop(nex_listen_list_F4A_MachineSet);
+    if(Number == numF4ASpeed){
+      Number = numIDLE;
+      Serial.println("F4A Speed");
+      nF4ASpeed.Set_background_color_bco(1500);   // 1500 warna biru
+      nF4AAccel.Set_background_color_bco(65535);
+      LnumSpeed = true;
+      LnumAccel = false;
+    }
+    if(Number == numF4AAccel){
+      Number = numIDLE;
+      Serial.println("F4A Accel");
+      nF4ASpeed.Set_background_color_bco(65535);
+      nF4AAccel.Set_background_color_bco(1500);
+      LnumSpeed = false;
+      LnumAccel = true;
+    }
+
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
@@ -22,14 +46,45 @@ void F4A_MachineSet(){
         F4B_MachineSet();
         pageF4A.show();
         Serial.println("F4A_MachineSet");
+        nF4ASpeed.setValue(Gspeed);
+        nF4AAccel.setValue(Gaccel);
+        Number = numF4ASpeed;
         break;
       case tMINUS:
         Tombol = tIDLE;
         Serial.println("bF4AMinus");
+        if(LnumSpeed){
+          nF4ASpeed.getValue(&Gspeed);
+          Gspeed -= 1;
+          if(Gspeed <= 1) Gspeed = 1;
+          nF4ASpeed.setValue(Gspeed);
+          EEPROM.write(addressGspeed, Gspeed); 
+        }
+        if(LnumAccel){
+          nF4AAccel.getValue(&Gaccel);
+          Gaccel -= 1;
+          if(Gaccel <= 1) Gaccel = 1;
+          nF4AAccel.setValue(Gaccel);
+          EEPROM.write(addressGaccel, Gaccel); 
+        }
         break;
       case tPLUS:
         Tombol = tIDLE;
         Serial.println("bF4APlus");
+        if(LnumSpeed){
+          nF4ASpeed.getValue(&Gspeed);
+          Gspeed += 1;
+          if(Gspeed >= 10) Gspeed = 10;
+          nF4ASpeed.setValue(Gspeed);
+          EEPROM.write(addressGspeed, Gspeed); 
+        }
+        if(LnumAccel){
+          nF4AAccel.getValue(&Gaccel);
+          Gaccel += 1;
+          if(Gaccel >= 10) Gaccel = 10;
+          nF4AAccel.setValue(Gaccel);
+          EEPROM.write(addressGaccel, Gaccel); 
+        }
         break;
       default:
         break;
@@ -40,8 +95,49 @@ void F4A_MachineSet(){
 void F4B_MachineSet(){
   pageF4B.show();
   Serial.println("F4B_MachineSet");
+  GgainP = EEPROM.read(addressGgainP);
+  GgainI = EEPROM.read(addressGgainI);
+  GgainD = EEPROM.read(addressGgainD);
+  nF4BGainP.setValue(GgainP);
+  nF4BGainI.setValue(GgainI);
+  nF4BGainD.setValue(GgainD);
+  Number = numF4BGainP;   // kondisi awal yg aktfi si numF4ASpeed
+  bool LnumGainP = false;
+  bool LnumGainI = false;
+  bool LnumGainD = false;
   while(true){
     nexLoop(nex_listen_list_F4B_MachineSet);
+    if(Number == numF4BGainP){
+      Number = numIDLE;
+      Serial.println("F4B GainP");
+      nF4BGainP.Set_background_color_bco(1500);   // 1500 warna biru
+      nF4BGainI.Set_background_color_bco(65535);
+      nF4BGainD.Set_background_color_bco(65535);
+      LnumGainP = true;
+      LnumGainI = false;
+      LnumGainD = false;
+    }
+    if(Number == numF4BGainI){
+      Number = numIDLE;
+      Serial.println("F4B GainI");
+      nF4BGainP.Set_background_color_bco(65535);   // 1500 warna biru
+      nF4BGainI.Set_background_color_bco(1500);
+      nF4BGainD.Set_background_color_bco(65535);
+      LnumGainP = false;
+      LnumGainI = true;
+      LnumGainD = false;
+    }
+    if(Number == numF4BGainD){
+      Number = numIDLE;
+      Serial.println("F4B GainD");
+      nF4BGainP.Set_background_color_bco(65535);   // 1500 warna biru
+      nF4BGainI.Set_background_color_bco(65535);
+      nF4BGainD.Set_background_color_bco(1500);
+      LnumGainP = false;
+      LnumGainI = false;
+      LnumGainD = true;
+    }
+    
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
@@ -54,14 +150,60 @@ void F4B_MachineSet(){
         F4C_MachineSet();
         pageF4B.show();
         Serial.println("F4B_MachineSet");
+        nF4BGainP.setValue(GgainP);
+        nF4BGainI.setValue(GgainI);
+        nF4BGainD.setValue(GgainD);
+        Number = numF4BGainP;
         break;
       case tMINUS:
         Tombol = tIDLE;
         Serial.println("bF4BMinus");
+        if(LnumGainP){
+          nF4BGainP.getValue(&GgainP);
+          GgainP -= 1;
+          if(GgainP <= 1) GgainP = 1;
+          nF4BGainP.setValue(GgainP);
+          EEPROM.write(addressGgainP, GgainP);
+        }
+        if(LnumGainI){
+          nF4BGainI.getValue(&GgainI);
+          GgainI -= 1;
+          if(GgainI <= 1) GgainI = 1;
+          nF4BGainI.setValue(GgainI);
+          EEPROM.write(addressGgainI, GgainI);
+        }
+        if(LnumGainD){
+          nF4BGainD.getValue(&GgainD);
+          GgainD -= 1;
+          if(GgainD <= 1) GgainD = 1;
+          nF4BGainD.setValue(GgainD);
+          EEPROM.write(addressGgainD, GgainD);
+        }
         break;
       case tPLUS:
         Tombol = tIDLE;
         Serial.println("bF4BPlus");
+        if(LnumGainP){
+          nF4BGainP.getValue(&GgainP);
+          GgainP += 1;
+          if(GgainP >= 10) GgainP = 10;
+          nF4BGainP.setValue(GgainP);
+          EEPROM.write(addressGgainP, GgainP); 
+        }
+        if(LnumGainI){
+          nF4BGainI.getValue(&GgainI);
+          GgainI += 1;
+          if(GgainI >= 10) GgainI = 10;
+          nF4BGainI.setValue(GgainI);
+          EEPROM.write(addressGgainI, GgainI); 
+        }
+        if(LnumGainD){
+          nF4BGainD.getValue(&GgainD);
+          GgainD += 1;
+          if(GgainD >= 10) GgainD = 10;
+          nF4BGainD.setValue(GgainD);
+          EEPROM.write(addressGgainD, GgainD); 
+        }
         break;
       default:
         break;
@@ -87,9 +229,55 @@ void F4C_MachineSet(){
         pageF4C.show();
         Serial.println("F4C_MachineSet");
         break;
-      case tSET:
+      case tMINUS:
         Tombol = tIDLE;
-        Serial.println("bF4CSet");
+        Serial.println("bF4CMinus");
+//        if(LnumGainP){
+//          nF4BGainP.getValue(&GgainP);
+//          GgainP -= 1;
+//          if(GgainP <= 1) GgainP = 1;
+//          nF4BGainP.setValue(GgainP);
+//          EEPROM.write(addressGgainP, GgainP);
+//        }
+//        if(LnumGainI){
+//          nF4BGainI.getValue(&GgainI);
+//          GgainI -= 1;
+//          if(GgainI <= 1) GgainI = 1;
+//          nF4BGainI.setValue(GgainI);
+//          EEPROM.write(addressGgainI, GgainI);
+//        }
+//        if(LnumGainD){
+//          nF4BGainD.getValue(&GgainD);
+//          GgainD -= 1;
+//          if(GgainD <= 1) GgainD = 1;
+//          nF4BGainD.setValue(GgainD);
+//          EEPROM.write(addressGgainD, GgainD);
+//        }
+        break;
+      case tPLUS:
+        Tombol = tIDLE;
+        Serial.println("bF4CPlus");
+//        if(LnumGainP){
+//          nF4BGainP.getValue(&GgainP);
+//          GgainP += 1;
+//          if(GgainP >= 10) GgainP = 10;
+//          nF4BGainP.setValue(GgainP);
+//          EEPROM.write(addressGgainP, GgainP); 
+//        }
+//        if(LnumGainI){
+//          nF4BGainI.getValue(&GgainI);
+//          GgainI += 1;
+//          if(GgainI >= 10) GgainI = 10;
+//          nF4BGainI.setValue(GgainI);
+//          EEPROM.write(addressGgainI, GgainI); 
+//        }
+//        if(LnumGainD){
+//          nF4BGainD.getValue(&GgainD);
+//          GgainD += 1;
+//          if(GgainD >= 10) GgainD = 10;
+//          nF4BGainD.setValue(GgainD);
+//          EEPROM.write(addressGgainD, GgainD); 
+//        }
         break;
       default:
         break;
