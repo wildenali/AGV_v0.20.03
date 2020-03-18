@@ -1,16 +1,26 @@
 #include "Nextion.h"
 #include "G1_Variables.h"
+
+#define DI01 23
+#define DI02 24
+#define DI03 25
+#define DI04 26
+#define DI05 27
+int DI[5] = {23, 24, 25, 26, 27};
+int buttonStateDI[5];         // current state of the button
+int lastButtonStateDI[5];     // previous state of the button
+
 #include "G2_NextionParameters.h"
 #include <EEPROM.h>
-
-
-
 #include "E.h"
 #include "F0.h"
 #include "F1.h"
 #include "F2.h"
 #include "F3.h"
 #include "F4.h"
+
+
+
 
 
 void setup() {
@@ -24,6 +34,15 @@ void setup() {
 
   Menu = E;
   Serial.println("Menu UtamaAA");
+
+  pinMode(22, INPUT_PULLUP);
+
+  for(int i = 0; i < (sizeof(DI) / sizeof(DI[0])); i++){
+    pinMode(DI[i], INPUT_PULLUP);
+    buttonStateDI[i] = 0;
+    lastButtonStateDI[i] = 0;
+  }
+  
 }
 
 void loop() {

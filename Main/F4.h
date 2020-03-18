@@ -214,6 +214,10 @@ void F4B_MachineSet(){
 void F4C_MachineSet(){
   pageF4C.show();
   Serial.println("F4C_MachineSet");
+  GnoRefDist = EEPROM.read(addressGnoRefDist);
+  GrefDist   = EEPROM.read(addressGrefDist);
+  nF4CNoRefDist.setValue(GnoRefDist);
+  nF4CRefDist.setValue(GrefDist);
   while(true){
     nexLoop(nex_listen_list_F4C_MachineSet);
     switch(Tombol){
@@ -228,56 +232,44 @@ void F4C_MachineSet(){
         F4D_MachineSet();
         pageF4C.show();
         Serial.println("F4C_MachineSet");
+        nF4CNoRefDist.setValue(GnoRefDist);
+        nF4CRefDist.setValue(GrefDist);
         break;
       case tMINUS:
         Tombol = tIDLE;
         Serial.println("bF4CMinus");
-//        if(LnumGainP){
-//          nF4BGainP.getValue(&GgainP);
-//          GgainP -= 1;
-//          if(GgainP <= 1) GgainP = 1;
-//          nF4BGainP.setValue(GgainP);
-//          EEPROM.write(addressGgainP, GgainP);
-//        }
-//        if(LnumGainI){
-//          nF4BGainI.getValue(&GgainI);
-//          GgainI -= 1;
-//          if(GgainI <= 1) GgainI = 1;
-//          nF4BGainI.setValue(GgainI);
-//          EEPROM.write(addressGgainI, GgainI);
-//        }
-//        if(LnumGainD){
-//          nF4BGainD.getValue(&GgainD);
-//          GgainD -= 1;
-//          if(GgainD <= 1) GgainD = 1;
-//          nF4BGainD.setValue(GgainD);
-//          EEPROM.write(addressGgainD, GgainD);
-//        }
+        nF4CRefDist.getValue(&GrefDist);
+        GrefDist -= 1;
+        if(GrefDist <= 1) GrefDist = 1;
+        nF4CRefDist.setValue(GrefDist);
+        EEPROM.write(addressGrefDist, GrefDist);
         break;
       case tPLUS:
         Tombol = tIDLE;
         Serial.println("bF4CPlus");
-//        if(LnumGainP){
-//          nF4BGainP.getValue(&GgainP);
-//          GgainP += 1;
-//          if(GgainP >= 10) GgainP = 10;
-//          nF4BGainP.setValue(GgainP);
-//          EEPROM.write(addressGgainP, GgainP); 
-//        }
-//        if(LnumGainI){
-//          nF4BGainI.getValue(&GgainI);
-//          GgainI += 1;
-//          if(GgainI >= 10) GgainI = 10;
-//          nF4BGainI.setValue(GgainI);
-//          EEPROM.write(addressGgainI, GgainI); 
-//        }
-//        if(LnumGainD){
-//          nF4BGainD.getValue(&GgainD);
-//          GgainD += 1;
-//          if(GgainD >= 10) GgainD = 10;
-//          nF4BGainD.setValue(GgainD);
-//          EEPROM.write(addressGgainD, GgainD); 
-//        }
+        nF4CRefDist.getValue(&GrefDist);
+        GrefDist += 1;
+        if(GrefDist >= 200) GrefDist = 200;   // range batas distance avoid 0 sampai 200 cm
+        nF4CRefDist.setValue(GrefDist);
+        EEPROM.write(addressGrefDist, GrefDist);
+        break;
+      case tUP:
+        Tombol = tIDLE;
+        Serial.println("bF4CNextDist");
+        nF4CNoRefDist.getValue(&GnoRefDist);
+        GnoRefDist += 1;
+        if(GnoRefDist >= 20) GnoRefDist = 20;
+        nF4CNoRefDist.setValue(GnoRefDist);
+        EEPROM.write(addressGnoRefDist, GnoRefDist);
+        break;
+      case tDOWN:
+        Tombol = tIDLE;
+        Serial.println("bF4CPrevDist");
+        nF4CNoRefDist.getValue(&GnoRefDist);
+        GnoRefDist -= 1;
+        if(GnoRefDist <= 1) GnoRefDist = 1;
+        nF4CNoRefDist.setValue(GnoRefDist);
+        EEPROM.write(addressGnoRefDist, GnoRefDist);
         break;
       default:
         break;
@@ -290,6 +282,7 @@ void F4D_MachineSet(){
   Serial.println("F4D_MachineSet");
   while(true){
     nexLoop(nex_listen_list_F4D_MachineSet);
+    G2_DigitalInputStatusDisplay();
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
@@ -303,6 +296,15 @@ void F4D_MachineSet(){
         pageF4D.show();
         Serial.println("F4D_MachineSet");
         break;
+      case tLOW:
+        Tombol = tIDLE;
+        Serial.println("bF4DSetLow");
+        tF4DDI01.Set_background_color_bco(65535);
+        break;
+      case tHIGH:
+        Tombol = tIDLE;
+        Serial.println("bF4DSetHigh");
+        break;
       default:
         break;
     }
@@ -314,19 +316,19 @@ void F4E_MachineSet(){
   Serial.println("F4E_MachineSet");
   while(true){
     nexLoop(nex_listen_list_F4E_MachineSet);
+    if(digitalRead(22) == LOW){
+      GsensorLine = random(-100, 100);
+      memset(bufferSensorLine, 0, sizeof(bufferSensorLine));    // proses dari int to char
+      itoa(GsensorLine, bufferSensorLine, 10);        // proses dari int to char
+      GsensorLine = map(GsensorLine, -100, 100, 0, 180);
+      zF4ELineSensor.setValue(GsensorLine);
+      tF4ELineSensor.setText(bufferSensorLine);
+    }
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
         Serial.println("bF4EBack");
         return false;
-        break;
-      case tLOW:
-        Tombol = tIDLE;
-        Serial.println("bF4ESetLow");
-        break;
-      case tHIGH:
-        Tombol = tIDLE;
-        Serial.println("bF4ESetHigh");
         break;
       default:
         break;
