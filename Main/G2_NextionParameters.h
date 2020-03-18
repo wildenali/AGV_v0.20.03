@@ -298,6 +298,12 @@ void G2_NextionParameters(){
 
 }
 
+void G2_DigitalInput(){
+  for(int i = 0; i < (sizeof(DI) / sizeof(DI[0])); i++){
+    digitalRead(DI[i]);
+  }
+}
+
 void G2_DigitalInputStatusDisplay(){
   for(int i = 0; i < (sizeof(DI) / sizeof(DI[0])); i++){
     buttonStateDI[i] = digitalRead(DI[i]);
