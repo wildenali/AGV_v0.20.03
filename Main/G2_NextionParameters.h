@@ -205,9 +205,9 @@ void bF4DBack_PopCallback(void *ptr)    {Tombol = tBACK;}   // ========== Callba
 void bF4DNext_PopCallback(void *ptr)    {Tombol = tNEXT;}
 void tF4DDO01_PopCallback(void *ptr)    {Text   = textA;}
 void tF4DDO02_PopCallback(void *ptr)    {Text   = textB;}
-void tF4DDO03_PopCallback(void *ptr)    {Text   = textB;}
-void tF4DDO04_PopCallback(void *ptr)    {Text   = textB;}
-void tF4DDO05_PopCallback(void *ptr)    {Text   = textB;}
+void tF4DDO03_PopCallback(void *ptr)    {Text   = textC;}
+void tF4DDO04_PopCallback(void *ptr)    {Text   = textD;}
+void tF4DDO05_PopCallback(void *ptr)    {Text   = textE;}
 void bF4DSetLow_PopCallback(void *ptr)  {Tombol = tLOW;}
 void bF4DSetHigh_PopCallback(void *ptr) {Tombol = tHIGH;}   // ========== Callback in F4D_MachineSet ==========
 
