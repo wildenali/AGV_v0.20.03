@@ -218,8 +218,10 @@ void F4C_MachineSet(){
   GrefDist   = EEPROM.read(addressGrefDist);
   nF4CNoRefDist.setValue(GnoRefDist);
   nF4CRefDist.setValue(GrefDist);
+  unsigned long previousMillis = 0;        // will store last time LED was updated
+  const long interval = 10000;           // interval at which to blink (milliseconds)
   while(true){
-    nexLoop(nex_listen_list_F4C_MachineSet);
+    nexLoop(nex_listen_list_F4C_MachineSet);    
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
@@ -280,9 +282,11 @@ void F4C_MachineSet(){
 void F4D_MachineSet(){
   pageF4D.show();
   Serial.println("F4D_MachineSet");
+  G2_DigitalInput();
   while(true){
     nexLoop(nex_listen_list_F4D_MachineSet);
     G2_DigitalInputStatusDisplay();
+
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
@@ -294,16 +298,8 @@ void F4D_MachineSet(){
         Serial.println("bF4DNext");
         F4E_MachineSet();
         pageF4D.show();
+        G2_DigitalInput();
         Serial.println("F4D_MachineSet");
-        break;
-      case tLOW:
-        Tombol = tIDLE;
-        Serial.println("bF4DSetLow");
-        tF4DDI01.Set_background_color_bco(65535);
-        break;
-      case tHIGH:
-        Tombol = tIDLE;
-        Serial.println("bF4DSetHigh");
         break;
       default:
         break;
@@ -316,7 +312,7 @@ void F4E_MachineSet(){
   Serial.println("F4E_MachineSet");
   while(true){
     nexLoop(nex_listen_list_F4E_MachineSet);
-    if(digitalRead(22) == LOW){
+    if(digitalRead(pinDigitalInput22) == LOW){
       GsensorLine = random(-100, 100);
       memset(bufferSensorLine, 0, sizeof(bufferSensorLine));    // proses dari int to char
       itoa(GsensorLine, bufferSensorLine, 10);        // proses dari int to char

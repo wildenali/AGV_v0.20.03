@@ -1,14 +1,23 @@
 #include "Nextion.h"
 #include "G1_Variables.h"
 
-#define DI01 23
-#define DI02 24
-#define DI03 25
-#define DI04 26
-#define DI05 27
-int DI[5] = {23, 24, 25, 26, 27};
-int buttonStateDI[5];         // current state of the button
-int lastButtonStateDI[5];     // previous state of the button
+#define pinDigitalInput22 22
+#define pinDigitalInput01 23  // DI01
+#define pinDigitalInput02 24
+#define pinDigitalInput03 25
+#define pinDigitalInput04 26
+#define pinDigitalInput05 27
+unsigned int digitalInput[5] = {pinDigitalInput01, pinDigitalInput02, pinDigitalInput03, pinDigitalInput04, pinDigitalInput05};   // DI[5]
+bool stateDigitalInput[5];                         // buttonStateDI[5];
+bool lastStateDigitalInput[5];                     // lastButtonStateDI[5];
+
+#define pinDigitalOutput01 28
+#define pinDigitalOutput02 29
+#define pinDigitalOutput03 30
+#define pinDigitalOutput04 31
+#define pinDigitalOutput05 32
+unsigned int digitalOutput[5] = {pinDigitalOutput01, pinDigitalOutput02, pinDigitalOutput03, pinDigitalOutput04, pinDigitalOutput05};   // DI[5]
+
 
 #include "G2_NextionParameters.h"
 #include <EEPROM.h>
@@ -37,11 +46,17 @@ void setup() {
 
   pinMode(22, INPUT_PULLUP);
 
-  for(int i = 0; i < (sizeof(DI) / sizeof(DI[0])); i++){
-    pinMode(DI[i], INPUT_PULLUP);
-    buttonStateDI[i] = 0;
-    lastButtonStateDI[i] = 0;
+  for(int i = 0; i < (sizeof(digitalInput) / sizeof(digitalInput[0])); i++){
+    pinMode(digitalInput[i], INPUT_PULLUP);
+    stateDigitalInput[i] = 0;
+    lastStateDigitalInput[i] = 0;
   }
+
+  for(int i = 0; i < (sizeof(digitalOutput) / sizeof(digitalOutput[0])); i++){
+    pinMode(digitalOutput[i], OUTPUT);
+    digitalWrite(digitalOutput[i], LOW);
+  }
+
   
 }
 
@@ -74,6 +89,5 @@ void loop() {
       break;
     default:
       break;
-  }
-  
+  }  
 }
