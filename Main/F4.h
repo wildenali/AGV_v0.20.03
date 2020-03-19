@@ -211,6 +211,12 @@ void F4B_MachineSet(){
   }
 }
 
+void readDistanceSensor(){
+  for(int i = 0; i < (sizeof(distSens) / sizeof(distSens[0])); i++){
+    distSens[i] = analogRead(A0);
+  }
+}
+
 void F4C_MachineSet(){
   pageF4C.show();
   Serial.println("F4C_MachineSet");
@@ -220,6 +226,7 @@ void F4C_MachineSet(){
   nF4CRefDist.setValue(GrefDist);
   while(true){
     nexLoop(nex_listen_list_F4C_MachineSet);
+    readDistanceSensor();
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
