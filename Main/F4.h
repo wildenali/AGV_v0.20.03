@@ -211,6 +211,33 @@ void F4B_MachineSet(){
   }
 }
 
+void readDistanceSensor(){
+  for(int i = 0; i < (sizeof(distSens) / sizeof(distSens[0])); i++){
+    distSens[i] = analogRead(A0);
+  }
+}
+
+bool alertDistance[0] = LOW;
+bool alertDistance[1] = LOW;
+bool alertDistance[2] = LOW;
+bool alertDistance[3] = LOW;
+bool alertDistance[4] = LOW;
+bool alertDistance[5] = LOW;
+bool alertDistance[6] = LOW;
+bool alertDistance[7] = LOW;
+bool alertDistance[8] = LOW;
+bool alertDistance[9] = LOW;
+bool alertDistance[10] = LOW;
+bool alertDistance[11] = LOW;
+bool alertDistance[12] = LOW;
+bool alertDistance[13] = LOW;
+bool alertDistance[14] = LOW;
+bool alertDistance[15] = LOW;
+bool alertDistance[16] = LOW;
+bool alertDistance[17] = LOW;
+bool alertDistance[18] = LOW;
+bool alertDistance[19] = LOW;
+
 void F4C_MachineSet(){
   pageF4C.show();
   Serial.println("F4C_MachineSet");
@@ -221,7 +248,22 @@ void F4C_MachineSet(){
   unsigned long previousMillis = 0;        // will store last time LED was updated
   const long interval = 10000;           // interval at which to blink (milliseconds)
   while(true){
+<<<<<<< HEAD
     nexLoop(nex_listen_list_F4C_MachineSet);    
+=======
+    nexLoop(nex_listen_list_F4C_MachineSet);
+    readDistanceSensor();
+    
+    // masih test dummy sensor jarak
+    for(int i = 0; i < (sizeof(distSens) / sizeof(distSens[0])); i++){
+      if(distSens[i] < minDistSens[i])    alertDistance[i] = HIGH;
+      else                                alertDistance[i] = LOW;
+      Serial.print(alertDistance[i]);   Serial.print(" ");
+    }
+    Serial.println();
+    
+    
+>>>>>>> b4924283b790962af9d4b59cb57e3cc7b9070f7d
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
