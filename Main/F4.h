@@ -217,6 +217,27 @@ void readDistanceSensor(){
   }
 }
 
+bool alertDistance[0] = LOW;
+bool alertDistance[1] = LOW;
+bool alertDistance[2] = LOW;
+bool alertDistance[3] = LOW;
+bool alertDistance[4] = LOW;
+bool alertDistance[5] = LOW;
+bool alertDistance[6] = LOW;
+bool alertDistance[7] = LOW;
+bool alertDistance[8] = LOW;
+bool alertDistance[9] = LOW;
+bool alertDistance[10] = LOW;
+bool alertDistance[11] = LOW;
+bool alertDistance[12] = LOW;
+bool alertDistance[13] = LOW;
+bool alertDistance[14] = LOW;
+bool alertDistance[15] = LOW;
+bool alertDistance[16] = LOW;
+bool alertDistance[17] = LOW;
+bool alertDistance[18] = LOW;
+bool alertDistance[19] = LOW;
+
 void F4C_MachineSet(){
   pageF4C.show();
   Serial.println("F4C_MachineSet");
@@ -227,6 +248,15 @@ void F4C_MachineSet(){
   while(true){
     nexLoop(nex_listen_list_F4C_MachineSet);
     readDistanceSensor();
+    
+    for(int i = 0; i < (sizeof(distSens) / sizeof(distSens[0])); i++){
+      if(distSens[i] < 100)   alertDistance[i] = HIGH;
+      else                    alertDistance[i] = LOW;
+      Serial.print(alertDistance[i]);   Serial.print(" ");
+    }
+    Serial.println();
+    
+    
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
