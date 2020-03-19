@@ -52,6 +52,12 @@ void setup() {
     lastButtonStateDI[i] = 0;
   }
   
+  // ini masih dummy pembatasan minimal sensor jarak
+  for(int i = 0; i < (sizeof(distSens) / sizeof(distSens[0])); i++){
+    minDistSens[i] = 100;
+  }
+  
+  
 }
 
 void loop() {
