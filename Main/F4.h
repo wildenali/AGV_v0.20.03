@@ -249,9 +249,10 @@ void F4C_MachineSet(){
     nexLoop(nex_listen_list_F4C_MachineSet);
     readDistanceSensor();
     
+    // masih test dummy sensor jarak
     for(int i = 0; i < (sizeof(distSens) / sizeof(distSens[0])); i++){
-      if(distSens[i] < 100)   alertDistance[i] = HIGH;
-      else                    alertDistance[i] = LOW;
+      if(distSens[i] < minDistSens[i])    alertDistance[i] = HIGH;
+      else                                alertDistance[i] = LOW;
       Serial.print(alertDistance[i]);   Serial.print(" ");
     }
     Serial.println();
