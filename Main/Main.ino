@@ -10,6 +10,15 @@ int DI[5] = {23, 24, 25, 26, 27};
 int buttonStateDI[5];         // current state of the button
 int lastButtonStateDI[5];     // previous state of the button
 
+uint32_t distSens[20];
+uint32_t minDistSens[20];
+uint32_t addressMinDistSens[20] = {30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                                   40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50
+                                  };
+
+
+
+
 #include "G2_NextionParameters.h"
 #include <EEPROM.h>
 #include "E.h"
