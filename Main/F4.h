@@ -245,15 +245,19 @@ void F4C_MachineSet(){
   
   nF4CNoRefDist.setValue(GnoRefDist);
 //   nF4CRefDist.setValue(GrefDist);
-  unsigned long previousMillis = 0;        // will store last time LED was updated
-  const long interval = 10000;           // interval at which to blink (milliseconds)
+  
   while(true){
     nexLoop(nex_listen_list_F4C_MachineSet);
     readDistanceSensor();
+
+    Serial2.print("nF4CDistSen.val=");
+    Serial2.print(distSens[GnoRefDist]);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
     
-    
-    Serial2.print("nF4CRefDist.val=");
-    Serial2.print(GrefDist[GnoRefDist]);
+    Serial2.print("nF4CRefDist.val=");    // nanti ubah menjadi nF4CMinDist 
+    Serial2.print(minDistSens[GnoRefDist]);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
@@ -315,21 +319,39 @@ void F4C_MachineSet(){
       case tMINUS:
         Tombol = tIDLE;
         Serial.println("bF4CMinus");
-        nF4CRefDist.getValue(&GrefDist);
-        GrefDist -= 1;
-        if(GrefDist <= 1) GrefDist = 1;
-        nF4CRefDist.setValue(GrefDist);
-        EEPROM.write(addressGrefDist, GrefDist);
+        nF4CRefDist.getValue(&minDistSens[GnoRefDist]);    // minDistSens[GnoRefDist]
+        minDistSens[GnoRefDist] -= 1;
+        if(minDistSens[GnoRefDist] <= 1) minDistSens[GnoRefDist] = 1;
+        nF4CRefDist.setValue(minDistSens[GnoRefDist]);
+        EEPROM.write(addressMinDistSens[GnoRefDist], minDistSens[GnoRefDist]);
         break;
       case tPLUS:
         Tombol = tIDLE;
         Serial.println("bF4CPlus");
-        nF4CRefDist.getValue(&GrefDist);
-        GrefDist += 1;
-        if(GrefDist >= 200) GrefDist = 200;   // range batas distance avoid 0 sampai 200 cm
-        nF4CRefDist.setValue(GrefDist);
-        EEPROM.write(addressGrefDist, GrefDist);
+        nF4CRefDist.getValue(&minDistSens[GnoRefDist]);
+        minDistSens[GnoRefDist] += 1;
+        if(minDistSens[GnoRefDist] >= 200) minDistSens[GnoRefDist] = 200;   // range batas distance avoid 0 sampai 200 cm
+        nF4CRefDist.setValue(minDistSens[GnoRefDist]);
+        EEPROM.write(addressMinDistSens, minDistSens[GnoRefDist]);
         break;
+//       case tMINUS:
+//         Tombol = tIDLE;
+//         Serial.println("bF4CMinus");
+//         nF4CRefDist.getValue(&GrefDist);
+//         GrefDist -= 1;
+//         if(GrefDist <= 1) GrefDist = 1;
+//         nF4CRefDist.setValue(GrefDist);
+//         EEPROM.write(addressGrefDist, GrefDist);
+//         break;
+//       case tPLUS:
+//         Tombol = tIDLE;
+//         Serial.println("bF4CPlus");
+//         nF4CRefDist.getValue(&GrefDist);
+//         GrefDist += 1;
+//         if(GrefDist >= 200) GrefDist = 200;   // range batas distance avoid 0 sampai 200 cm
+//         nF4CRefDist.setValue(GrefDist);
+//         EEPROM.write(addressGrefDist, GrefDist);
+//         break;
       default:
         break;
     }
