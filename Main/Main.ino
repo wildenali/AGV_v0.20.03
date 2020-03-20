@@ -21,10 +21,9 @@ unsigned int digitalOutput[5] = {pinDigitalOutput01, pinDigitalOutput02, pinDigi
 
 uint32_t distSens[20];
 uint32_t minDistSens[20];
-uint32_t addressMinDistSens[20] = {30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-                                   40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50
+uint32_t addressMinDistSens[20] = {30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+                                   40, 41, 42, 43, 44, 45, 46, 47, 48, 49
                                   };
-
 
 
 
@@ -69,8 +68,9 @@ void setup() {
   
   // ini masih dummy pembatasan minimal sensor jarak
   for(int i = 0; i < (sizeof(distSens) / sizeof(distSens[0])); i++){
-    minDistSens[i] = 100;
+    minDistSens[i] = 200;
   }
+
   
   
 }

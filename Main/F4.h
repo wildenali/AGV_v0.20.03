@@ -217,27 +217,6 @@ void readDistanceSensor(){
   }
 }
 
-bool alertDistance[0] = LOW;
-bool alertDistance[1] = LOW;
-bool alertDistance[2] = LOW;
-bool alertDistance[3] = LOW;
-bool alertDistance[4] = LOW;
-bool alertDistance[5] = LOW;
-bool alertDistance[6] = LOW;
-bool alertDistance[7] = LOW;
-bool alertDistance[8] = LOW;
-bool alertDistance[9] = LOW;
-bool alertDistance[10] = LOW;
-bool alertDistance[11] = LOW;
-bool alertDistance[12] = LOW;
-bool alertDistance[13] = LOW;
-bool alertDistance[14] = LOW;
-bool alertDistance[15] = LOW;
-bool alertDistance[16] = LOW;
-bool alertDistance[17] = LOW;
-bool alertDistance[18] = LOW;
-bool alertDistance[19] = LOW;
-
 void F4C_MachineSet(){
   pageF4C.show();
   Serial.println("F4C_MachineSet");
@@ -248,22 +227,27 @@ void F4C_MachineSet(){
   unsigned long previousMillis = 0;        // will store last time LED was updated
   const long interval = 10000;           // interval at which to blink (milliseconds)
   while(true){
-<<<<<<< HEAD
-    nexLoop(nex_listen_list_F4C_MachineSet);    
-=======
     nexLoop(nex_listen_list_F4C_MachineSet);
     readDistanceSensor();
-    
-    // masih test dummy sensor jarak
-    for(int i = 0; i < (sizeof(distSens) / sizeof(distSens[0])); i++){
-      if(distSens[i] < minDistSens[i])    alertDistance[i] = HIGH;
-      else                                alertDistance[i] = LOW;
-      Serial.print(alertDistance[i]);   Serial.print(" ");
+    Serial2.print("nF4CDistSen.val=");
+    Serial2.print(distSens[0]);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    if(distSens[0] < minDistSens[0]) {
+      Serial2.print("nF4CRefDist.bco=");
+      Serial2.print(63488);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);  
     }
-    Serial.println();
-    
-    
->>>>>>> b4924283b790962af9d4b59cb57e3cc7b9070f7d
+    else{
+      Serial2.print("nF4CRefDist.bco=");
+      Serial2.print(65535);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+    }
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
@@ -354,14 +338,27 @@ void F4E_MachineSet(){
   Serial.println("F4E_MachineSet");
   while(true){
     nexLoop(nex_listen_list_F4E_MachineSet);
-    if(digitalRead(pinDigitalInput22) == LOW){
+//    if(digitalRead(pinDigitalInput22) == LOW){
       GsensorLine = random(-100, 100);
       memset(bufferSensorLine, 0, sizeof(bufferSensorLine));    // proses dari int to char
       itoa(GsensorLine, bufferSensorLine, 10);        // proses dari int to char
       GsensorLine = map(GsensorLine, -100, 100, 0, 180);
-      zF4ELineSensor.setValue(GsensorLine);
-      tF4ELineSensor.setText(bufferSensorLine);
-    }
+//      zF4ELineSensor.setValue(GsensorLine);
+//      tF4ELineSensor.setText(bufferSensorLine);
+//    }
+    Serial2.print("zF4ELineSensor.val=");
+    Serial2.print(GsensorLine);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+
+    Serial2.print("tF4ELineSensor.txt=");
+    Serial2.print("\"");
+    Serial2.print(bufferSensorLine);
+    Serial2.print("\"");
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
