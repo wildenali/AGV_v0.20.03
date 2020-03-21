@@ -86,16 +86,16 @@ NexNumber nF4CNoRefDist   = NexNumber(12, 4, "nF4CNoRefDist");  // referensi dis
 NexNumber nF4CRefDist     = NexNumber(12, 5, "nF4CRefDist");   // ========== Object in F4C_MachineSet ==========
 
 NexPage       pageF4D     = NexPage(13, 0, "F4D_MachineSet");   // ========== Object in F4D_MachineSet ==========
-NexText       tF4DDI01    = NexText(13, 3, "tF4DDI01");
-NexText       tF4DDI02    = NexText(13, 4, "tF4DDI02");
-NexText       tF4DDI03    = NexText(13, 5, "tF4DDI03");
-NexText       tF4DDI04    = NexText(13, 7, "tF4DDI04");
-NexText       tF4DDI05    = NexText(13, 8, "tF4DDI05");
-NexDSButton   btF4DDO01   = NexDSButton(13, 11, "btF4DDO01");
-NexDSButton   btF4DDO02   = NexDSButton(13, 12, "btF4DDO02");
-NexDSButton   btF4DDO03   = NexDSButton(13, 13, "btF4DDO03");
-NexDSButton   btF4DDO04   = NexDSButton(13, 14, "btF4DDO04");
-NexDSButton   btF4DDO05   = NexDSButton(13, 15, "btF4DDO05");
+NexText       tF4DDI00    = NexText(13, 3, "tF4DDI00");
+NexText       tF4DDI01    = NexText(13, 4, "tF4DDI01");
+NexText       tF4DDI02    = NexText(13, 5, "tF4DDI02");
+NexText       tF4DDI03    = NexText(13, 7, "tF4DDI03");
+NexText       tF4DDI04    = NexText(13, 8, "tF4DDI04");
+NexDSButton   btF4DDO00   = NexDSButton(13, 11, "btF4DDO00");
+NexDSButton   btF4DDO01   = NexDSButton(13, 12, "btF4DDO01");
+NexDSButton   btF4DDO02   = NexDSButton(13, 13, "btF4DDO02");
+NexDSButton   btF4DDO03   = NexDSButton(13, 14, "btF4DDO03");
+NexDSButton   btF4DDO04   = NexDSButton(13, 15, "btF4DDO04");
 NexButton     bF4DBack    = NexButton(13, 9, "bF4DBack");
 NexButton     bF4DNext    = NexButton(13, 10, "bF4DNext");// ========== Object in F4D_MachineSet ==========
 
@@ -117,7 +117,7 @@ NexTouch *nex_listen_list_F3D_RFID_Data[]   = {&pageF3D, &bF3DYes, &bF3DNo, NULL
 NexTouch *nex_listen_list_F4A_MachineSet[]  = {&pageF4A, &bF4ABack, &bF4ANext, &bF4AMinus, &bF4APlus, &nF4ASpeed, &nF4AAccel, NULL};            // ========== list of F4A_MachineSet ==========
 NexTouch *nex_listen_list_F4B_MachineSet[]  = {&pageF4B, &bF4BBack, &bF4BNext, &bF4BMinus, &bF4BPlus, &nF4BGainP, &nF4BGainI, &nF4BGainD, NULL};            // ========== list of F4B_MachineSet ==========
 NexTouch *nex_listen_list_F4C_MachineSet[]  = {&pageF4C, &bF4CBack, &bF4CNext, &bF4CMinus, &bF4CPlus, &bF4CPrevDist, &bF4CNextDist, NULL};                         // ========== list of F4C_MachineSet ==========
-NexTouch *nex_listen_list_F4D_MachineSet[]  = {&pageF4D, &bF4DBack, &bF4DNext, &btF4DDO01, &btF4DDO02, &btF4DDO03, &btF4DDO04, &btF4DDO05, NULL};                    // ========== list of F4D_MachineSet ==========
+NexTouch *nex_listen_list_F4D_MachineSet[]  = {&pageF4D, &bF4DBack, &bF4DNext, &btF4DDO00, &btF4DDO01, &btF4DDO02, &btF4DDO03, &btF4DDO04, NULL};                    // ========== list of F4D_MachineSet ==========
 NexTouch *nex_listen_list_F4E_MachineSet[]  = {&pageF4E, &bF4EBack, &tF4ELineSensor, NULL};                                   // ========== list of F4E_MachineSet ==========
 
 /*
@@ -194,29 +194,29 @@ void bF4CNextDist_PopCallback(void *ptr){Tombol = tUP;}     // ========== Callba
 // ========== Callback in F4D_MachineSet ==========
 void bF4DBack_PopCallback(void *ptr)    {Tombol = tBACK;}
 void bF4DNext_PopCallback(void *ptr)    {Tombol = tNEXT;}
+void btF4DDO00_PopCallback(void *ptr)   {
+  uint32_t buttonState;
+  btF4DDO00.getValue(&buttonState);
+  digitalWrite(digitalOutput[0], buttonState);
+}
 void btF4DDO01_PopCallback(void *ptr)   {
   uint32_t buttonState;
   btF4DDO01.getValue(&buttonState);
-  digitalWrite(digitalOutput[0], buttonState);
+  digitalWrite(digitalOutput[1], buttonState);
 }
 void btF4DDO02_PopCallback(void *ptr)   {
   uint32_t buttonState;
   btF4DDO02.getValue(&buttonState);
-  digitalWrite(digitalOutput[1], buttonState);
+  digitalWrite(digitalOutput[2], buttonState);
 }
 void btF4DDO03_PopCallback(void *ptr)   {
   uint32_t buttonState;
   btF4DDO03.getValue(&buttonState);
-  digitalWrite(digitalOutput[2], buttonState);
+  digitalWrite(digitalOutput[3], buttonState);
 }
 void btF4DDO04_PopCallback(void *ptr)   {
   uint32_t buttonState;
   btF4DDO04.getValue(&buttonState);
-  digitalWrite(digitalOutput[3], buttonState);
-}
-void btF4DDO05_PopCallback(void *ptr)   {
-  uint32_t buttonState;
-  btF4DDO05.getValue(&buttonState);
   digitalWrite(digitalOutput[4], buttonState);
 }
 // ========== Callback in F4D_MachineSet ==========
@@ -296,11 +296,11 @@ void G2_NextionParameters(){
 
   bF4DBack.attachPop(bF4DBack_PopCallback);               // ========== Register the pop event in F4D_MachineSet ==========
   bF4DNext.attachPush(bF4DNext_PopCallback);
-  btF4DDO01.attachPop(btF4DDO01_PopCallback, &btF4DDO01);
+  btF4DDO00.attachPop(btF4DDO00_PopCallback);
+  btF4DDO01.attachPop(btF4DDO01_PopCallback);
   btF4DDO02.attachPop(btF4DDO02_PopCallback);
   btF4DDO03.attachPop(btF4DDO03_PopCallback);
-  btF4DDO04.attachPop(btF4DDO04_PopCallback);
-  btF4DDO05.attachPop(btF4DDO05_PopCallback);               // ========== Register the pop event in F4D_MachineSet ==========
+  btF4DDO04.attachPop(btF4DDO04_PopCallback);               // ========== Register the pop event in F4D_MachineSet ==========
   
   bF4EBack.attachPush(bF4EBack_PopCallback);               // ========== Register the pop event in F4E_MachineSet ==========
 
@@ -309,27 +309,80 @@ void G2_NextionParameters(){
 void G2_DigitalInput(){
   for(int i = 0; i < (sizeof(digitalInput) / sizeof(digitalInput[0])); i++){
     digitalRead(digitalInput[i]);
-    stateDigitalInput[i] = 0;
-    lastStateDigitalInput[i] = 0;
   }
 }
 
 void G2_DigitalInputStatusDisplay(){
   for(int i = 0; i < (sizeof(digitalInput) / sizeof(digitalInput[0])); i++){
-    stateDigitalInput[i] = digitalRead(digitalInput[i]);
-    if (stateDigitalInput[i] != lastStateDigitalInput[i]) {
-      if      (stateDigitalInput[0] == HIGH)    tF4DDI01.Set_background_color_bco(2016);
-      else if (stateDigitalInput[0] == LOW)     tF4DDI01.Set_background_color_bco(500);
-      if      (stateDigitalInput[1] == HIGH)    tF4DDI02.Set_background_color_bco(2016);
-      else if (stateDigitalInput[1] == LOW)     tF4DDI02.Set_background_color_bco(500);
-      if      (stateDigitalInput[2] == HIGH)    tF4DDI03.Set_background_color_bco(2016);
-      else if (stateDigitalInput[2] == LOW)     tF4DDI03.Set_background_color_bco(500);
-      if      (stateDigitalInput[3] == HIGH)    tF4DDI04.Set_background_color_bco(2016);
-      else if (stateDigitalInput[3] == LOW)     tF4DDI04.Set_background_color_bco(500);
-      if      (stateDigitalInput[4] == HIGH)    tF4DDI05.Set_background_color_bco(2016);
-      else if (stateDigitalInput[4] == LOW)     tF4DDI05.Set_background_color_bco(500);
-      delay(10);
+    if(digitalRead(digitalInput[0]) == LOW){
+      Serial2.print("tF4DDI00.bco=");
+      Serial2.print(63488);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
     }
-    lastStateDigitalInput[i] = stateDigitalInput[i];
+    else{
+      Serial2.print("tF4DDI00.bco=");
+      Serial2.print(500);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+    }
+    if(digitalRead(digitalInput[1]) == LOW){
+      Serial2.print("tF4DDI01.bco=");
+      Serial2.print(63488);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+    }
+    else{
+      Serial2.print("tF4DDI01.bco=");
+      Serial2.print(500);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+    }
+    if(digitalRead(digitalInput[2]) == LOW){
+      Serial2.print("tF4DDI02.bco=");
+      Serial2.print(63488);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+    }
+    else{
+      Serial2.print("tF4DDI02.bco=");
+      Serial2.print(500);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+    }
+    if(digitalRead(digitalInput[3]) == LOW){
+      Serial2.print("tF4DDI03.bco=");
+      Serial2.print(63488);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+    }
+    else{
+      Serial2.print("tF4DDI03.bco=");
+      Serial2.print(500);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+    }
+    if(digitalRead(digitalInput[4]) == LOW){
+      Serial2.print("tF4DDI04.bco=");
+      Serial2.print(63488);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+    }
+    else{
+      Serial2.print("tF4DDI04.bco=");
+      Serial2.print(500);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+    }
   }
 }

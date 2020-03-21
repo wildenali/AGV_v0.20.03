@@ -221,7 +221,6 @@ void F4C_MachineSet(){
   pageF4C.show();
   Serial.println("F4C_MachineSet");
   GnoRefDist = EEPROM.read(addressGnoRefDist);
-//   GrefDist   = EEPROM.read(addressGrefDist);
   minDistSens[0]   = EEPROM.read(addressMinDistSens[0]);
   minDistSens[1]   = EEPROM.read(addressMinDistSens[1]);
   minDistSens[2]   = EEPROM.read(addressMinDistSens[2]);
@@ -241,10 +240,8 @@ void F4C_MachineSet(){
   minDistSens[16]   = EEPROM.read(addressMinDistSens[16]);
   minDistSens[17]   = EEPROM.read(addressMinDistSens[17]);
   minDistSens[18]   = EEPROM.read(addressMinDistSens[18]);
-  minDistSens[19]   = EEPROM.read(addressMinDistSens[19]);
-  
+  minDistSens[19]   = EEPROM.read(addressMinDistSens[19]);  
   nF4CNoRefDist.setValue(GnoRefDist);
-//   nF4CRefDist.setValue(GrefDist);
   
   while(true){
     nexLoop(nex_listen_list_F4C_MachineSet);
@@ -263,25 +260,20 @@ void F4C_MachineSet(){
     Serial2.write(0xff);
       
       
-//     Serial2.print("nF4CDistSen.val=");
-//     Serial2.print(distSens[0]);
-//     Serial2.write(0xff);
-//     Serial2.write(0xff);
-//     Serial2.write(0xff);
-//     if(distSens[0] < minDistSens[0]) {
-//       Serial2.print("nF4CRefDist.bco=");
-//       Serial2.print(63488);
-//       Serial2.write(0xff);
-//       Serial2.write(0xff);
-//       Serial2.write(0xff);  
-//     }
-//     else{
-//       Serial2.print("nF4CRefDist.bco=");
-//       Serial2.print(65535);
-//       Serial2.write(0xff);
-//       Serial2.write(0xff);
-//       Serial2.write(0xff);
-//     }
+     if(distSens[GnoRefDist] < minDistSens[GnoRefDist]) {
+       Serial2.print("nF4CRefDist.bco=");
+       Serial2.print(63488);
+       Serial2.write(0xff);
+       Serial2.write(0xff);
+       Serial2.write(0xff);
+     }
+     else{
+       Serial2.print("nF4CRefDist.bco=");
+       Serial2.print(65535);
+       Serial2.write(0xff);
+       Serial2.write(0xff);
+       Serial2.write(0xff);
+     }
     
     switch(Tombol){
       case tBACK:
@@ -296,14 +288,13 @@ void F4C_MachineSet(){
         pageF4C.show();
         Serial.println("F4C_MachineSet");
         nF4CNoRefDist.setValue(GnoRefDist);
-        nF4CRefDist.setValue(GrefDist);
         break;
       case tUP:
         Tombol = tIDLE;
         Serial.println("bF4CNextDist");
         nF4CNoRefDist.getValue(&GnoRefDist);
         GnoRefDist += 1;
-        if(GnoRefDist >= 20) GnoRefDist = 20;
+        if(GnoRefDist >= 19) GnoRefDist = 19;
         nF4CNoRefDist.setValue(GnoRefDist);
         EEPROM.write(addressGnoRefDist, GnoRefDist);
         break;
@@ -312,7 +303,7 @@ void F4C_MachineSet(){
         Serial.println("bF4CPrevDist");
         nF4CNoRefDist.getValue(&GnoRefDist);
         GnoRefDist -= 1;
-        if(GnoRefDist <= 1) GnoRefDist = 1;
+        if(GnoRefDist <= 0) GnoRefDist = 0;
         nF4CNoRefDist.setValue(GnoRefDist);
         EEPROM.write(addressGnoRefDist, GnoRefDist);
         break;
@@ -334,24 +325,6 @@ void F4C_MachineSet(){
         nF4CRefDist.setValue(minDistSens[GnoRefDist]);
         EEPROM.write(addressMinDistSens, minDistSens[GnoRefDist]);
         break;
-//       case tMINUS:
-//         Tombol = tIDLE;
-//         Serial.println("bF4CMinus");
-//         nF4CRefDist.getValue(&GrefDist);
-//         GrefDist -= 1;
-//         if(GrefDist <= 1) GrefDist = 1;
-//         nF4CRefDist.setValue(GrefDist);
-//         EEPROM.write(addressGrefDist, GrefDist);
-//         break;
-//       case tPLUS:
-//         Tombol = tIDLE;
-//         Serial.println("bF4CPlus");
-//         nF4CRefDist.getValue(&GrefDist);
-//         GrefDist += 1;
-//         if(GrefDist >= 200) GrefDist = 200;   // range batas distance avoid 0 sampai 200 cm
-//         nF4CRefDist.setValue(GrefDist);
-//         EEPROM.write(addressGrefDist, GrefDist);
-//         break;
       default:
         break;
     }
@@ -391,14 +364,11 @@ void F4E_MachineSet(){
   Serial.println("F4E_MachineSet");
   while(true){
     nexLoop(nex_listen_list_F4E_MachineSet);
-//    if(digitalRead(pinDigitalInput22) == LOW){
-      GsensorLine = random(-100, 100);
-      memset(bufferSensorLine, 0, sizeof(bufferSensorLine));    // proses dari int to char
-      itoa(GsensorLine, bufferSensorLine, 10);        // proses dari int to char
-      GsensorLine = map(GsensorLine, -100, 100, 0, 180);
-//      zF4ELineSensor.setValue(GsensorLine);
-//      tF4ELineSensor.setText(bufferSensorLine);
-//    }
+    
+    GsensorLine = random(-100, 100);
+    memset(bufferSensorLine, 0, sizeof(bufferSensorLine));    // proses dari int to char
+    itoa(GsensorLine, bufferSensorLine, 10);        // proses dari int to char
+    GsensorLine = map(GsensorLine, -100, 100, 0, 180);
     Serial2.print("zF4ELineSensor.val=");
     Serial2.print(GsensorLine);
     Serial2.write(0xff);

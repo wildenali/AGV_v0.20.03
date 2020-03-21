@@ -27,8 +27,7 @@ uint32_t GgainD;
 
 uint32_t addressGnoRefDist = 26;
 uint32_t addressGrefDist = 27;
-uint32_t GnoRefDist;
-uint32_t GrefDist;
+int32_t  GnoRefDist;
 
 char bufferSensorLine[100] = {0};
 int32_t GsensorLine;

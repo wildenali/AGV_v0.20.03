@@ -2,6 +2,7 @@
 #include "G1_Variables.h"
 
 #define pinDigitalInput22 22
+
 #define pinDigitalInput01 23  // DI01
 #define pinDigitalInput02 24
 #define pinDigitalInput03 25
