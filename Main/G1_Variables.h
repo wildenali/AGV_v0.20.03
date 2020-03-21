@@ -25,9 +25,33 @@ uint32_t GgainP;
 uint32_t GgainI;
 uint32_t GgainD;
 
-uint32_t addressGnoRefDist = 26;
-uint32_t addressGrefDist = 27;
+uint32_t addressGnoRefDist = 6;
 int32_t  GnoRefDist;
 
-char bufferSensorLine[100] = {0};
+char GbufferSensorLine[100] = {0};
 int32_t GsensorLine;
+
+#define pinDigitalInput22 22
+
+#define pinDigitalInput01 23  // DI01
+#define pinDigitalInput02 24
+#define pinDigitalInput03 25
+#define pinDigitalInput04 26
+#define pinDigitalInput05 27
+unsigned int digitalInput[5] = {pinDigitalInput01, pinDigitalInput02, pinDigitalInput03, pinDigitalInput04, pinDigitalInput05};   // DI[5]
+bool stateDigitalInput[5];
+bool lastStateDigitalInput[5];
+
+#define pinDigitalOutput01 28
+#define pinDigitalOutput02 29
+#define pinDigitalOutput03 30
+#define pinDigitalOutput04 31
+#define pinDigitalOutput05 32
+unsigned int digitalOutput[5] = {pinDigitalOutput01, pinDigitalOutput02, pinDigitalOutput03, pinDigitalOutput04, pinDigitalOutput05};   // DI[5]
+
+
+uint32_t GdistSens[20];
+uint32_t GminDistSens[20];
+uint32_t addressGminDistSens[20] = { 7,  8,  9, 10, 11, 12, 13, 14, 15, 16,
+                                   17, 18, 19, 20, 21, 22, 23, 24, 25, 26
+                                  };

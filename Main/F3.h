@@ -3,11 +3,33 @@ void F3B_RFID_Data();
 void F3C_RFID_Data();
 void F3D_RFID_Data();
 
+String dummyDataRFID(){
+  int ret;
+  char bufferDataRFID[100] = {0};
+  if(analogRead(1) == 0)                                ret = 10001;
+  else if(analogRead(1) > 0 && analogRead(1) <= 1000)   ret = 10002;
+  else if(analogRead(1) > 1000)                         ret = 10003;
+  
+  memset(bufferDataRFID, 0, sizeof(bufferDataRFID));    // proses dari int to char
+  itoa(ret, bufferDataRFID, 10);        // proses dari int to char
+  return bufferDataRFID;
+}
+
 void F3A_RFID_Data(){
   pageF3A.show();
   Serial.println("F3A_RFID_Data");
   while(true){
     nexLoop(nex_listen_list_F3A_RFID_Data);
+    Serial.println(dummyDataRFID());
+    
+    Serial2.print("tF2CRFID.txt=");
+    Serial2.print("\"");
+    Serial2.print(dummyDataRFID());
+    Serial2.print("\"");
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
@@ -33,6 +55,13 @@ void F3B_RFID_Data(){
   Serial.println("F3B_RFID_Data");
   while(true){
     nexLoop(nex_listen_list_F3B_RFID_Data);
+    Serial2.print("tF3BId.txt=");
+    Serial2.print("\"");
+    Serial2.print(dummyDataRFID());
+    Serial2.print("\"");
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;

@@ -314,75 +314,26 @@ void G2_DigitalInput(){
 
 void G2_DigitalInputStatusDisplay(){
   for(int i = 0; i < (sizeof(digitalInput) / sizeof(digitalInput[0])); i++){
-    if(digitalRead(digitalInput[0]) == LOW){
-      Serial2.print("tF4DDI00.bco=");
-      Serial2.print(63488);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
+    stateDigitalInput[i] = digitalRead(digitalInput[i]);
+    if (stateDigitalInput[i] != lastStateDigitalInput[i]) {
+      if      (stateDigitalInput[0] == HIGH)    tF4DDI00.Set_background_color_bco(2016);
+      else if (stateDigitalInput[0] == LOW)     tF4DDI00.Set_background_color_bco(500);
+      if      (stateDigitalInput[1] == HIGH)    tF4DDI01.Set_background_color_bco(2016);
+      else if (stateDigitalInput[1] == LOW)     tF4DDI01.Set_background_color_bco(500);
+      if      (stateDigitalInput[2] == HIGH)    tF4DDI02.Set_background_color_bco(2016);
+      else if (stateDigitalInput[2] == LOW)     tF4DDI02.Set_background_color_bco(500);
+      if      (stateDigitalInput[3] == HIGH)    tF4DDI03.Set_background_color_bco(2016);
+      else if (stateDigitalInput[3] == LOW)     tF4DDI03.Set_background_color_bco(500);
+      if      (stateDigitalInput[4] == HIGH)    tF4DDI04.Set_background_color_bco(2016);
+      else if (stateDigitalInput[4] == LOW)     tF4DDI04.Set_background_color_bco(500);
+      delay(10);
     }
-    else{
-      Serial2.print("tF4DDI00.bco=");
-      Serial2.print(500);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-    }
-    if(digitalRead(digitalInput[1]) == LOW){
-      Serial2.print("tF4DDI01.bco=");
-      Serial2.print(63488);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-    }
-    else{
-      Serial2.print("tF4DDI01.bco=");
-      Serial2.print(500);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-    }
-    if(digitalRead(digitalInput[2]) == LOW){
-      Serial2.print("tF4DDI02.bco=");
-      Serial2.print(63488);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-    }
-    else{
-      Serial2.print("tF4DDI02.bco=");
-      Serial2.print(500);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-    }
-    if(digitalRead(digitalInput[3]) == LOW){
-      Serial2.print("tF4DDI03.bco=");
-      Serial2.print(63488);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-    }
-    else{
-      Serial2.print("tF4DDI03.bco=");
-      Serial2.print(500);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-    }
-    if(digitalRead(digitalInput[4]) == LOW){
-      Serial2.print("tF4DDI04.bco=");
-      Serial2.print(63488);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-    }
-    else{
-      Serial2.print("tF4DDI04.bco=");
-      Serial2.print(500);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-      Serial2.write(0xff);
-    }
+    lastStateDigitalInput[i] = stateDigitalInput[i];
+  }
+}
+
+void readDistanceSensor(){
+  for(int i = 0; i < (sizeof(GdistSens) / sizeof(GdistSens[0])); i++){
+    GdistSens[i] = analogRead(A0);
   }
 }
