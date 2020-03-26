@@ -1,16 +1,16 @@
 #include "Nextion.h"
 #include "G1_Variables.h"
-
-
 #include "G2_NextionParameters.h"
 #include <EEPROM.h>
+#include "G_EEPROM_String.h"
+#include "SensorLine.h"
+#include "RFID_Data.h"
 #include "E.h"
 #include "F0.h"
 #include "F1.h"
 #include "F2.h"
 #include "F3.h"
 #include "F4.h"
-
 
 
 
@@ -25,7 +25,7 @@ void setup() {
   pinMode(13, OUTPUT);
 
   Menu = E;
-  Serial.println("Menu UtamaAA");
+  Serial.println("Menu Utama");
 
   pinMode(22, INPUT_PULLUP);
 
@@ -39,8 +39,20 @@ void setup() {
     pinMode(digitalOutput[i], OUTPUT);
     digitalWrite(digitalOutput[i], LOW);
   }
+  
+  for(int i = 1; i < (sizeof(dummyIdRFID) / sizeof(dummyIdRFID[0])); i++){
+    dummyIdRFID[i] = EEPROM_readString(addressGdummyIdRFID[i]);
+//    dummyIdRFID[i] = EEPROM.read(addressGdummyIdRFID[i]);
+//    Serial.print("RFID ke ");
+//    Serial.print(i);
+//    Serial.print(" : ");
+//    Serial.println(dummyIdRFID[i]);
+  }
 
   
+//  while(true){
+//    
+//  }
   
 }
 
@@ -75,3 +87,5 @@ void loop() {
       break;
   }  
 }
+
+

@@ -34,29 +34,35 @@ NexButton bF2ADown        = NexButton(4, 21, "bF2ADown");     // ========== Obje
 NexPage   pageF2B         = NexPage(5, 0, "F2B_LogicSet");    // ========== Object in F2B_LogicSet ==========
 NexButton bF2BBack        = NexButton(5, 4, "bF2BBack");
 NexButton bF2BSave        = NexButton(5, 3, "bF2BSave");
-NexButton bF2BUp          = NexButton(5, 8, "bF2BUp");
-NexButton bF2BDown        = NexButton(5, 9, "bF2BDown");      // ========== Object in F2B_LogicSet ==========
+NexText   tF2BMode        = NexText(5, 11, "tF2BMode");
+NexText   tF2BType        = NexText(5, 12, "tF2BType");
+NexText   tF2BTrigger     = NexText(5, 13, "tF2BTrigger");
+NexText   tF2BAction      = NexText(5, 14, "tF2BAction");
+NexButton bF2BUp          = NexButton(5, 5, "bF2BUp");
+NexButton bF2BDown        = NexButton(5, 6, "bF2BDown");      // ========== Object in F2B_LogicSet ==========
 
 NexPage   pageF3A         = NexPage(6, 0, "F3A_RFID_Data");   // ========== Object in F3A_RFID_Data ==========
-NexButton bF3ABack        = NexButton(6, 5, "bF3ABack");
-NexButton bF3ANext        = NexButton(6, 4, "bF3ANext");      // ========== Object in F3A_RFID_Data ==========
+NexButton bF3ABack        = NexButton(6, 4, "bF3ABack");
+NexButton bF3ANext        = NexButton(6, 5, "bF3ANext");
+NexButton bF3ADown        = NexButton(6, 6, "bF3ADown");
+NexButton bF3AUp          = NexButton(6, 7, "bF3ANext");     // ========== Object in F3A_RFID_Data ==========
 
 NexPage   pageF3B         = NexPage(7, 0, "F3B_RFID_Data");   // ========== Object in F3B_RFID_Data ==========
-NexButton bF3BBack        = NexButton(7, 5, "bF3BBack");
-NexButton bF3BNext        = NexButton(7, 4, "bF3BNext");
-NexButton bF3BSave        = NexButton(7, 8, "bF3BSave");
-NexButton bF3BDown        = NexButton(7, 14, "bF3BDown");
-NexButton bF3BUp          = NexButton(7, 13, "bF3BNext");     // ========== Object in F3B_RFID_Data ==========
+NexButton bF3BBack        = NexButton(7, 4, "bF3BBack");
+NexButton bF3BNext        = NexButton(7, 5, "bF3BNext");
+NexButton bF3BPrevID      = NexButton(7, 6, "bF3BSPrevID");
+NexButton bF3BNextID      = NexButton(7, 7, "bF3BNextID");
+NexButton bF3BSave        = NexButton(7, 8, "bF3BSave");      // ========== Object in F3B_RFID_Data ==========
 
 NexPage   pageF3C         = NexPage(8, 0, "F3C_RFID_Data");   // ========== Object in F3C_RFID_Data ==========
-NexButton bF3CBack        = NexButton(8, 3, "bF3CBack");
+NexButton bF3CBack        = NexButton(8, 4, "bF3CBack");
 NexButton bF3CDelete      = NexButton(8, 5, "bF3CDelete");
-NexButton bF3CDown        = NexButton(8, 12, "bF3CDown");
-NexButton bF3CUp          = NexButton(8, 13, "bF3CNext");     // ========== Object in F3C_RFID_Data ==========
+NexButton bF3CDown        = NexButton(8, 6, "bF3CPrevID");
+NexButton bF3CUp          = NexButton(8, 7, "bF3CNextID");     // ========== Object in F3C_RFID_Data ==========
 
 NexPage   pageF3D         = NexPage(9, 0, "F3D_RFID_Data");   // ========== Object in F3D_RFID_Data ==========
-NexButton bF3DYes         = NexButton(9, 7, "bF3DYes");
-NexButton bF3DNo          = NexButton(9, 6, "bF3DNo");        // ========== Object in F3D_RFID_Data ==========
+NexButton bF3DYes         = NexButton(9, 5, "bF3DYes");
+NexButton bF3DNo          = NexButton(9, 4, "bF3DNo");        // ========== Object in F3D_RFID_Data ==========
 
 NexPage   pageF4A         = NexPage(10, 0, "F4A_MachineSet");   // ========== Object in F4A_MachineSet ==========
 NexNumber nF4ASpeed       = NexNumber(10, 12, "nF4ASpeed");
@@ -109,9 +115,9 @@ NexTouch *nex_listen_list_F0_MainMenu[]     = {&pageF0, &bF1, &bF2, &bF3, &bF4,N
 NexTouch *nex_listen_list_F1A_PlayMenu[]    = {&pageF1A, &bF1ABack, &bF1ANext, &bF1AMinus, &bF1APlus, NULL};            // ========== list of F1A_PlayMenu ==========
 NexTouch *nex_listen_list_F1B_Go[]          = {&pageF1B, &bF1BCancel, &bF1BPause, &bF1BGo, NULL};                       // ========== list of F1B_Go  ==========
 NexTouch *nex_listen_list_F2A_LogicSet[]    = {&pageF2A, &bF2ABack, &bF2ANext, &bF2AUp, &bF2ADown, NULL};               // ========== list of F2A_LogicSet  ==========
-NexTouch *nex_listen_list_F2B_LogicSet[]    = {&pageF2B, &bF2BBack, &bF2BSave, &bF2BUp, &bF2BDown, NULL};               // ========== list of F2B_LogicSet  ==========
-NexTouch *nex_listen_list_F3A_RFID_Data[]   = {&pageF3A, &bF3ABack, &bF3ANext, NULL};                                   // ========== list of F3A_RFID_Data ==========
-NexTouch *nex_listen_list_F3B_RFID_Data[]   = {&pageF3B, &bF3BBack, &bF3BNext, &bF3BSave, &bF3BDown, &bF3BUp, NULL};    // ========== list of F3B_RFID_Data ==========
+NexTouch *nex_listen_list_F2B_LogicSet[]    = {&pageF2B, &bF2BBack, &bF2BSave, &bF2BUp, &bF2BDown, &tF2BMode, &tF2BType, &tF2BTrigger, &tF2BAction, NULL};               // ========== list of F2B_LogicSet  ==========
+NexTouch *nex_listen_list_F3A_RFID_Data[]   = {&pageF3A, &bF3ABack, &bF3ANext, &bF3ADown, &bF3AUp, NULL};                                   // ========== list of F3A_RFID_Data ==========
+NexTouch *nex_listen_list_F3B_RFID_Data[]   = {&pageF3B, &bF3BBack, &bF3BNext, &bF3BPrevID, &bF3BNextID, &bF3BSave, NULL};    // ========== list of F3B_RFID_Data ==========
 NexTouch *nex_listen_list_F3C_RFID_Data[]   = {&pageF3C, &bF3CBack, &bF3CDelete, &bF3CDown, &bF3CUp, NULL};             // ========== list of F3C_RFID_Data ==========
 NexTouch *nex_listen_list_F3D_RFID_Data[]   = {&pageF3D, &bF3DYes, &bF3DNo, NULL};                                      // ========== list of F3D_RFID_Data ==========
 NexTouch *nex_listen_list_F4A_MachineSet[]  = {&pageF4A, &bF4ABack, &bF4ANext, &bF4AMinus, &bF4APlus, &nF4ASpeed, &nF4AAccel, NULL};            // ========== list of F4A_MachineSet ==========
@@ -149,25 +155,31 @@ void bF2ADown_PopCallback(void *ptr)    {Tombol = tDOWN;}     // ========== Call
 
 void bF2BBack_PopCallback(void *ptr)    {Tombol = tBACK;}     // ========== Callback in F2B_LogicSet ==========
 void bF2BSave_PopCallback(void *ptr)    {Tombol = tSAVE;}
+void tF2BMode_PopCallback(void *ptr)    {Teks   = teksMode;}
+void tF2BType_PopCallback(void *ptr)    {Teks   = teksType;}
+void tF2BTrigger_PopCallback(void *ptr) {Teks   = teksTrigger;}
+void tF2BAction_PopCallback(void *ptr)  {Teks   = teksAction;}
 void bF2BUp_PopCallback(void *ptr)      {Tombol = tUP;}
 void bF2BDown_PopCallback(void *ptr)    {Tombol = tDOWN;}     // ========== Callback in F2B_LogicSet ==========
 
-void bF3ABack_PopCallback(void *ptr)    {Tombol = tBACK;}     // ========== Callback in F2B_LogicSet ==========
-void bF3ANext_PopCallback(void *ptr)    {Tombol = tNEXT;}     // ========== Callback in F2B_LogicSet ==========
+void bF3ABack_PopCallback(void *ptr)    {Tombol = tBACK;}     // ========== Callback in F3A_RFID_Data ==========
+void bF3ANext_PopCallback(void *ptr)    {Tombol = tNEXT;}
+void bF3ADown_PopCallback(void *ptr)    {Tombol = tDOWN;}
+void bF3AUp_PopCallback(void *ptr)      {Tombol = tUP;}       // ========== Callback in F3A_RFID_Data ==========    
 
-void bF3BBack_PopCallback(void *ptr)    {Tombol = tBACK;}     // ========== Callback in F3B_LogicSet ==========
+void bF3BBack_PopCallback(void *ptr)    {Tombol = tBACK;}     // ========== Callback in F3B_RFID_Data ==========
 void bF3BNext_PopCallback(void *ptr)    {Tombol = tNEXT;}
-void bF3BSave_PopCallback(void *ptr)    {Tombol = tSAVE;}
-void bF3BDown_PopCallback(void *ptr)    {Tombol = tDOWN;}
-void bF3BUp_PopCallback(void *ptr)      {Tombol = tUP;}       // ========== Callback in F3B_LogicSet ==========
+void bF3BPrevID_PopCallback(void *ptr)  {Tombol = tUP;}
+void bF3BNextID_PopCallback(void *ptr)  {Tombol = tDOWN;}      
+void bF3BSave_PopCallback(void *ptr)    {Tombol = tSAVE;}      // ========== Callback in F3B_RFID_Data ==========
 
-void bF3CBack_PopCallback(void *ptr)    {Tombol = tBACK;}     // ========== Callback in F3C_LogicSet ==========
+void bF3CBack_PopCallback(void *ptr)    {Tombol = tBACK;}     // ========== Callback in F3C_RFID_Data ==========
 void bF3CDelete_PopCallback(void *ptr)  {Tombol = tDELETE;}
 void bF3CDown_PopCallback(void *ptr)    {Tombol = tDOWN;}
-void bF3CUp_PopCallback(void *ptr)      {Tombol = tUP;}       // ========== Callback in F3C_LogicSet ==========
+void bF3CUp_PopCallback(void *ptr)      {Tombol = tUP;}       // ========== Callback in F3C_RFID_Data ==========
 
-void bF3DYes_PopCallback(void *ptr)     {Tombol = tYES;}      // ========== Callback in F3D_LogicSet ==========
-void bF3DNo_PopCallback(void *ptr)      {Tombol = tNO;}       // ========== Callback in F3D_LogicSet ==========
+void bF3DYes_PopCallback(void *ptr)     {Tombol = tYES;}      // ========== Callback in F3D_RFID_Data ==========
+void bF3DNo_PopCallback(void *ptr)      {Tombol = tNO;}       // ========== Callback in F3D_RFID_Data ==========
 
 void bF4ABack_PopCallback(void *ptr)    {Tombol = tBACK;}   // ========== Callback in F4A_MachineSet ==========
 void bF4ANext_PopCallback(void *ptr)    {Tombol = tNEXT;}
@@ -252,25 +264,31 @@ void G2_NextionParameters(){
   
   bF2BBack.attachPop(bF2BBack_PopCallback);               // ========== Register the pop event in F2B_LogicSet ==========
   bF2BSave.attachPop(bF2BSave_PopCallback);
+  tF2BMode.attachPop(tF2BMode_PopCallback);
+  tF2BType.attachPop(tF2BType_PopCallback);
+  tF2BTrigger.attachPop(tF2BTrigger_PopCallback);
+  tF2BAction.attachPop(tF2BAction_PopCallback);
   bF2BUp.attachPop(bF2BUp_PopCallback);
   bF2BDown.attachPop(bF2BDown_PopCallback);               // ========== Register the pop event in F2B_LogicSet ==========
 
   bF3ABack.attachPop(bF3ABack_PopCallback);               // ========== Register the pop event in F3A_RFID_Data ==========
-  bF3ANext.attachPop(bF3ANext_PopCallback);               // ========== Register the pop event in F3A_RFID_Data ==========
+  bF3ANext.attachPop(bF3ANext_PopCallback);
+  bF3AUp.attachPop(bF3AUp_PopCallback);
+  bF3ADown.attachPop(bF3ADown_PopCallback);               // ========== Register the pop event in F3A_RFID_Data ==========
 
-  bF3BBack.attachPop(bF3BBack_PopCallback);               // ========== Register the pop event in F3B_LogicSet ==========
+  bF3BBack.attachPop(bF3BBack_PopCallback);               // ========== Register the pop event in F3B_RFID_Data ==========
   bF3BNext.attachPop(bF3BNext_PopCallback);
-  bF3BSave.attachPop(bF3BSave_PopCallback);
-  bF3BUp.attachPop(bF3BUp_PopCallback);
-  bF3BDown.attachPop(bF3BDown_PopCallback);               // ========== Register the pop event in F3B_LogicSet ==========
+  bF3BPrevID.attachPop(bF3BPrevID_PopCallback);
+  bF3BNextID.attachPop(bF3BNextID_PopCallback);
+  bF3BSave.attachPop(bF3BSave_PopCallback);               // ========== Register the pop event in F3B_RFID_Data ==========
 
-  bF3CBack.attachPop(bF3CBack_PopCallback);               // ========== Register the pop event in F3C_LogicSet ==========
+  bF3CBack.attachPop(bF3CBack_PopCallback);               // ========== Register the pop event in F3C_RFID_Data ==========
   bF3CDelete.attachPop(bF3CDelete_PopCallback);
   bF3CUp.attachPop(bF3CUp_PopCallback);
-  bF3CDown.attachPop(bF3CDown_PopCallback);               // ========== Register the pop event in F3C_LogicSet ==========
+  bF3CDown.attachPop(bF3CDown_PopCallback);               // ========== Register the pop event in F3C_RFID_Data ==========
 
-  bF3DYes.attachPop(bF3DYes_PopCallback);                 // ========== Register the pop event in F3D_LogicSet ==========
-  bF3DNo.attachPop(bF3DNo_PopCallback);                   // ========== Register the pop event in F3D_LogicSet ==========
+  bF3DYes.attachPop(bF3DYes_PopCallback);                 // ========== Register the pop event in F3D_RFID_Data ==========
+  bF3DNo.attachPop(bF3DNo_PopCallback);                   // ========== Register the pop event in F3D_RFID_Data ==========
 
   bF4ABack.attachPop(bF4ABack_PopCallback);               // ========== Register the pop event in F4A_MachineSet ==========
   bF4ANext.attachPop(bF4ANext_PopCallback);

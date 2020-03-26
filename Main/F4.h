@@ -343,16 +343,16 @@ void F4E_MachineSet(){
   while(true){
     nexLoop(nex_listen_list_F4E_MachineSet);
     
-    GsensorLine = random(-100, 100);
-    memset(GbufferSensorLine, 0, sizeof(GbufferSensorLine));    // proses dari int to char
-    itoa(GsensorLine, GbufferSensorLine, 10);        // proses dari int to char
-    GsensorLine = map(GsensorLine, -100, 100, 0, 180);
+    int zF4EvalLineSensor = map(SensorLine(), -100, 100, 0, 180);   // convert from -100 to 100 tobe 0 to 180 for graphic
     Serial2.print("zF4ELineSensor.val=");
-    Serial2.print(GsensorLine);
+    Serial2.print(zF4EvalLineSensor);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
 
+    char GbufferSensorLine[100] = {0};
+    memset(GbufferSensorLine, 0, sizeof(GbufferSensorLine));    // proses dari int to char
+    itoa(SensorLine(), GbufferSensorLine, 10);        // proses dari int to char
     Serial2.print("tF4ELineSensor.txt=");
     Serial2.print("\"");
     Serial2.print(GbufferSensorLine);

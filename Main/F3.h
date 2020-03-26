@@ -3,26 +3,59 @@ void F3B_RFID_Data();
 void F3C_RFID_Data();
 void F3D_RFID_Data();
 
-String dummyDataRFID(){
-  int ret;
-  char bufferDataRFID[100] = {0};
-  if(analogRead(1) == 0)                                ret = 10001;
-  else if(analogRead(1) > 0 && analogRead(1) <= 1000)   ret = 10002;
-  else if(analogRead(1) > 1000)                         ret = 10003;
-  
-  memset(bufferDataRFID, 0, sizeof(bufferDataRFID));    // proses dari int to char
-  itoa(ret, bufferDataRFID, 10);        // proses dari int to char
-  return bufferDataRFID;
-}
 
 void F3A_RFID_Data(){
   pageF3A.show();
   Serial.println("F3A_RFID_Data");
+
+  int noA, noB, noC;
+  noID = 1;
+  noA = noID + 0;
+  noB = noID + 1;
+  noC = noID + 2;
+  
+  Serial2.print("nF3ANoA.val=");
+  Serial2.print(noA);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("nF3ANoB.val=");
+  Serial2.print(noB);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("nF3ANoC.val=");
+  Serial2.print(noC);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+
+  Serial2.print("tF3ARFIDA.txt=");
+  Serial2.print("\"");
+  Serial2.print(dummyIdRFID[noA]);
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("tF3ARFIDB.txt=");
+  Serial2.print("\"");
+  Serial2.print(dummyIdRFID[noB]);
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("tF3ARFIDC.txt=");
+  Serial2.print("\"");
+  Serial2.print(dummyIdRFID[noC]);
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+    
   while(true){
     nexLoop(nex_listen_list_F3A_RFID_Data);
-    Serial.println(dummyDataRFID());
     
-    Serial2.print("tF2CRFID.txt=");
+    Serial2.print("tF3ARFIDRead.txt=");
     Serial2.print("\"");
     Serial2.print(dummyDataRFID());
     Serial2.print("\"");
@@ -43,6 +76,141 @@ void F3A_RFID_Data(){
         F3B_RFID_Data();
         pageF3A.show();
         Serial.println("F3A_RFID_Data");
+        
+        noID = 1;
+        noA = noID + 0;
+        noB = noID + 1;
+        noC = noID + 2;
+        
+        Serial2.print("nF3ANoA.val=");
+        Serial2.print(noA);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.print("nF3ANoB.val=");
+        Serial2.print(noB);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.print("nF3ANoC.val=");
+        Serial2.print(noC);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+      
+        Serial2.print("tF3ARFIDA.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noA]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.print("tF3ARFIDB.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noB]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.print("tF3ARFIDC.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noC]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        break;
+      case tDOWN:
+        Tombol = tIDLE;
+        Serial.println("bF3ADown");
+        noID++;
+        if(noID >= 8)  noID = 8;
+        noA = noID + 0;
+        noB = noID + 1;
+        noC = noID + 2;
+        Serial2.print("nF3ANoA.val=");
+        Serial2.print(noA);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.print("nF3ANoB.val=");
+        Serial2.print(noB);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.print("nF3ANoC.val=");
+        Serial2.print(noC);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+
+        Serial2.print("tF3ARFIDA.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noA]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.print("tF3ARFIDB.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noB]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.print("tF3ARFIDC.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noC]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        break;
+      case tUP:
+        Tombol = tIDLE;
+        Serial.println("bF3AUp");
+        noID--;
+        if(noID <= 3)  noID = 3;
+        noA = noID - 2;
+        noB = noID - 1;
+        noC = noID - 0;
+        Serial2.print("nF3ANoA.val=");
+        Serial2.print(noA);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.print("nF3ANoB.val=");
+        Serial2.print(noB);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.print("nF3ANoC.val=");
+        Serial2.print(noC);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+
+        Serial2.print("tF3ARFIDA.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noA]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.print("tF3ARFIDB.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noB]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.print("tF3ARFIDC.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noC]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
         break;
       default:
         break;
@@ -53,15 +221,34 @@ void F3A_RFID_Data(){
 void F3B_RFID_Data(){
   pageF3B.show();
   Serial.println("F3B_RFID_Data");
+
+  noID = 1;
+  
+  Serial2.print("nF3BNoID.val=");
+  Serial2.print(noID);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+
+  Serial2.print("tF3BRFID.txt=");
+  Serial2.print("\"");
+  Serial2.print(dummyIdRFID[noID]);
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  
   while(true){
     nexLoop(nex_listen_list_F3B_RFID_Data);
-    Serial2.print("tF3BId.txt=");
+    
+    Serial2.print("tF3BRFIDRead.txt=");
     Serial2.print("\"");
     Serial2.print(dummyDataRFID());
     Serial2.print("\"");
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
+    
     switch(Tombol){
       case tBACK:
         Tombol = tIDLE;
@@ -74,31 +261,83 @@ void F3B_RFID_Data(){
         F3C_RFID_Data();
         pageF3B.show();
         Serial.println("F3B_RFID_Data");
+
+        noID = 1;
+        Serial2.print("nF3BNoID.val=");
+        Serial2.print(noID);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+
+        Serial2.print("tF3BRFID.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        break;
+      case tUP:
+        Tombol = tIDLE;
+        Serial.println("bF3BUp");
+        
+        noID++;
+        if(noID >= 10)  noID = 10;
+        Serial2.print("nF3BNoID.val=");
+        Serial2.print(noID);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+
+        Serial2.print("tF3BRFID.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        break;
+      case tDOWN:
+        Tombol = tIDLE;
+        Serial.println("bF3BDown");
+
+        noID--;
+        if(noID <= 1)  noID = 1;
+        Serial2.print("nF3BNoID.val=");
+        Serial2.print(noID);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        
+        Serial2.print("tF3BRFID.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
         break;
       case tSAVE:
         Tombol = tIDLE;
         Serial.println("bF3BSave");
         pageF3B.show();
-        break;
-      case tUP:
-        Tombol = tIDLE;
-        Serial.println("bF3BUp");
-        /*
-         * Awalnya misalnya mode di pencet, nah ini bisa di edit angkanya
-         * dengan cara pencet naik si tombol Up, nanti dia nambah nomornya (kalau di Mode)
-         * kalau di Trigger, pilihannya ada RFID yg mana yg akan dijadikan sebgai triggernya
-         * untuk aksinya bisa milih, mau stop, maju, mundur, atau lainya
-         */
-        break;
-      case tDOWN:
-        Tombol = tIDLE;
-        Serial.println("bF3BDown");
-        /*
-         * Awalnya misalnya mode di pencet, nah ini bisa di edit angkanya
-         * dengan cara pencet naik si tombol Down, nanti dia nambah nomornya (kalau di Mode)
-         * kalau di Trigger, pilihannya ada RFID yg mana yg akan dijadikan sebgai triggernya
-         * untuk aksinya bisa milih, mau stop, maju, mundur, atau lainya
-         */
+        Serial2.print("nF3BNoID.val=");
+        Serial2.print(noID);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+
+        dummyIdRFID[noID] = dummyDataRFID();
+        
+        Serial2.print("tF3BRFID.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+//        EEPROM.update(addressGdummyIdRFID[noID], dummyIdRFID[noID]); 
+        EEPROM_writeString(addressGdummyIdRFID[noID], dummyIdRFID[noID]);
         break;
       default:
         break;
@@ -109,6 +348,23 @@ void F3B_RFID_Data(){
 void F3C_RFID_Data(){
   pageF3C.show();
   Serial.println("F3C_RFID_Data");
+
+  noID = 1;
+  
+  Serial2.print("nF3CNoID.val=");
+  Serial2.print(noID);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+
+  Serial2.print("tF3CRFID.txt=");
+  Serial2.print("\"");
+  Serial2.print(dummyIdRFID[noID]);
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  
   while(true){
     nexLoop(nex_listen_list_F3C_RFID_Data);
     switch(Tombol){
@@ -122,27 +378,61 @@ void F3C_RFID_Data(){
         Serial.println("bF3CDelete");
         F3D_RFID_Data();
         pageF3C.show();
+        
         Serial.println("F3C_RFID_Data");
+        Serial2.print("nF3CNoID.val=");
+        Serial2.print(noID);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+
+        Serial2.print("tF3CRFID.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
         break;
       case tUP:
         Tombol = tIDLE;
         Serial.println("bF3CUp");
-        /*
-         * Awalnya misalnya mode di pencet, nah ini bisa di edit angkanya
-         * dengan cara pencet naik si tombol Up, nanti dia nambah nomornya (kalau di Mode)
-         * kalau di Trigger, pilihannya ada RFID yg mana yg akan dijadikan sebgai triggernya
-         * untuk aksinya bisa milih, mau stop, maju, mundur, atau lainya
-         */
+
+        noID--;
+        if(noID <= 1)  noID = 1;
+        Serial2.print("nF3CNoID.val=");
+        Serial2.print(noID);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+
+        Serial2.print("tF3CRFID.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
         break;
       case tDOWN:
         Tombol = tIDLE;
         Serial.println("bF3CDown");
-        /*
-         * Awalnya misalnya mode di pencet, nah ini bisa di edit angkanya
-         * dengan cara pencet naik si tombol Down, nanti dia nambah nomornya (kalau di Mode)
-         * kalau di Trigger, pilihannya ada RFID yg mana yg akan dijadikan sebgai triggernya
-         * untuk aksinya bisa milih, mau stop, maju, mundur, atau lainya
-         */
+
+        noID++;
+        if(noID >= 10)  noID = 10;
+        Serial2.print("nF3CNoID.val=");
+        Serial2.print(noID);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+
+        Serial2.print("tF3CRFID.txt=");
+        Serial2.print("\"");
+        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print("\"");
+        Serial2.write(0xff);
+        Serial2.write(0xff);
+        Serial2.write(0xff);
         break;
       default:
         break;
@@ -153,12 +443,33 @@ void F3C_RFID_Data(){
 void F3D_RFID_Data(){
   pageF3D.show();
   Serial.println("F3D_RFID_Data");
+  
+  Serial2.print("nF3DNoID.val=");
+  Serial2.print(noID);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+
+  Serial2.print("tF3DRFID.txt=");
+  Serial2.print("\"");
+  Serial2.print(dummyIdRFID[noID]);
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  
   while(true){
     nexLoop(nex_listen_list_F3D_RFID_Data);
     switch(Tombol){
       case tYES:
         Tombol = tIDLE;
         Serial.println("bF3DYes");
+        
+        dummyIdRFID[noID] = "";
+        EEPROM_writeString(addressGdummyIdRFID[noID], dummyIdRFID[noID]);
+//        EEPROM.update(addressGdummyIdRFID[noID], dummyIdRFID[noID]); 
+
+        
         return false;
         break;
       case tNO:
