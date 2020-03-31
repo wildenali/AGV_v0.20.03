@@ -48,27 +48,27 @@ void setup() {
   }
 
 
-//EEPROM.write(addressGmodeKe[1],  1); EEPROM.write(addressGstepKe[1],  1); EEPROM.write(addressGtypeKe[1],  1); EEPROM.write(addressGtriggerKe[1],  1);  EEPROM.write(addressGactionKe[1],  1);
-//EEPROM.write(addressGmodeKe[2],  1); EEPROM.write(addressGstepKe[2],  2); EEPROM.write(addressGtypeKe[2],  1); EEPROM.write(addressGtriggerKe[2],  2);  EEPROM.write(addressGactionKe[2],  2);
-//EEPROM.write(addressGmodeKe[3],  1); EEPROM.write(addressGstepKe[3],  3); EEPROM.write(addressGtypeKe[3],  2); EEPROM.write(addressGtriggerKe[3], 11);  EEPROM.write(addressGactionKe[3],  3);
-//EEPROM.write(addressGmodeKe[4],  1); EEPROM.write(addressGstepKe[4],  4); EEPROM.write(addressGtypeKe[4],  2); EEPROM.write(addressGtriggerKe[4], 10);  EEPROM.write(addressGactionKe[4],  4);
-//EEPROM.write(addressGmodeKe[5],  1); EEPROM.write(addressGstepKe[5],  5); EEPROM.write(addressGtypeKe[5],  3); EEPROM.write(addressGtriggerKe[5], 21);  EEPROM.write(addressGactionKe[5],  5);
-//EEPROM.write(addressGmodeKe[6],  2); EEPROM.write(addressGstepKe[6],  1); EEPROM.write(addressGtypeKe[6],  1); EEPROM.write(addressGtriggerKe[6],  4);  EEPROM.write(addressGactionKe[6],  6);
-//EEPROM.write(addressGmodeKe[7],  2); EEPROM.write(addressGstepKe[7],  2); EEPROM.write(addressGtypeKe[7],  1); EEPROM.write(addressGtriggerKe[7],  5);  EEPROM.write(addressGactionKe[7],  7);
-//EEPROM.write(addressGmodeKe[8],  2); EEPROM.write(addressGstepKe[8],  3); EEPROM.write(addressGtypeKe[8],  2); EEPROM.write(addressGtriggerKe[8], 20);  EEPROM.write(addressGactionKe[8],  8);
-//EEPROM.write(addressGmodeKe[9],  2); EEPROM.write(addressGstepKe[9],  4); EEPROM.write(addressGtypeKe[9],  3); EEPROM.write(addressGtriggerKe[9], 30);  EEPROM.write(addressGactionKe[9],  9);
-//EEPROM.write(addressGmodeKe[10], 2); EEPROM.write(addressGstepKe[10], 5); EEPROM.write(addressGtypeKe[10], 3); EEPROM.write(addressGtriggerKe[10],41);  EEPROM.write(addressGactionKe[10], 1);
+//EEPROM.write(addressGnoKe[1],  1); EEPROM.write(addressGmodeKe[1],  1); EEPROM.write(addressGtypeKe[1],  1); EEPROM.write(addressGtriggerKe[1],  1);  EEPROM.write(addressGactionKe[1],  1);
+//EEPROM.write(addressGnoKe[2],  2); EEPROM.write(addressGmodeKe[2],  2); EEPROM.write(addressGtypeKe[2],  1); EEPROM.write(addressGtriggerKe[2],  2);  EEPROM.write(addressGactionKe[2],  2);
+//EEPROM.write(addressGnoKe[3],  3); EEPROM.write(addressGmodeKe[3],  3); EEPROM.write(addressGtypeKe[3],  2); EEPROM.write(addressGtriggerKe[3], 11);  EEPROM.write(addressGactionKe[3],  3);
+//EEPROM.write(addressGnoKe[4],  4); EEPROM.write(addressGmodeKe[4],  4); EEPROM.write(addressGtypeKe[4],  2); EEPROM.write(addressGtriggerKe[4], 10);  EEPROM.write(addressGactionKe[4],  4);
+//EEPROM.write(addressGnoKe[5],  5); EEPROM.write(addressGmodeKe[5],  5); EEPROM.write(addressGtypeKe[5],  3); EEPROM.write(addressGtriggerKe[5], 21);  EEPROM.write(addressGactionKe[5],  5);
+//EEPROM.write(addressGnoKe[6],  6); EEPROM.write(addressGmodeKe[6],  1); EEPROM.write(addressGtypeKe[6],  1); EEPROM.write(addressGtriggerKe[6],  4);  EEPROM.write(addressGactionKe[6],  6);
+//EEPROM.write(addressGnoKe[7],  7); EEPROM.write(addressGmodeKe[7],  2); EEPROM.write(addressGtypeKe[7],  1); EEPROM.write(addressGtriggerKe[7],  5);  EEPROM.write(addressGactionKe[7],  7);
+//EEPROM.write(addressGnoKe[8],  8); EEPROM.write(addressGmodeKe[8],  3); EEPROM.write(addressGtypeKe[8],  2); EEPROM.write(addressGtriggerKe[8], 20);  EEPROM.write(addressGactionKe[8],  8);
+//EEPROM.write(addressGnoKe[9],  9); EEPROM.write(addressGmodeKe[9],  4); EEPROM.write(addressGtypeKe[9],  3); EEPROM.write(addressGtriggerKe[9], 30);  EEPROM.write(addressGactionKe[9],  9);
+//EEPROM.write(addressGnoKe[10], 10); EEPROM.write(addressGmodeKe[10], 5); EEPROM.write(addressGtypeKe[10], 3); EEPROM.write(addressGtriggerKe[10],41);  EEPROM.write(addressGactionKe[10], 1);
   
-  for(int i = 1; i < (sizeof(addressGstepKe) / sizeof(addressGstepKe[0])); i++)
+  for(int i = 1; i < (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])); i++)
   {
+    noKe[i]     = EEPROM.read(addressGnoKe[i]);
     modeKe[i]     = EEPROM.read(addressGmodeKe[i]);
-    stepKe[i]     = EEPROM.read(addressGstepKe[i]);
     typeKe[i]     = EEPROM.read(addressGtypeKe[i]);
     triggerKe[i]  = EEPROM.read(addressGtriggerKe[i]);
     actionKe[i]   = EEPROM.read(addressGactionKe[i]);
 
+    Serial.print(noKe[i]);        Serial.print("_");
     Serial.print(modeKe[i]);        Serial.print("_");
-    Serial.print(stepKe[i]);        Serial.print("_");
     Serial.print(typeKe[i]);        Serial.print("_");
     Serial.print(triggerKe[i]);     Serial.print("_");
     Serial.print(actionKe[i]);      Serial.print("\n");
