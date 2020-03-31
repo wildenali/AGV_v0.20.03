@@ -467,7 +467,6 @@ void F3D_RFID_Data(){
         
         dummyIdRFID[noID] = "";
         EEPROM_writeString(addressGdummyIdRFID[noID], dummyIdRFID[noID]);
-//        EEPROM.update(addressGdummyIdRFID[noID], dummyIdRFID[noID]); 
 
         
         return false;
