@@ -40,9 +40,6 @@ uint32_t addressGgainI = 4;
 uint32_t addressGgainD = 5;
 uint32_t addressGnoRefDist = 6;
 uint32_t addressGminDistSens[20] = { 7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26};    // maksimal nilai yang bisa dimasukan ke eeprom adalah 255, sedangkan untuk nilai address, bisa lebih dari 255, di coba di 2003 pun bisa
-//uint32_t addressGdummyIdRFID[11] = {27,  28,  29, 30, 31, 32, 33, 34, 35, 36, 37};
-//int noID;
-//int dummyIdRFID[11];
 
 //uint32_t addressCOBA[10] = {41,  51,  61, 71, 81, 91, 101, 111, 121, 13}; // kenapa dilewatin sepuluh, karena itu untuk menyimpan data string si rfid nya
 int noID;
@@ -51,8 +48,8 @@ uint32_t addressGdummyIdRFID[11] = {27,  37,  47, 57, 67, 77, 87, 97, 107, 117, 
 
 
 
-uint32_t addressGmodeKe[11]     = {137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147};
-uint32_t addressGstepKe[11]     = {148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158};
+uint32_t addressGnoKe[11]     = {137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147};
+uint32_t addressGmodeKe[11]     = {148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158};
 uint32_t addressGtypeKe[11]     = {159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169};
 uint32_t addressGtriggerKe[11]  = {170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180};
 uint32_t addressGactionKe[11]   = {181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191};
