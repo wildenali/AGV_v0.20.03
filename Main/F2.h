@@ -18,11 +18,19 @@ void F2B_LogicSet();
 // 6 > Balik Kanan
 // 7 > Lift On
 // 8 > Lift Off
-// 9 > DO 01
-// 10 > DO 02
-// 11 > DO 03
-// 12 > DO 04
-// 13 > DO 05
+// 9 > Buzzer On
+// 10 > Buzzer Off
+// 11 > DO 01,LOW
+// 12 > DO 01,HIGH
+// 13 > DO 02,LOW
+// 14 > DO 02,HIGH
+// 15 > DO 03,LOW
+// 16 > DO 03,HIGH
+// 17 > DO 04,LOW
+// 18 > DO 04,HIGH
+// 19 > DO 05,LOW
+// 20 > DO 05,HIGH
+
 
 void NoF2A(int noA, int noB, int noC, int noD, int noE);
 void ModeF2A(int modeA, int modeB, int modeC, int modeD, int modeE);
@@ -35,11 +43,6 @@ void ModeF2B(String mode);
 void TypeF2B(String type);
 void TriggerF2B(String trigger);
 void ActionF2B(String action);
-
-void pilihTriggerDown();
-void pilihTriggerUp();
-void pilihChangeTriggerDIDO();
-void pilihChangeActionDIDO();
 
   bool LtexNo = false;
   bool LtexMode = false;
@@ -218,9 +221,6 @@ void F2A_LogicSet(){
 }
 
   String pinBerapaStatusString;
-  String typeString;
-  String triggerString;
-  String actionString;
   
 void F2B_LogicSet(){
   pageF2B.show();
@@ -285,7 +285,7 @@ void F2B_LogicSet(){
           typeKe[no] = type;
           TypeF2B(String(typeKe[no]));
           
-          if(trigger >= 5 && type != 1)   triggerKe[no] = 5;
+          triggerKe[no] = 1;
           TriggerF2B(String(triggerKe[no]));
         }
         if(LtexTrigger)
@@ -297,14 +297,14 @@ void F2B_LogicSet(){
           }
           else if(type == 2 || type == 3)
           {
-            if(trigger >= 5)     trigger = 5;
+            if(trigger >= 8)     trigger = 8;
           }
           triggerKe[no] = trigger;
           TriggerF2B(String(triggerKe[no]));
         }
         if(LtexAction)
         {
-          action++;    if(action >= 13) action = 13;    // kenapa ada 13, karena action nya ada 13 tipe, see on top
+          action++;    if(action >= 20) action = 20;    // kenapa ada 13, karena action nya ada 13 tipe, see on top
           actionKe[no] = action;
           ActionF2B(String(actionKe[no]));
         }
@@ -332,6 +332,9 @@ void F2B_LogicSet(){
           type--;      if(type <= 1)     type = 1;
           typeKe[no] = type;
           TypeF2B(String(typeKe[no]));
+
+          triggerKe[no] = 1;
+          TriggerF2B(String(triggerKe[no]));
         }
         if(LtexTrigger)
         {
@@ -349,9 +352,6 @@ void F2B_LogicSet(){
       case tCHANGE:
         Tombol = tIDLE;
         Serial.println("bF2BChange");
-
-        pilihChangeTriggerDIDO();
-        pilihChangeActionDIDO();
         
         break;
       case tSAVE:
@@ -784,69 +784,72 @@ void ActionF2A(int actionA, int actionB, int actionC, int actionD, int actionE){
   Serial2.write(0xff);
 }
 
-void NoF2B(String no){
+void NoF2B(String noString){
   Serial2.print("tF2BNo.txt=");
   Serial2.print("\"");
-  Serial2.print(no);
+  Serial2.print(noString);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 }
 
-void ModeF2B(String mode){
+void ModeF2B(String modeString){
+  if(modeString == "0")       modeString = "";
   Serial2.print("tF2BMode.txt=");
   Serial2.print("\"");
-  Serial2.print(mode);
+  Serial2.print(modeString);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 }
 
-void TypeF2B(String type){
-//  if(type == "0")       type = "";
-//  else if(type == "1")  type = "RFID";
-//  else if(type == "2")  type = "DI";
-//  else if(type == "3")  type = "DO";
+void TypeF2B(String typeString){
+  if(typeString == "0")       typeString = "";
+  else if(typeString == "1")  typeString = "RFID";
+  else if(typeString == "2")  typeString = "DI";
+  else if(typeString == "3")  typeString = "DO";
   Serial2.print("tF2BType.txt=");
   Serial2.print("\"");
-  Serial2.print(type);
+  Serial2.print(typeString);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 }
 
-void TriggerF2B(String trigger){
+void TriggerF2B(String triggerString){
+  if(triggerString == "0")    triggerString = "";
+  if(triggerString == "1")    triggerString = "";
+  dummyIdRFID[1]
   Serial2.print("tF2BTrigger.txt=");
   Serial2.print("\"");
-  Serial2.print(trigger);
+  Serial2.print(triggerString);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 }
 
-void ActionF2B(String action){
-//  String actionString;
-//  if     (action == "1")    actionString = "Berhenti";
-//  else if(action == "2")    actionString = "Maju";
-//  else if(action == "3")    actionString = "Belok Kiri";
-//  else if(action == "4")    actionString = "Belok Kanan";
-//  else if(action == "5")    actionString = "Balik Kiri";
-//  else if(action == "6")    actionString = "Balik Kanan";
-//  else if(action == "7")    actionString = "Lift On";
-//  else if(action == "8")    actionString = "Lift Off";
-//  else if(action == "9")    actionString = "DO 1,LOW";
-//  else if(action == "10")   actionString = "DO 2,LOW";
-//  else if(action == "11")   actionString = "DO 3,LOW";
-//  else if(action == "12")   actionString = "DO 4,LOW";
-//  else if(action == "13")   actionString = "DO 5,LOW";
-//  else                      actionString = action;
+void ActionF2B(String actionString){
+  if(actionString == "0")     actionString = "";
+//  if     (actionString == "1")    actionString = "Berhenti";
+//  else if(actionString == "2")    actionString = "Maju";
+//  else if(actionString == "3")    actionString = "Belok Kiri";
+//  else if(actionString == "4")    actionString = "Belok Kanan";
+//  else if(actionString == "5")    actionString = "Balik Kiri";
+//  else if(actionString == "6")    actionString = "Balik Kanan";
+//  else if(actionString == "7")    actionString = "Lift On";
+//  else if(actionString == "8")    actionString = "Lift Off";
+//  else if(actionString == "9")    actionString = "DO 1,LOW";
+//  else if(actionString == "10")   actionString = "DO 2,LOW";
+//  else if(actionString == "11")   actionString = "DO 3,LOW";
+//  else if(actionString == "12")   actionString = "DO 4,LOW";
+//  else if(actionString == "13")   actionString = "DO 5,LOW";
   Serial2.print("tF2BAction.txt=");
   Serial2.print("\"");
-  Serial2.print(action);//Serial2.print(actionString);
+  Serial2.print(actionString);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -854,6 +857,7 @@ void ActionF2B(String action){
 }
 
 void pilihTeks(){
+  String baper;
   char buffer[10] = {0};
   memset(buffer, 0, sizeof(buffer));
   if(Teks == teksNo){
@@ -900,9 +904,13 @@ void pilihTeks(){
     LtexType = true;
     LtexTrigger = false;
     LtexAction = false;
-    
+
     tF2BType.getText(buffer, sizeof(buffer));
-    type = atoi(buffer);
+    baper = buffer;
+    if(baper == "")             type = 0;
+    else if(baper == "RFID")    type = 1;
+    else if(baper == "DI")      type = 2;
+    else if(baper == "DO")      type = 3;
   }
   if(Teks == teksTrigger){
     Teks = teksIDLE;
@@ -942,227 +950,3 @@ void pilihTeks(){
     action = atoi(buffer);
   }
 }
-
-void pilihTriggerDown(){
-  if(type == typeRFID)
-  {
-    trigger++;  if(trigger >= 10) trigger = 10;
-    dummyIdRFID[trigger];
-    TriggerF2B(dummyIdRFID[trigger]); 
-  }
-  else if(type == typeDI)
-  {
-    pinBerapa++;
-    if(pinBerapa >= 5) pinBerapa = 5;
-    pinBerapaStatus = HIGH;
-    if(pinBerapaStatus == HIGH)
-      pinBerapaStatusString = "HIGH";
-    else
-      pinBerapaStatusString = "LOW";
-    triggerString = String(pinBerapa);
-    triggerString += ",";
-    triggerString += pinBerapaStatusString;
-    TriggerF2B(triggerString);
-
-    triggerString = String(pinBerapa) + String(pinBerapaStatus);
-    trigger = triggerString.toInt();
-  }
-  else if(type == typeDO)
-  {
-    pinBerapa++;
-    if(pinBerapa >= 5) pinBerapa = 5;
-    pinBerapaStatus = HIGH;            
-    if(pinBerapaStatus == HIGH)
-      pinBerapaStatusString = "HIGH";
-    else
-      pinBerapaStatusString = "LOW";
-    triggerString = String(pinBerapa);
-    triggerString += ",";
-    triggerString += pinBerapaStatusString;
-    TriggerF2B(triggerString);
-
-    triggerString = String(pinBerapa) + String(pinBerapaStatus);
-    trigger = triggerString.toInt();
-  }
-}
-
-void pilihTriggerUp(){
-  if(type == typeRFID)
-  {
-    trigger--;   if(trigger <= 1) trigger = 1;
-    dummyIdRFID[trigger];
-    TriggerF2B(dummyIdRFID[trigger]); 
-  }
-  else if(type == typeDI)
-  {
-    pinBerapa--;
-    if(pinBerapa <= 1) pinBerapa = 1;
-    pinBerapaStatus = HIGH;
-    if(pinBerapaStatus == HIGH)
-      pinBerapaStatusString = "HIGH";
-    else
-      pinBerapaStatusString = "LOW";
-    triggerString = String(pinBerapa);
-    triggerString += ",";
-    triggerString += pinBerapaStatusString;
-    TriggerF2B(triggerString);
-
-    triggerString = String(pinBerapa) + String(pinBerapaStatus);
-    trigger = triggerString.toInt();
-  }
-  else if(type == typeDO)
-  {
-    pinBerapa--;
-    if(pinBerapa <= 1) pinBerapa = 1;
-    pinBerapaStatus = HIGH;            
-    if(pinBerapaStatus == HIGH)
-      pinBerapaStatusString = "HIGH";
-    else
-      pinBerapaStatusString = "LOW";
-    triggerString = String(pinBerapa);
-    triggerString += ",";
-    triggerString += pinBerapaStatusString;
-    TriggerF2B(triggerString);
-
-    triggerString = String(pinBerapa) + String(pinBerapaStatus);
-    trigger = triggerString.toInt();
-  }
-}
-
-void pilihChangeTriggerDIDO(){
-  if(LtexTrigger)
-  {
-    if(type == typeDI)
-    {
-      if(pinBerapaStatus == LOW)
-      {
-        pinBerapaStatus = HIGH;
-        pinBerapaStatusString = "HIGH";
-      }
-      else
-      {
-        pinBerapaStatus = LOW;
-        pinBerapaStatusString = "LOW";
-      }
-      triggerString = String(pinBerapa);
-      triggerString += ",";
-      triggerString += pinBerapaStatusString;
-      TriggerF2B(triggerString);
-
-      triggerString = String(pinBerapa) + String(pinBerapaStatus);
-      trigger = triggerString.toInt();
-    }
-    else if(type == typeDO)
-    {
-      if(pinBerapaStatus == LOW)
-      {
-        pinBerapaStatus = HIGH;
-        pinBerapaStatusString = "HIGH";
-      }
-      else
-      {
-        pinBerapaStatus = LOW;
-        pinBerapaStatusString = "LOW";
-      }
-      triggerString = String(pinBerapa);
-      triggerString += ",";
-      triggerString += pinBerapaStatusString;
-      TriggerF2B(triggerString);
-
-      triggerString = String(pinBerapa) + String(pinBerapaStatus);
-      trigger = triggerString.toInt();
-    }
-  }
-}
-
-void pilihChangeActionDIDO(){
-  if(LtexAction)
-  {
-    if(action == 9)//    actionString = "DO";
-    {
-      if(pinBerapaStatus == LOW)
-      {
-        pinBerapaStatus = HIGH;
-        pinBerapaStatusString = "HIGH";
-      }
-      else
-      {
-        pinBerapaStatus = LOW;
-        pinBerapaStatusString = "LOW";
-      }
-      actionString = "DO 1";
-      actionString += ",";
-      actionString += pinBerapaStatusString;
-      ActionF2B(actionString);
-    }
-    if(action == 10)
-    {
-      if(pinBerapaStatus == LOW)
-      {
-        pinBerapaStatus = HIGH;
-        pinBerapaStatusString = "HIGH";
-      }
-      else
-      {
-        pinBerapaStatus = LOW;
-        pinBerapaStatusString = "LOW";
-      }
-      actionString = "DO 2";
-      actionString += ",";
-      actionString += pinBerapaStatusString;
-      ActionF2B(actionString);
-    }
-    if(action == 11)
-    {
-      if(pinBerapaStatus == LOW)
-      {
-        pinBerapaStatus = HIGH;
-        pinBerapaStatusString = "HIGH";
-      }
-      else
-      {
-        pinBerapaStatus = LOW;
-        pinBerapaStatusString = "LOW";
-      }
-      actionString = "DO 3";
-      actionString += ",";
-      actionString += pinBerapaStatusString;
-      ActionF2B(actionString);
-    }
-    if(action == 12)
-    {
-      if(pinBerapaStatus == LOW)
-      {
-        pinBerapaStatus = HIGH;
-        pinBerapaStatusString = "HIGH";
-      }
-      else
-      {
-        pinBerapaStatus = LOW;
-        pinBerapaStatusString = "LOW";
-      }
-      actionString = "DO 4";
-      actionString += ",";
-      actionString += pinBerapaStatusString;
-      ActionF2B(actionString);
-    }
-    if(action == 13)
-    {
-      if(pinBerapaStatus == LOW)
-      {
-        pinBerapaStatus = HIGH;
-        pinBerapaStatusString = "HIGH";
-      }
-      else
-      {
-        pinBerapaStatus = LOW;
-        pinBerapaStatusString = "LOW";
-      }
-      actionString = "DO 5";
-      actionString += ",";
-      actionString += pinBerapaStatusString;
-      ActionF2B(actionString);
-    }
-  }
-}
-
