@@ -59,15 +59,31 @@ void setup() {
 //EEPROM.write(addressGnoKe[9],  9); EEPROM.write(addressGmodeKe[9],  4); EEPROM.write(addressGtypeKe[9],  3); EEPROM.write(addressGtriggerKe[9], 30);  EEPROM.write(addressGactionKe[9],  9);
 //EEPROM.write(addressGnoKe[10], 10); EEPROM.write(addressGmodeKe[10], 5); EEPROM.write(addressGtypeKe[10], 3); EEPROM.write(addressGtriggerKe[10],41);  EEPROM.write(addressGactionKe[10], 1);
   
+//  for(int i = 1; i < (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])); i++)
+//  {
+//    noKe[i]     = EEPROM.read(addressGnoKe[i]);
+//    modeKe[i]     = EEPROM.read(addressGmodeKe[i]);
+//    typeKe[i]     = EEPROM.read(addressGtypeKe[i]);
+//    triggerKe[i]  = EEPROM.read(addressGtriggerKe[i]);
+//    actionKe[i]   = EEPROM.read(addressGactionKe[i]);
+//
+//    Serial.print(noKe[i]);        Serial.print("_");
+//    Serial.print(modeKe[i]);        Serial.print("_");
+//    Serial.print(typeKe[i]);        Serial.print("_");
+//    Serial.print(triggerKe[i]);     Serial.print("_");
+//    Serial.print(actionKe[i]);      Serial.print("\n");
+//  }
+
+  
   for(int i = 1; i < (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])); i++)
   {
-    noKe[i]     = EEPROM.read(addressGnoKe[i]);
-    modeKe[i]     = EEPROM.read(addressGmodeKe[i]);
-    typeKe[i]     = EEPROM.read(addressGtypeKe[i]);
-    triggerKe[i]  = EEPROM.read(addressGtriggerKe[i]);
-    actionKe[i]   = EEPROM.read(addressGactionKe[i]);
+    noKe[i]       = 0;
+    modeKe[i]     = 0;
+    typeKe[i]     = 0;
+    triggerKe[i]  = 0;
+    actionKe[i]   = 0;
 
-    Serial.print(noKe[i]);        Serial.print("_");
+    Serial.print(noKe[i]);          Serial.print("_");
     Serial.print(modeKe[i]);        Serial.print("_");
     Serial.print(typeKe[i]);        Serial.print("_");
     Serial.print(triggerKe[i]);     Serial.print("_");

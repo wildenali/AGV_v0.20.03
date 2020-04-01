@@ -34,8 +34,8 @@ NexButton bF2ADown        = NexButton(4, 21, "bF2ADown");     // ========== Obje
 NexPage   pageF2B         = NexPage(5, 0, "F2B_LogicSet");    // ========== Object in F2B_LogicSet ==========
 NexButton bF2BBack        = NexButton(5, 4, "bF2BBack");
 NexButton bF2BSave        = NexButton(5, 3, "bF2BSave");
+NexText   tF2BNo          = NexText(5, 13, "tF2BNo");
 NexText   tF2BMode        = NexText(5, 12, "tF2BMode");
-NexText   tF2BStep        = NexText(5, 13, "tF2BStep");
 NexText   tF2BType        = NexText(5, 14, "tF2BType");
 NexText   tF2BTrigger     = NexText(5, 15, "tF2BTrigger");
 NexText   tF2BAction      = NexText(5, 16, "tF2BAction");
@@ -117,7 +117,7 @@ NexTouch *nex_listen_list_F0_MainMenu[]     = {&pageF0, &bF1, &bF2, &bF3, &bF4,N
 NexTouch *nex_listen_list_F1A_PlayMenu[]    = {&pageF1A, &bF1ABack, &bF1ANext, &bF1AMinus, &bF1APlus, NULL};            // ========== list of F1A_PlayMenu ==========
 NexTouch *nex_listen_list_F1B_Go[]          = {&pageF1B, &bF1BCancel, &bF1BPause, &bF1BGo, NULL};                       // ========== list of F1B_Go  ==========
 NexTouch *nex_listen_list_F2A_LogicSet[]    = {&pageF2A, &bF2ABack, &bF2ANext, &bF2AUp, &bF2ADown, NULL};               // ========== list of F2A_LogicSet  ==========
-NexTouch *nex_listen_list_F2B_LogicSet[]    = {&pageF2B, &bF2BBack, &bF2BSave, &bF2BUp, &bF2BDown, &tF2BMode, &tF2BStep, &tF2BType, &tF2BTrigger, &tF2BAction, &bF2BChange, NULL};               // ========== list of F2B_LogicSet  ==========
+NexTouch *nex_listen_list_F2B_LogicSet[]    = {&pageF2B, &bF2BBack, &bF2BSave, &bF2BUp, &bF2BDown, &tF2BNo, &tF2BMode, &tF2BType, &tF2BTrigger, &tF2BAction, &bF2BChange, NULL};               // ========== list of F2B_LogicSet  ==========
 NexTouch *nex_listen_list_F3A_RFID_Data[]   = {&pageF3A, &bF3ABack, &bF3ANext, &bF3ADown, &bF3AUp, NULL};                                   // ========== list of F3A_RFID_Data ==========
 NexTouch *nex_listen_list_F3B_RFID_Data[]   = {&pageF3B, &bF3BBack, &bF3BNext, &bF3BPrevID, &bF3BNextID, &bF3BSave, NULL};    // ========== list of F3B_RFID_Data ==========
 NexTouch *nex_listen_list_F3C_RFID_Data[]   = {&pageF3C, &bF3CBack, &bF3CDelete, &bF3CDown, &bF3CUp, NULL};             // ========== list of F3C_RFID_Data ==========
@@ -157,8 +157,8 @@ void bF2ADown_PopCallback(void *ptr)    {Tombol = tDOWN;}     // ========== Call
 
 void bF2BBack_PopCallback(void *ptr)    {Tombol = tBACK;}     // ========== Callback in F2B_LogicSet ==========
 void bF2BSave_PopCallback(void *ptr)    {Tombol = tSAVE;}
+void tF2BNo_PopCallback(void *ptr)      {Teks   = teksNo;}
 void tF2BMode_PopCallback(void *ptr)    {Teks   = teksMode;}
-void tF2BStep_PopCallback(void *ptr)    {Teks   = teksStep;}
 void tF2BType_PopCallback(void *ptr)    {Teks   = teksType;}
 void tF2BTrigger_PopCallback(void *ptr) {Teks   = teksTrigger;}
 void tF2BAction_PopCallback(void *ptr)  {Teks   = teksAction;}
@@ -269,7 +269,7 @@ void G2_NextionParameters(){
   bF2BBack.attachPop(bF2BBack_PopCallback);               // ========== Register the pop event in F2B_LogicSet ==========
   bF2BSave.attachPop(bF2BSave_PopCallback);
   tF2BMode.attachPop(tF2BMode_PopCallback);
-  tF2BStep.attachPop(tF2BStep_PopCallback);
+  tF2BNo.attachPop(tF2BNo_PopCallback);
   tF2BType.attachPop(tF2BType_PopCallback);
   tF2BTrigger.attachPop(tF2BTrigger_PopCallback);
   tF2BAction.attachPop(tF2BAction_PopCallback);
