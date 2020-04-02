@@ -51,9 +51,6 @@ void ActionF2B(int actionInt);
   bool LtexAction = false;  
   void pilihTeks();
 
-  int pinBerapa = 1;
-  bool pinBerapaStatus = HIGH;
-
   int no;
   int mode;
   int type;
@@ -70,54 +67,69 @@ void ActionF2B(int actionInt);
 void F2A_LogicSet(){
   pageF2A.show();
   Serial.println("F2A_LogicSet");
-  
-  
-  int noA = 1;
-  int noB = 2;
-  int noC = 3;
-  int noD = 4;
-  int noE = 5;
-  
-  int modeA = 1;
-  int modeB = 1;
-  int modeC = 1;
-  int modeD = 1;
-  int modeE = 1;
-  
-  int typeA = 1;
-  int typeB = 1;
-  int typeC = 1;
-  int typeD = 1;
-  int typeE = 1;
+    
+  // ============= CONTOH SAMPLE AJA ======================
+  noKe[1] = 1;
+  noKe[2] = 2;
+  noKe[3] = 3;
+  noKe[4] = 4;
+  noKe[5] = 5;
+  noKe[6] = 6;
+  noKe[7] = 7;
+  noKe[8] = 8;
+  noKe[9] = 9;
+  noKe[10] = 10;
 
-  int triggerA = 1;
-  int triggerB = 2;
-  int triggerC = 3;
-  int triggerD = 10;
-  int triggerE = 21;
+  modeKe[noKe[1]] = 1;
+  modeKe[noKe[2]] = 1;
+  modeKe[noKe[3]] = 1;
+  modeKe[noKe[4]] = 1;
+  modeKe[noKe[5]] = 1;
+  modeKe[noKe[6]] = 0;
+  modeKe[noKe[7]] = 0;
+  modeKe[noKe[8]] = 0;
+  modeKe[noKe[9]] = 0;
+  modeKe[noKe[10]] = 0;
 
-  int actionA = 1;
-  int actionB = 2;
-  int actionC = 3;
-  int actionD = 4;
-  int actionE = 5;
-  
-//  NoF2A(noA, noB, noC, noD, noE);
-//  ModeF2A(modeA, modeB, modeC, modeD, modeE);
-//  TypeF2A(typeA, typeB, typeC, typeD, typeE);
-//  TriggerF2A(triggerA, triggerB, triggerC, triggerD, triggerE);
-//  ActionF2A(actionA, actionB, actionC, actionD, actionE);
+  typeKe[noKe[1]] = 1;
+  typeKe[noKe[2]] = 1;
+  typeKe[noKe[3]] = 0;
+  typeKe[noKe[4]] = 2;
+  typeKe[noKe[5]] = 3;
+  typeKe[noKe[6]] = 0;
+  typeKe[noKe[7]] = 0;
+  typeKe[noKe[8]] = 0;
+  typeKe[noKe[9]] = 0;
+  typeKe[noKe[10]] = 0;
 
-//  noKe[i]
-//  modeKe[i]
-//  typeKe[i]
-//  triggerKe[i]
-//  actionKe[i]
-  NoF2A(noKe[1], noKe[2], noKe[3], noKe[4], noKe[5]);
-  ModeF2A(modeKe[1], modeKe[2], modeKe[3], modeKe[4], modeKe[5]);
-  TypeF2A(typeKe[1], typeKe[2], typeKe[3], typeKe[4], typeKe[5]);
-  TriggerF2A(triggerKe[1], triggerKe[2], triggerKe[3], triggerKe[4], triggerKe[5]);
-  ActionF2A(actionKe[1], actionKe[2], actionKe[3], actionKe[4], actionKe[5]);
+  triggerKe[noKe[1]] = 1;
+  triggerKe[noKe[2]] = 2;
+  triggerKe[noKe[3]] = 0;
+  triggerKe[noKe[4]] = 5;
+  triggerKe[noKe[5]] = 10;
+  triggerKe[noKe[6]] = 0;
+  triggerKe[noKe[7]] = 0;
+  triggerKe[noKe[8]] = 0;
+  triggerKe[noKe[9]] = 0;
+  triggerKe[noKe[10]] = 0;
+
+  actionKe[noKe[1]] = 1;
+  actionKe[noKe[2]] = 2;
+  actionKe[noKe[3]] = 0;
+  actionKe[noKe[4]] = 15;
+  actionKe[noKe[5]] = 18;
+  actionKe[noKe[6]] = 0;
+  actionKe[noKe[7]] = 0;
+  actionKe[noKe[8]] = 0;
+  actionKe[noKe[9]] = 0;
+  actionKe[noKe[10]] = 0;
+  // ============= CONTOH SAMPLE AJA ======================
+
+  NoF2A(noKe[1],                  noKe[2],              noKe[3],              noKe[4],              noKe[5]);
+  ModeF2A(modeKe[noKe[1]],        modeKe[noKe[2]],      modeKe[noKe[3]],      modeKe[noKe[4]],      modeKe[noKe[5]]);
+  TypeF2A(typeKe[noKe[1]],        typeKe[noKe[2]],      typeKe[noKe[3]],      typeKe[noKe[4]],      typeKe[noKe[5]]);
+  TriggerF2A(triggerKe[noKe[1]],  triggerKe[noKe[2]],   triggerKe[noKe[3]],   triggerKe[noKe[4]],   triggerKe[noKe[5]]);
+  ActionF2A(actionKe[noKe[1]],    actionKe[noKe[2]],    actionKe[noKe[3]],    actionKe[noKe[4]],    actionKe[noKe[5]]);
   
   
   while(true){
@@ -136,83 +148,45 @@ void F2A_LogicSet(){
         pageF2A.show();
         Serial.println("F2A_LogicSet");
         
-        NoF2A(noA, noB, noC, noD, noE);
-        ModeF2A(modeA, modeB, modeC, modeD, modeE);
-        TypeF2A(typeA, typeB, typeC, typeD, typeE);
-        TriggerF2A(triggerA, triggerB, triggerC, triggerD, triggerE);
-        ActionF2A(actionA, actionB, actionC, actionD, actionE);
+        NoF2A(noKe[1],                  noKe[2],              noKe[3],              noKe[4],              noKe[5]);
+        ModeF2A(modeKe[noKe[1]],        modeKe[noKe[2]],      modeKe[noKe[3]],      modeKe[noKe[4]],      modeKe[noKe[5]]);
+        TypeF2A(typeKe[noKe[1]],        typeKe[noKe[2]],      typeKe[noKe[3]],      typeKe[noKe[4]],      typeKe[noKe[5]]);
+        TriggerF2A(triggerKe[noKe[1]],  triggerKe[noKe[2]],   triggerKe[noKe[3]],   triggerKe[noKe[4]],   triggerKe[noKe[5]]);
+        ActionF2A(actionKe[noKe[1]],    actionKe[noKe[2]],    actionKe[noKe[3]],    actionKe[noKe[4]],    actionKe[noKe[5]]);
         
         break;
       case tDOWN:
         Tombol = tIDLE;
         Serial.println("bF2ADown");
 
-        noA++;        if(noA >= 16)       noA = 16;
-        noB++;        if(noB >= 17)       noB = 17;
-        noC++;        if(noC >= 18)       noC = 18;
-        noD++;        if(noD >= 19)       noD = 19;
-        noE++;        if(noE >= 20)       noE = 20;
-        modeA++;      if(modeA >= 16)     modeA = 16;
-        modeB++;      if(modeB >= 17)     modeB = 17;
-        modeC++;      if(modeC >= 18)     modeC = 18;
-        modeD++;      if(modeD >= 19)     modeD = 19;
-        modeE++;      if(modeE >= 20)     modeE = 20;
-        typeA++;      if(typeA >= 16)     typeA = 16;
-        typeB++;      if(typeB >= 17)     typeB = 17;
-        typeC++;      if(typeC >= 18)     typeC = 18;
-        typeD++;      if(typeD >= 19)     typeD = 19;
-        typeE++;      if(typeE >= 20)     typeE = 20;
-        triggerA++;   if(triggerA >= 116) triggerA = 116;
-        triggerB++;   if(triggerB >= 117) triggerB = 117;
-        triggerC++;   if(triggerC >= 118) triggerC = 118;
-        triggerD++;   if(triggerD >= 119) triggerD = 119;
-        triggerE++;   if(triggerE >= 120) triggerE = 120;
-        actionA++;    if(actionA >= 16)   actionA = 16;
-        actionB++;    if(actionB >= 17)   actionB = 17;
-        actionC++;    if(actionC >= 18)   actionC = 18;
-        actionD++;    if(actionD >= 19)   actionD = 19;
-        actionE++;    if(actionE >= 20)   actionE = 20;
-        NoF2A(noA, noB, noC, noD, noE);
-        ModeF2A(modeA, modeB, modeC, modeD, modeE);
-        TypeF2A(typeA, typeB, typeC, typeD, typeE);
-        TriggerF2A(triggerA, triggerB, triggerC, triggerD, triggerE);
-        ActionF2A(actionA, actionB, actionC, actionD, actionE);
+        noKe[1]++;        if(noKe[1] >= 6)       noKe[1] = 6;
+        noKe[2]++;        if(noKe[2] >= 7)       noKe[2] = 7;
+        noKe[3]++;        if(noKe[3] >= 8)       noKe[3] = 8;
+        noKe[4]++;        if(noKe[4] >= 9)       noKe[4] = 9;
+        noKe[5]++;        if(noKe[5] >= 10)      noKe[5] = 10;
+        
+        NoF2A(noKe[1],                  noKe[2],              noKe[3],              noKe[4],              noKe[5]);
+        ModeF2A(modeKe[noKe[1]],        modeKe[noKe[2]],      modeKe[noKe[3]],      modeKe[noKe[4]],      modeKe[noKe[5]]);
+        TypeF2A(typeKe[noKe[1]],        typeKe[noKe[2]],      typeKe[noKe[3]],      typeKe[noKe[4]],      typeKe[noKe[5]]);
+        TriggerF2A(triggerKe[noKe[1]],  triggerKe[noKe[2]],   triggerKe[noKe[3]],   triggerKe[noKe[4]],   triggerKe[noKe[5]]);
+        ActionF2A(actionKe[noKe[1]],    actionKe[noKe[2]],    actionKe[noKe[3]],    actionKe[noKe[4]],    actionKe[noKe[5]]);
         
         break;
       case tUP:
         Tombol = tIDLE;
         Serial.println("bF2AUp");
         
-        noA--;        if(noA <= 1) noA = 1;
-        noB--;        if(noB <= 2) noB = 2;
-        noC--;        if(noC <= 3) noC = 3;
-        noD--;        if(noD <= 4) noD = 4;
-        noE--;        if(noE <= 5) noE = 5;
-        modeA--;      if(modeA <= 1) modeA = 1;
-        modeB--;      if(modeB <= 2) modeB = 2;
-        modeC--;      if(modeC <= 3) modeC = 3;
-        modeD--;      if(modeD <= 4) modeD = 4;
-        modeE--;      if(modeE <= 5) modeE = 5;
-        typeA--;      if(typeA <= 1) typeA = 1;
-        typeB--;      if(typeB <= 2) typeB = 2;
-        typeC--;      if(typeC <= 3) typeC = 3;
-        typeD--;      if(typeD <= 4) typeD = 4;
-        typeE--;      if(typeE <= 5) typeE = 5;
-        triggerA--;   if(triggerA <= 101) triggerA = 101;
-        triggerB--;   if(triggerB <= 102) triggerB = 102;
-        triggerC--;   if(triggerC <= 103) triggerC = 103;
-        triggerD--;   if(triggerD <= 104) triggerD = 104;
-        triggerE--;   if(triggerE <= 105) triggerE = 105;
-        actionA--;    if(actionA <= 1) actionA = 1;
-        actionB--;    if(actionB <= 2) actionB = 2;
-        actionC--;    if(actionC <= 3) actionC = 3;
-        actionD--;    if(actionD <= 4) actionD = 4;
-        actionE--;    if(actionE <= 5) actionE = 5;
-        NoF2A(noA, noB, noC, noD, noE);
-        ModeF2A(modeA, modeB, modeC, modeD, modeE);
-        TypeF2A(typeA, typeB, typeC, typeD, typeE);
-        TriggerF2A(triggerA, triggerB, triggerC, triggerD, triggerE);
-        ActionF2A(actionA, actionB, actionC, actionD, actionE);
+        noKe[1]--;        if(noKe[1] <= 1)       noKe[1] = 1;
+        noKe[2]--;        if(noKe[2] <= 2)       noKe[2] = 2;
+        noKe[3]--;        if(noKe[3] <= 3)       noKe[3] = 3;
+        noKe[4]--;        if(noKe[4] <= 4)       noKe[4] = 4;
+        noKe[5]--;        if(noKe[5] <= 5)       noKe[5] = 5;
+        
+        NoF2A(noKe[1],                  noKe[2],              noKe[3],              noKe[4],              noKe[5]);
+        ModeF2A(modeKe[noKe[1]],        modeKe[noKe[2]],      modeKe[noKe[3]],      modeKe[noKe[4]],      modeKe[noKe[5]]);
+        TypeF2A(typeKe[noKe[1]],        typeKe[noKe[2]],      typeKe[noKe[3]],      typeKe[noKe[4]],      typeKe[noKe[5]]);
+        TriggerF2A(triggerKe[noKe[1]],  triggerKe[noKe[2]],   triggerKe[noKe[3]],   triggerKe[noKe[4]],   triggerKe[noKe[5]]);
+        ActionF2A(actionKe[noKe[1]],    actionKe[noKe[2]],    actionKe[noKe[3]],    actionKe[noKe[4]],    actionKe[noKe[5]]);
         break;
       default:
         break;
@@ -237,11 +211,6 @@ void F2B_LogicSet(){
   TypeF2B(type);
   TriggerF2B(trigger);
   ActionF2B(action);
-  //NoF2B(String(no));
-  //ModeF2B(String(mode));
-  //TypeF2B(String(type));
-  //TriggerF2B(dummyIdRFID[trigger]); 
-  //ActionF2B(String(action));
   
   Teks = teksNo;   // kondisi awal yg aktfi si numF4ASpeed
   LtexNo = true;
@@ -269,7 +238,7 @@ void F2B_LogicSet(){
           no++;     if(no >= (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])) - 1)     no = (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])) - 1;   // untuk sample batasin dulu sampai 10 dlu aja
           NoF2B(no);
           ModeF2B(modeKe[no]);
-          TypeF2B(typeKe[no]);
+          TypeF2B(typeKe[no]);        //disini kali masalah nya yg dari F2A ke F2B, tampilan di DI sama DO bermasalah
           TriggerF2B(triggerKe[no]); 
           ActionF2B(actionKe[no]);
         }
@@ -349,11 +318,10 @@ void F2B_LogicSet(){
           ActionF2B(actionKe[no]);
         }
         break;
-      case tCHANGE:
-        Tombol = tIDLE;
-        Serial.println("bF2BChange");
-        
-        break;
+//      case tCHANGE:
+//        Tombol = tIDLE;
+//        Serial.println("bF2BChange");        
+//        break;
       case tSAVE:
         Tombol = tIDLE;
         Serial.println("bF2BSave");         Serial.print("\n\n");
@@ -376,23 +344,12 @@ void F2B_LogicSet(){
         type = 0;
         trigger = 0;
         action = 0;
+        
         NoF2B(no);
-        ModeF2B(mode);
-        TypeF2B(type);
-        TriggerF2B(trigger);
-        ActionF2B(action);
-//        NoF2B(String(no));
-//        ModeF2B(String(mode));
-//        TypeF2B(String(type));
-//        if(type == typeRFID)
-//        {
-//          TriggerF2B(dummyIdRFID[1]);
-//        }
-//        else 
-//        {
-//          TriggerF2B(triggerString);
-//        }
-//        ActionF2B(String(action));
+        ModeF2B(modeKe[no]);
+        TypeF2B(typeKe[no]);
+        TriggerF2B(triggerKe[no]); 
+        ActionF2B(actionKe[no]);
         
         break;
       default:
@@ -446,7 +403,8 @@ void NoF2A(int noA, int noB, int noC, int noD, int noE){
 void ModeF2A(int modeA, int modeB, int modeC, int modeD, int modeE){
   Serial2.print("tF2AModeA.txt=");
   Serial2.print("\"");
-  Serial2.print(modeA);
+  if(modeA == 0)    Serial2.print("");
+  else              Serial2.print(modeA);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -454,7 +412,8 @@ void ModeF2A(int modeA, int modeB, int modeC, int modeD, int modeE){
 
   Serial2.print("tF2AModeB.txt=");
   Serial2.print("\"");
-  Serial2.print(modeB);
+  if(modeB == 0)    Serial2.print("");
+  else              Serial2.print(modeB);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -462,7 +421,8 @@ void ModeF2A(int modeA, int modeB, int modeC, int modeD, int modeE){
 
   Serial2.print("tF2AModeC.txt=");
   Serial2.print("\"");
-  Serial2.print(modeC);
+  if(modeC == 0)    Serial2.print("");
+  else              Serial2.print(modeC);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -470,7 +430,8 @@ void ModeF2A(int modeA, int modeB, int modeC, int modeD, int modeE){
 
   Serial2.print("tF2AModeD.txt=");
   Serial2.print("\"");
-  Serial2.print(modeD);
+  if(modeD == 0)    Serial2.print("");
+  else              Serial2.print(modeD);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -478,18 +439,21 @@ void ModeF2A(int modeA, int modeB, int modeC, int modeD, int modeE){
 
   Serial2.print("tF2AModeE.txt=");
   Serial2.print("\"");
-  Serial2.print(modeE);
+  if(modeE == 0)    Serial2.print("");
+  else              Serial2.print(modeE);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 }
 
+String typeAstring, typeBstring, typeCstring, typeDstring, typeEstring;
 void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
-  String typeAstring, typeBstring, typeCstring, typeDstring, typeEstring;
-  if(typeA == typeRFID)     {typeAstring = "RFID";}
-  else if(typeA == typeDI)  {typeAstring = "DI";}
-  else if(typeA == typeDO)  {typeAstring = "DO";}
+//  String typeAstring, typeBstring, typeCstring, typeDstring, typeEstring;
+  if     (typeA == typeIDLE)      {typeAstring = "";}
+  else if(typeA == typeRFID)      {typeAstring = "RFID";}
+  else if(typeA == typeDI)        {typeAstring = "DI";}
+  else if(typeA == typeDO)        {typeAstring = "DO";}
   Serial2.print("tF2ATypeA.txt=");
   Serial2.print("\"");
   Serial2.print(typeAstring);
@@ -498,9 +462,10 @@ void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
   Serial2.write(0xff);
   Serial2.write(0xff);
 
-  if(typeB == typeRFID)     {typeBstring = "RFID";}
-  else if(typeB == typeDI)  {typeBstring = "DI";}
-  else if(typeB == typeDO)  {typeBstring = "DO";}
+  if     (typeB == typeIDLE)      {typeBstring = "";}
+  else if(typeB == typeRFID)      {typeBstring = "RFID";}
+  else if(typeB == typeDI)        {typeBstring = "DI";}
+  else if(typeB == typeDO)        {typeBstring = "DO";}
   Serial2.print("tF2ATypeB.txt=");
   Serial2.print("\"");
   Serial2.print(typeBstring);
@@ -509,9 +474,10 @@ void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
   Serial2.write(0xff);
   Serial2.write(0xff);
 
-  if(typeC == typeRFID)     {typeCstring = "RFID";}
-  else if(typeC == typeDI)  {typeCstring = "DI";}
-  else if(typeC == typeDO)  {typeCstring = "DO";}
+  if     (typeC == typeIDLE)      {typeCstring = "";}
+  else if(typeC == typeRFID)      {typeCstring = "RFID";}
+  else if(typeC == typeDI)        {typeCstring = "DI";}
+  else if(typeC == typeDO)        {typeCstring = "DO";}
   Serial2.print("tF2ATypeC.txt=");
   Serial2.print("\"");
   Serial2.print(typeCstring);
@@ -520,9 +486,10 @@ void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
   Serial2.write(0xff);
   Serial2.write(0xff);
 
-  if(typeD == typeRFID)     {typeDstring = "RFID";}
-  else if(typeD == typeDI)  {typeDstring = "DI";}
-  else if(typeD == typeDO)  {typeDstring = "DO";}
+  if     (typeD == typeIDLE)      {typeDstring = "";}
+  else if(typeD == typeRFID)      {typeDstring = "RFID";}
+  else if(typeD == typeDI)        {typeDstring = "DI";}
+  else if(typeD == typeDO)        {typeDstring = "DO";}
   Serial2.print("tF2ATypeD.txt=");
   Serial2.print("\"");
   Serial2.print(typeDstring);
@@ -531,9 +498,10 @@ void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
   Serial2.write(0xff);
   Serial2.write(0xff);
 
-  if(typeE == typeRFID)     {typeEstring = "RFID";}
-  else if(typeE == typeDI)  {typeEstring = "DI";}
-  else if(typeE == typeDO)  {typeEstring = "DO";}
+  if     (typeE == typeIDLE)      {typeEstring = "";}
+  else if(typeE == typeRFID)      {typeEstring = "RFID";}
+  else if(typeE == typeDI)        {typeEstring = "DI";}
+  else if(typeE == typeDO)        {typeEstring = "DO";}
   Serial2.print("tF2ATypeE.txt=");
   Serial2.print("\"");
   Serial2.print(typeEstring);
@@ -544,132 +512,148 @@ void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
 }
 
 void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int triggerE){
-  String triggerAstring, triggerBstring, triggerCstring, triggerDstring, triggerEstring;
-  int pin, statusPin;
-  
-  if(typeKe[1] == typeRFID)     {triggerAstring = dummyIdRFID[triggerA];}
-  else if(typeKe[1] == typeDI)
-  {
-    pin = triggerA/10;
-    statusPin = triggerA % 2;
-    triggerAstring = pin;
-    if(statusPin == 1)  triggerAstring += ",HIGH";
-    else                triggerAstring += ",LOW";
-  }
-  else if(typeKe[1] == typeDO)
-  {
-    pin = triggerA/10;
-    statusPin = triggerA % 2;
-    triggerAstring = pin;
-    if(statusPin == 1)  triggerAstring += ",HIGH";
-    else                triggerAstring += ",LOW";
-  }
   Serial2.print("tF2ATriggerA.txt=");
   Serial2.print("\"");
-  Serial2.print(triggerAstring);
+  if     (typeAstring == "RFID")                     Serial2.print(dummyIdRFID[triggerA]);
+  else if(typeAstring == "DI" && triggerA == 1)      Serial2.print("1,HIGH");
+  else if(typeAstring == "DI" && triggerA == 2)      Serial2.print("1,LOW");
+  else if(typeAstring == "DI" && triggerA == 3)      Serial2.print("2,HIGH");
+  else if(typeAstring == "DI" && triggerA == 4)      Serial2.print("2,LOW");
+  else if(typeAstring == "DI" && triggerA == 5)      Serial2.print("3,HIGH");
+  else if(typeAstring == "DI" && triggerA == 6)      Serial2.print("3,LOW");
+  else if(typeAstring == "DI" && triggerA == 7)      Serial2.print("4,HIGH");
+  else if(typeAstring == "DI" && triggerA == 8)      Serial2.print("4,LOW");
+  else if(typeAstring == "DI" && triggerA == 9)      Serial2.print("5,HIGH");
+  else if(typeAstring == "DI" && triggerA == 10)     Serial2.print("5,LOW");
+  else if(typeAstring == "DO" && triggerA == 1)      Serial2.print("1,HIGH");
+  else if(typeAstring == "DO" && triggerA == 2)      Serial2.print("1,LOW");
+  else if(typeAstring == "DO" && triggerA == 3)      Serial2.print("2,HIGH");
+  else if(typeAstring == "DO" && triggerA == 4)      Serial2.print("2,LOW");
+  else if(typeAstring == "DO" && triggerA == 5)      Serial2.print("3,HIGH");
+  else if(typeAstring == "DO" && triggerA == 6)      Serial2.print("3,LOW");
+  else if(typeAstring == "DO" && triggerA == 7)      Serial2.print("4,HIGH");
+  else if(typeAstring == "DO" && triggerA == 8)      Serial2.print("4,LOW");
+  else if(typeAstring == "DO" && triggerA == 9)      Serial2.print("5,HIGH");
+  else if(typeAstring == "DO" && triggerA == 10)     Serial2.print("5,LOW");
+  else                                               Serial2.print("");
+//  Serial2.print(dummyIdRFID[triggerA]);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 
-  if(typeKe[2] == typeRFID)     {triggerBstring = dummyIdRFID[triggerB];}
-  else if(typeKe[2] == typeDI)
-  {
-    pin = triggerB/10;
-    statusPin = triggerB % 2;
-    triggerBstring = pin;
-    if(statusPin == 1)  triggerBstring += ",HIGH";
-    else                triggerBstring += ",LOW";
-  }
-  else if(typeKe[2] == typeDO)
-  {
-    pin = triggerB/10;
-    statusPin = triggerB % 2;
-    triggerBstring = pin;
-    if(statusPin == 1)  triggerBstring += ",HIGH";
-    else                triggerBstring += ",LOW";
-  }
   Serial2.print("tF2ATriggerB.txt=");
   Serial2.print("\"");
-  Serial2.print(triggerBstring);
+  if     (typeBstring == "RFID")                     Serial2.print(dummyIdRFID[triggerB]);
+  else if(typeBstring == "DI" && triggerB == 1)      Serial2.print("1,HIGH");
+  else if(typeBstring == "DI" && triggerB == 2)      Serial2.print("1,LOW");
+  else if(typeBstring == "DI" && triggerB == 3)      Serial2.print("2,HIGH");
+  else if(typeBstring == "DI" && triggerB == 4)      Serial2.print("2,LOW");
+  else if(typeBstring == "DI" && triggerB == 5)      Serial2.print("3,HIGH");
+  else if(typeBstring == "DI" && triggerB == 6)      Serial2.print("3,LOW");
+  else if(typeBstring == "DI" && triggerB == 7)      Serial2.print("4,HIGH");
+  else if(typeBstring == "DI" && triggerB == 8)      Serial2.print("4,LOW");
+  else if(typeBstring == "DI" && triggerB == 9)      Serial2.print("5,HIGH");
+  else if(typeBstring == "DI" && triggerB == 10)     Serial2.print("5,LOW");
+  else if(typeBstring == "DO" && triggerB == 1)      Serial2.print("1,HIGH");
+  else if(typeBstring == "DO" && triggerB == 2)      Serial2.print("1,LOW");
+  else if(typeBstring == "DO" && triggerB == 3)      Serial2.print("2,HIGH");
+  else if(typeBstring == "DO" && triggerB == 4)      Serial2.print("2,LOW");
+  else if(typeBstring == "DO" && triggerB == 5)      Serial2.print("3,HIGH");
+  else if(typeBstring == "DO" && triggerB == 6)      Serial2.print("3,LOW");
+  else if(typeBstring == "DO" && triggerB == 7)      Serial2.print("4,HIGH");
+  else if(typeBstring == "DO" && triggerB == 8)      Serial2.print("4,LOW");
+  else if(typeBstring == "DO" && triggerB == 9)      Serial2.print("5,HIGH");
+  else if(typeBstring == "DO" && triggerB == 10)     Serial2.print("5,LOW");
+  else                                               Serial2.print("");
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 
-  if(typeKe[3] == typeRFID)
-  {
-    triggerCstring = dummyIdRFID[triggerC];
-  }
-  else if(typeKe[3] == typeDI)
-  {
-    pin = triggerC/10;
-    statusPin = triggerC % 2;
-    triggerCstring = pin;
-    if(statusPin == 1)  triggerCstring += ",HIGH";
-    else                triggerCstring += ",LOW";
-  }
-  else if(typeKe[3] == typeDO)
-  {
-    pin = triggerC/10;
-    statusPin = triggerC % 2;
-    triggerCstring = pin;
-    if(statusPin == 1)  triggerCstring += ",HIGH";
-    else                triggerCstring += ",LOW";
-  }
   Serial2.print("tF2ATriggerC.txt=");
   Serial2.print("\"");
-  Serial2.print(triggerCstring);
+  if     (typeCstring == "RFID")                     Serial2.print(dummyIdRFID[triggerC]);
+  else if(typeCstring == "DI" && triggerC == 1)      Serial2.print("1,HIGH");
+  else if(typeCstring == "DI" && triggerC == 2)      Serial2.print("1,LOW");
+  else if(typeCstring == "DI" && triggerC == 3)      Serial2.print("2,HIGH");
+  else if(typeCstring == "DI" && triggerC == 4)      Serial2.print("2,LOW");
+  else if(typeCstring == "DI" && triggerC == 5)      Serial2.print("3,HIGH");
+  else if(typeCstring == "DI" && triggerC == 6)      Serial2.print("3,LOW");
+  else if(typeCstring == "DI" && triggerC == 7)      Serial2.print("4,HIGH");
+  else if(typeCstring == "DI" && triggerC == 8)      Serial2.print("4,LOW");
+  else if(typeCstring == "DI" && triggerC == 9)      Serial2.print("5,HIGH");
+  else if(typeCstring == "DI" && triggerC == 10)     Serial2.print("5,LOW");
+  else if(typeCstring == "DO" && triggerC == 1)      Serial2.print("1,HIGH");
+  else if(typeCstring == "DO" && triggerC == 2)      Serial2.print("1,LOW");
+  else if(typeCstring == "DO" && triggerC == 3)      Serial2.print("2,HIGH");
+  else if(typeCstring == "DO" && triggerC == 4)      Serial2.print("2,LOW");
+  else if(typeCstring == "DO" && triggerC == 5)      Serial2.print("3,HIGH");
+  else if(typeCstring == "DO" && triggerC == 6)      Serial2.print("3,LOW");
+  else if(typeCstring == "DO" && triggerC == 7)      Serial2.print("4,HIGH");
+  else if(typeCstring == "DO" && triggerC == 8)      Serial2.print("4,LOW");
+  else if(typeCstring == "DO" && triggerC == 9)      Serial2.print("5,HIGH");
+  else if(typeCstring == "DO" && triggerC == 10)     Serial2.print("5,LOW");
+  else                                               Serial2.print("");
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 
-  if(typeKe[4] == typeRFID)     {triggerDstring = dummyIdRFID[triggerD];}
-  else if(typeKe[4] == typeDI)
-  {
-    pin = triggerD/10;
-    statusPin = triggerD % 2;
-    triggerDstring = pin;
-    if(statusPin == 1)  triggerDstring += ",HIGH";
-    else                triggerDstring += ",LOW";
-  }
-  else if(typeKe[4] == typeDO)
-  {
-    pin = triggerD/10;
-    statusPin = triggerD % 2;
-    triggerDstring = pin;
-    if(statusPin == 1)  triggerDstring += ",HIGH";
-    else                triggerDstring += ",LOW";
-  }
   Serial2.print("tF2ATriggerD.txt=");
   Serial2.print("\"");
-  Serial2.print(triggerDstring);
+  if     (typeDstring == "RFID")                     Serial2.print(dummyIdRFID[triggerD]);
+  else if(typeDstring == "DI" && triggerD == 1)      Serial2.print("1,HIGH");
+  else if(typeDstring == "DI" && triggerD == 2)      Serial2.print("1,LOW");
+  else if(typeDstring == "DI" && triggerD == 3)      Serial2.print("2,HIGH");
+  else if(typeDstring == "DI" && triggerD == 4)      Serial2.print("2,LOW");
+  else if(typeDstring == "DI" && triggerD == 5)      Serial2.print("3,HIGH");
+  else if(typeDstring == "DI" && triggerD == 6)      Serial2.print("3,LOW");
+  else if(typeDstring == "DI" && triggerD == 7)      Serial2.print("4,HIGH");
+  else if(typeDstring == "DI" && triggerD == 8)      Serial2.print("4,LOW");
+  else if(typeDstring == "DI" && triggerD == 9)      Serial2.print("5,HIGH");
+  else if(typeDstring == "DI" && triggerD == 10)     Serial2.print("5,LOW");
+  else if(typeDstring == "DO" && triggerD == 1)      Serial2.print("1,HIGH");
+  else if(typeDstring == "DO" && triggerD == 2)      Serial2.print("1,LOW");
+  else if(typeDstring == "DO" && triggerD == 3)      Serial2.print("2,HIGH");
+  else if(typeDstring == "DO" && triggerD == 4)      Serial2.print("2,LOW");
+  else if(typeDstring == "DO" && triggerD == 5)      Serial2.print("3,HIGH");
+  else if(typeDstring == "DO" && triggerD == 6)      Serial2.print("3,LOW");
+  else if(typeDstring == "DO" && triggerD == 7)      Serial2.print("4,HIGH");
+  else if(typeDstring == "DO" && triggerD == 8)      Serial2.print("4,LOW");
+  else if(typeDstring == "DO" && triggerD == 9)      Serial2.print("5,HIGH");
+  else if(typeDstring == "DO" && triggerD == 10)     Serial2.print("5,LOW");
+  else                                               Serial2.print("");
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 
-  if(typeKe[5] == typeRFID)     {triggerEstring = dummyIdRFID[triggerE];}
-  else if(typeKe[5] == typeDI)
-  {
-    pin = triggerE/10;
-    statusPin = triggerE % 2;
-    triggerEstring = pin;
-    if(statusPin == 1)  triggerEstring += ",HIGH";
-    else                triggerEstring += ",LOW";
-  }
-  else if(typeKe[5] == typeDO)
-  {
-    pin = triggerE/10;
-    statusPin = triggerE % 2;
-    triggerEstring = pin;
-    if(statusPin == 1)  triggerEstring += ",HIGH";
-    else                triggerEstring += ",LOW";
-  }
+  Serial.println(typeKe[noKe[5]]);
   Serial2.print("tF2ATriggerE.txt=");
   Serial2.print("\"");
-  Serial2.print(triggerEstring);
+  if     (typeEstring == "RFID")                     Serial2.print(dummyIdRFID[triggerE]);
+  else if(typeEstring == "DI" && triggerE == 1)      Serial2.print("1,HIGH");
+  else if(typeEstring == "DI" && triggerE == 2)      Serial2.print("1,LOW");
+  else if(typeEstring == "DI" && triggerE == 3)      Serial2.print("2,HIGH");
+  else if(typeEstring == "DI" && triggerE == 4)      Serial2.print("2,LOW");
+  else if(typeEstring == "DI" && triggerE == 5)      Serial2.print("3,HIGH");
+  else if(typeEstring == "DI" && triggerE == 6)      Serial2.print("3,LOW");
+  else if(typeEstring == "DI" && triggerE == 7)      Serial2.print("4,HIGH");
+  else if(typeEstring == "DI" && triggerE == 8)      Serial2.print("4,LOW");
+  else if(typeEstring == "DI" && triggerE == 9)      Serial2.print("5,HIGH");
+  else if(typeEstring == "DI" && triggerE == 10)     Serial2.print("5,LOW");
+  else if(typeEstring == "DO" && triggerE == 1)      Serial2.print("1,HIGH");
+  else if(typeEstring == "DO" && triggerE == 2)      Serial2.print("1,LOW");
+  else if(typeEstring == "DO" && triggerE == 3)      Serial2.print("2,HIGH");
+  else if(typeEstring == "DO" && triggerE == 4)      Serial2.print("2,LOW");
+  else if(typeEstring == "DO" && triggerE == 5)      Serial2.print("3,HIGH");
+  else if(typeEstring == "DO" && triggerE == 6)      Serial2.print("3,LOW");
+  else if(typeEstring == "DO" && triggerE == 7)      Serial2.print("4,HIGH");
+  else if(typeEstring == "DO" && triggerE == 8)      Serial2.print("4,LOW");
+  else if(typeEstring == "DO" && triggerE == 9)      Serial2.print("5,HIGH");
+  else if(typeEstring == "DO" && triggerE == 10)     Serial2.print("5,LOW");
+  else                                               Serial2.print("");
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -677,112 +661,152 @@ void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int trig
 }
 
 void ActionF2A(int actionA, int actionB, int actionC, int actionD, int actionE){
-  String actionAstring, actionBstring, actionCstring, actionDstring, actionEstring;
-  if     (actionA == 1)    actionAstring = "Berhenti";
-  else if(actionA == 2)    actionAstring = "Maju";
-  else if(actionA == 3)    actionAstring = "Belok Kiri";
-  else if(actionA == 4)    actionAstring = "Belok Kanan";
-  else if(actionA == 5)    actionAstring = "Balik Kiri";
-  else if(actionA == 6)    actionAstring = "Balik Kanan";
-  else if(actionA == 7)    actionAstring = "Lift On";
-  else if(actionA == 8)    actionAstring = "Lift Off";
-  else if(actionA == 9)    actionAstring = "DO 1,LOW";
-  else if(actionA == 10)   actionAstring = "DO 2,LOW";
-  else if(actionA == 11)   actionAstring = "DO 3,LOW";
-  else if(actionA == 12)   actionAstring = "DO 4,LOW";
-  else if(actionA == 13)   actionAstring = "DO 5,LOW";
   Serial2.print("tF2AActionA.txt=");
   Serial2.print("\"");
-  Serial2.print(actionAstring);
+//  Serial2.print(actionA);
+  if     (actionA == 0)     Serial2.print("");
+  else if(actionA == 1)     Serial2.print("Berhenti");
+  else if(actionA == 2)     Serial2.print("Maju");
+  else if(actionA == 3)     Serial2.print("Belok Kiri");
+  else if(actionA == 4)     Serial2.print("Belok Kanan");
+  else if(actionA == 5)     Serial2.print("Balik Kiri");
+  else if(actionA == 6)     Serial2.print("Balik Kanan");
+  else if(actionA == 7)     Serial2.print("Lift On");
+  else if(actionA == 8)     Serial2.print("Lift Off");
+  else if(actionA == 9)     Serial2.print("Buzzer On");
+  else if(actionA == 10)    Serial2.print("Buzzer Off");
+  else if(actionA == 11)    Serial2.print("DO 01,HIGH");
+  else if(actionA == 12)    Serial2.print("DO 01,LOW");
+  else if(actionA == 13)    Serial2.print("DO 02,HIGH");
+  else if(actionA == 14)    Serial2.print("DO 02,LOW");
+  else if(actionA == 15)    Serial2.print("DO 03,HIGH");
+  else if(actionA == 16)    Serial2.print("DO 03,LOW");
+  else if(actionA == 17)    Serial2.print("DO 04,HIGH");
+  else if(actionA == 18)    Serial2.print("DO 04,LOW");
+  else if(actionA == 19)    Serial2.print("DO 05,HIGH");
+  else if(actionA == 20)    Serial2.print("DO 05,LOW");
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 
-  if     (actionB == 1)    actionBstring = "Berhenti";
-  else if(actionB == 2)    actionBstring = "Maju";
-  else if(actionB == 3)    actionBstring = "Belok Kiri";
-  else if(actionB == 4)    actionBstring = "Belok Kanan";
-  else if(actionB == 5)    actionBstring = "Balik Kiri";
-  else if(actionB == 6)    actionBstring = "Balik Kanan";
-  else if(actionB == 7)    actionBstring = "Lift On";
-  else if(actionB == 8)    actionBstring = "Lift Off";
-  else if(actionB == 9)    actionBstring = "DO 1,LOW";
-  else if(actionB == 10)   actionBstring = "DO 2,LOW";
-  else if(actionB == 11)   actionBstring = "DO 3,LOW";
-  else if(actionB == 12)   actionBstring = "DO 4,LOW";
-  else if(actionB == 13)   actionBstring = "DO 5,LOW";
   Serial2.print("tF2AActionB.txt=");
   Serial2.print("\"");
-  Serial2.print(actionBstring);
+//  Serial2.print(actionB);
+  if     (actionB == 0)     Serial2.print("");
+  else if(actionB == 1)     Serial2.print("Berhenti");
+  else if(actionB == 2)     Serial2.print("Maju");
+  else if(actionB == 3)     Serial2.print("Belok Kiri");
+  else if(actionB == 4)     Serial2.print("Belok Kanan");
+  else if(actionB == 5)     Serial2.print("Balik Kiri");
+  else if(actionB == 6)     Serial2.print("Balik Kanan");
+  else if(actionB == 7)     Serial2.print("Lift On");
+  else if(actionB == 8)     Serial2.print("Lift Off");
+  else if(actionB == 9)     Serial2.print("Buzzer On");
+  else if(actionB == 10)    Serial2.print("Buzzer Off");
+  else if(actionB == 11)    Serial2.print("DO 01,HIGH");
+  else if(actionB == 12)    Serial2.print("DO 01,LOW");
+  else if(actionB == 13)    Serial2.print("DO 02,HIGH");
+  else if(actionB == 14)    Serial2.print("DO 02,LOW");
+  else if(actionB == 15)    Serial2.print("DO 03,HIGH");
+  else if(actionB == 16)    Serial2.print("DO 03,LOW");
+  else if(actionB == 17)    Serial2.print("DO 04,HIGH");
+  else if(actionB == 18)    Serial2.print("DO 04,LOW");
+  else if(actionB == 19)    Serial2.print("DO 05,HIGH");
+  else if(actionB == 20)    Serial2.print("DO 05,LOW");
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 
-  if     (actionC == 1)    actionCstring = "Berhenti";
-  else if(actionC == 2)    actionCstring = "Maju";
-  else if(actionC == 3)    actionCstring = "Belok Kiri";
-  else if(actionC == 4)    actionCstring = "Belok Kanan";
-  else if(actionC == 5)    actionCstring = "Balik Kiri";
-  else if(actionC == 6)    actionCstring = "Balik Kanan";
-  else if(actionC == 7)    actionCstring = "Lift On";
-  else if(actionC == 8)    actionCstring = "Lift Off";
-  else if(actionC == 9)    actionCstring = "DO 1,LOW";
-  else if(actionC == 10)   actionCstring = "DO 2,LOW";
-  else if(actionC == 11)   actionCstring = "DO 3,LOW";
-  else if(actionC == 12)   actionCstring = "DO 4,LOW";
-  else if(actionC == 13)   actionCstring = "DO 5,LOW";
   Serial2.print("tF2AActionC.txt=");
   Serial2.print("\"");
-  Serial2.print(actionCstring);
+//  Serial2.print(actionC);
+  if     (actionC == 0)     Serial2.print("");
+  else if(actionC == 1)     Serial2.print("Berhenti");
+  else if(actionC == 2)     Serial2.print("Maju");
+  else if(actionC == 3)     Serial2.print("Belok Kiri");
+  else if(actionC == 4)     Serial2.print("Belok Kanan");
+  else if(actionC == 5)     Serial2.print("Balik Kiri");
+  else if(actionC == 6)     Serial2.print("Balik Kanan");
+  else if(actionC == 7)     Serial2.print("Lift On");
+  else if(actionC == 8)     Serial2.print("Lift Off");
+  else if(actionC == 9)     Serial2.print("Buzzer On");
+  else if(actionC == 10)    Serial2.print("Buzzer Off");
+  else if(actionC == 11)    Serial2.print("DO 01,HIGH");
+  else if(actionC == 12)    Serial2.print("DO 01,LOW");
+  else if(actionC == 13)    Serial2.print("DO 02,HIGH");
+  else if(actionC == 14)    Serial2.print("DO 02,LOW");
+  else if(actionC == 15)    Serial2.print("DO 03,HIGH");
+  else if(actionC == 16)    Serial2.print("DO 03,LOW");
+  else if(actionC == 17)    Serial2.print("DO 04,HIGH");
+  else if(actionC == 18)    Serial2.print("DO 04,LOW");
+  else if(actionC == 19)    Serial2.print("DO 05,HIGH");
+  else if(actionC == 20)    Serial2.print("DO 05,LOW");
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 
-  if     (actionD == 1)    actionDstring = "Berhenti";
-  else if(actionD == 2)    actionDstring = "Maju";
-  else if(actionD == 3)    actionDstring = "Belok Kiri";
-  else if(actionD == 4)    actionDstring = "Belok Kanan";
-  else if(actionD == 5)    actionDstring = "Balik Kiri";
-  else if(actionD == 6)    actionDstring = "Balik Kanan";
-  else if(actionD == 7)    actionDstring = "Lift On";
-  else if(actionD == 8)    actionDstring = "Lift Off";
-  else if(actionD == 9)    actionDstring = "DO 1,LOW";
-  else if(actionD == 10)   actionDstring = "DO 2,LOW";
-  else if(actionD == 11)   actionDstring = "DO 3,LOW";
-  else if(actionD == 12)   actionDstring = "DO 4,LOW";
-  else if(actionD == 13)   actionDstring = "DO 5,LOW";
   Serial2.print("tF2AActionD.txt=");
   Serial2.print("\"");
-  Serial2.print(actionDstring);
+//  Serial2.print(actionD);
+  if     (actionD == 0)     Serial2.print("");
+  else if(actionD == 1)     Serial2.print("Berhenti");
+  else if(actionD == 2)     Serial2.print("Maju");
+  else if(actionD == 3)     Serial2.print("Belok Kiri");
+  else if(actionD == 4)     Serial2.print("Belok Kanan");
+  else if(actionD == 5)     Serial2.print("Balik Kiri");
+  else if(actionD == 6)     Serial2.print("Balik Kanan");
+  else if(actionD == 7)     Serial2.print("Lift On");
+  else if(actionD == 8)     Serial2.print("Lift Off");
+  else if(actionD == 9)     Serial2.print("Buzzer On");
+  else if(actionD == 10)    Serial2.print("Buzzer Off");
+  else if(actionD == 11)    Serial2.print("DO 01,HIGH");
+  else if(actionD == 12)    Serial2.print("DO 01,LOW");
+  else if(actionD == 13)    Serial2.print("DO 02,HIGH");
+  else if(actionD == 14)    Serial2.print("DO 02,LOW");
+  else if(actionD == 15)    Serial2.print("DO 03,HIGH");
+  else if(actionD == 16)    Serial2.print("DO 03,LOW");
+  else if(actionD == 17)    Serial2.print("DO 04,HIGH");
+  else if(actionD == 18)    Serial2.print("DO 04,LOW");
+  else if(actionD == 19)    Serial2.print("DO 05,HIGH");
+  else if(actionD == 20)    Serial2.print("DO 05,LOW");
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 
-  if     (actionE == 1)    actionEstring = "Berhenti";
-  else if(actionE == 2)    actionEstring = "Maju";
-  else if(actionE == 3)    actionEstring = "Belok Kiri";
-  else if(actionE == 4)    actionEstring = "Belok Kanan";
-  else if(actionE == 5)    actionEstring = "Balik Kiri";
-  else if(actionE == 6)    actionEstring = "Balik Kanan";
-  else if(actionE == 7)    actionEstring = "Lift On";
-  else if(actionE == 8)    actionEstring = "Lift Off";
-  else if(actionE == 9)    actionEstring = "DO 1,LOW";
-  else if(actionE == 10)   actionEstring = "DO 2,LOW";
-  else if(actionE == 11)   actionEstring = "DO 3,LOW";
-  else if(actionE == 12)   actionEstring = "DO 4,LOW";
-  else if(actionE == 13)   actionEstring = "DO 5,LOW";
   Serial2.print("tF2AActionE.txt=");
   Serial2.print("\"");
-  Serial2.print(actionEstring);
+//  Serial2.print(actionE);
+  if     (actionE == 0)     Serial2.print("");
+  else if(actionE == 1)     Serial2.print("Berhenti");
+  else if(actionE == 2)     Serial2.print("Maju");
+  else if(actionE == 3)     Serial2.print("Belok Kiri");
+  else if(actionE == 4)     Serial2.print("Belok Kanan");
+  else if(actionE == 5)     Serial2.print("Balik Kiri");
+  else if(actionE == 6)     Serial2.print("Balik Kanan");
+  else if(actionE == 7)     Serial2.print("Lift On");
+  else if(actionE == 8)     Serial2.print("Lift Off");
+  else if(actionE == 9)     Serial2.print("Buzzer On");
+  else if(actionE == 10)    Serial2.print("Buzzer Off");
+  else if(actionE == 11)    Serial2.print("DO 01,HIGH");
+  else if(actionE == 12)    Serial2.print("DO 01,LOW");
+  else if(actionE == 13)    Serial2.print("DO 02,HIGH");
+  else if(actionE == 14)    Serial2.print("DO 02,LOW");
+  else if(actionE == 15)    Serial2.print("DO 03,HIGH");
+  else if(actionE == 16)    Serial2.print("DO 03,LOW");
+  else if(actionE == 17)    Serial2.print("DO 04,HIGH");
+  else if(actionE == 18)    Serial2.print("DO 04,LOW");
+  else if(actionE == 19)    Serial2.print("DO 05,HIGH");
+  else if(actionE == 20)    Serial2.print("DO 05,LOW");
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 }
+
 
 void NoF2B(int noInt){
   Serial2.print("tF2BNo.txt=");
@@ -811,7 +835,7 @@ void TypeF2B(int typeInt){
   Serial2.print("tF2BType.txt=");
   Serial2.print("\"");
   
-  if(typeInt == 0)       Serial2.print("");
+  if     (typeInt == 0)  Serial2.print("");
   else if(typeInt == 1)  Serial2.print("RFID");
   else if(typeInt == 2)  Serial2.print("DI");
   else if(typeInt == 3)  Serial2.print("DO");
@@ -826,7 +850,7 @@ void TriggerF2B(int triggerInt){
   Serial2.print("tF2BTrigger.txt=");
   Serial2.print("\"");
 
-  if(type == 0)                              Serial2.print("");
+  if     (type == 0)                         Serial2.print("");
   else if(type == 1)                         Serial2.print(dummyIdRFID[triggerInt]);
   else if(type == 2 && triggerInt == 1)      Serial2.print("1,HIGH");
   else if(type == 2 && triggerInt == 2)      Serial2.print("1,LOW");
@@ -859,28 +883,27 @@ void ActionF2B(int actionInt){
   Serial2.print("tF2BAction.txt=");
   Serial2.print("\"");
 
-//  if(actionInt == 0)          Serial2.print("");
-//  else if(actionInt == 1)     Serial2.print("Berhenti");
-//  else if(actionInt == 2)     Serial2.print("Maju");
-//  else if(actionInt == 3)     Serial2.print("Belok Kiri");
-//  else if(actionInt == 4)     Serial2.print("Belok Kanan");
-//  else if(actionInt == 5)     Serial2.print("Balik Kiri");
-//  else if(actionInt == 6)     Serial2.print("Balik Kanan");
-//  else if(actionInt == 7)     Serial2.print("Lift On");
-//  else if(actionInt == 8)     Serial2.print("Lift Off");
-//  else if(actionInt == 9)     Serial2.print("Buzzer On");
-//  else if(actionInt == 10)    Serial2.print("Buzzer Off");
-//  else if(actionInt == 11)    Serial2.print("DO 01,HIGH");
-//  else if(actionInt == 12)    Serial2.print("DO 01,LOW");
-//  else if(actionInt == 13)    Serial2.print("DO 02,HIGH");
-//  else if(actionInt == 14)    Serial2.print("DO 02,LOW");
-//  else if(actionInt == 15)    Serial2.print("DO 03,HIGH");
-//  else if(actionInt == 16)    Serial2.print("DO 03,LOW");
-//  else if(actionInt == 17)    Serial2.print("DO 04,HIGH");
-//  else if(actionInt == 18)    Serial2.print("DO 04,LOW");
-//  else if(actionInt == 19)    Serial2.print("DO 05,HIGH");
-//  else if(actionInt == 20)    Serial2.print("DO 05,LOW");
-  Serial2.print(String(actionInt));
+  if     (actionInt == 0)     Serial2.print("");
+  else if(actionInt == 1)     Serial2.print("Berhenti");
+  else if(actionInt == 2)     Serial2.print("Maju");
+  else if(actionInt == 3)     Serial2.print("Belok Kiri");
+  else if(actionInt == 4)     Serial2.print("Belok Kanan");
+  else if(actionInt == 5)     Serial2.print("Balik Kiri");
+  else if(actionInt == 6)     Serial2.print("Balik Kanan");
+  else if(actionInt == 7)     Serial2.print("Lift On");
+  else if(actionInt == 8)     Serial2.print("Lift Off");
+  else if(actionInt == 9)     Serial2.print("Buzzer On");
+  else if(actionInt == 10)    Serial2.print("Buzzer Off");
+  else if(actionInt == 11)    Serial2.print("DO 01,HIGH");
+  else if(actionInt == 12)    Serial2.print("DO 01,LOW");
+  else if(actionInt == 13)    Serial2.print("DO 02,HIGH");
+  else if(actionInt == 14)    Serial2.print("DO 02,LOW");
+  else if(actionInt == 15)    Serial2.print("DO 03,HIGH");
+  else if(actionInt == 16)    Serial2.print("DO 03,LOW");
+  else if(actionInt == 17)    Serial2.print("DO 04,HIGH");
+  else if(actionInt == 18)    Serial2.print("DO 04,LOW");
+  else if(actionInt == 19)    Serial2.print("DO 05,HIGH");
+  else if(actionInt == 20)    Serial2.print("DO 05,LOW");
 
   Serial2.print("\"");
   Serial2.write(0xff);
@@ -939,7 +962,7 @@ void pilihTeks(){
     
     tF2BType.getText(buffer, sizeof(buffer));    
     baper = buffer;
-    if(baper == "")             type = 0;
+    if     (baper == "")        type = 0;
     else if(baper == "RFID")    type = 1;
     else if(baper == "DI")      type = 2;
     else if(baper == "DO")      type = 3;
@@ -960,7 +983,7 @@ void pilihTeks(){
 
     tF2BType.getText(buffer, sizeof(buffer));    
     baper = buffer;
-    if(baper == "")             type = 0;
+    if     (baper == "")        type = 0;
     else if(baper == "RFID")    type = 1;
     else if(baper == "DI")      type = 2;
     else if(baper == "DO")      type = 3;
@@ -981,7 +1004,28 @@ void pilihTeks(){
     LtexTrigger = false;
     LtexAction = true;
 
-    tF2BAction.getText(buffer, sizeof(buffer));
-    action = atoi(buffer);
+    tF2BAction.getText(buffer, sizeof(buffer)); //    action = atoi(buffer);
+    baper = buffer;
+    if     (baper == "")              action = 0;
+    else if(baper == "Berhenti")      action = 1;
+    else if(baper == "Maju")          action = 2;
+    else if(baper == "Belok Kiri")    action = 3;
+    else if(baper == "Belok Kanan")   action = 4;
+    else if(baper == "Balik Kiri")    action = 5;
+    else if(baper == "Balik Kanan")   action = 6;
+    else if(baper == "Lift On")       action = 7;
+    else if(baper == "Lift Off")      action = 8;
+    else if(baper == "Buzzer On")     action = 9;
+    else if(baper == "Buzzer Off")    action = 10;
+    else if(baper == "DO 01,HIGH")    action = 11;
+    else if(baper == "DO 01,LOW")     action = 12;
+    else if(baper == "DO 02,HIGH")    action = 13;
+    else if(baper == "DO 02,LOW")     action = 14;
+    else if(baper == "DO 03,HIGH")    action = 15;
+    else if(baper == "DO 03,LOW")     action = 16;
+    else if(baper == "DO 04,HIGH")    action = 17;
+    else if(baper == "DO 04,LOW")     action = 18;
+    else if(baper == "DO 05,HIGH")    action = 19;
+    else if(baper == "DO 05,LOW")     action = 20;
   }
 }
