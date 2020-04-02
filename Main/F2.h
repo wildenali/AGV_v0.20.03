@@ -38,11 +38,11 @@ void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE);
 void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int triggerE);
 void ActionF2A(int actionA, int actionB, int actionC, int actionD, int actionE);
 
-void NoF2B(String no);
-void ModeF2B(String mode);
-void TypeF2B(String type);
-void TriggerF2B(String trigger);
-void ActionF2B(String action);
+void NoF2B(int noInt);
+void ModeF2B(int modeInt);
+void TypeF2B(int typeInt);
+void TriggerF2B(int triggerInt);
+void ActionF2B(int actionInt);
 
   bool LtexNo = false;
   bool LtexMode = false;
@@ -232,11 +232,11 @@ void F2B_LogicSet(){
   trigger = 0;
   action = 0;
 
-  NoF2B("");
-  ModeF2B("");
-  TypeF2B("");
-  TriggerF2B("");
-  ActionF2B("");
+  NoF2B(no);
+  ModeF2B(mode);
+  TypeF2B(type);
+  TriggerF2B(trigger);
+  ActionF2B(action);
   //NoF2B(String(no));
   //ModeF2B(String(mode));
   //TypeF2B(String(type));
@@ -267,26 +267,26 @@ void F2B_LogicSet(){
         if(LtexNo)
         {
           no++;     if(no >= (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])) - 1)     no = (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])) - 1;   // untuk sample batasin dulu sampai 10 dlu aja
-          NoF2B(String(no));
-          ModeF2B(String(modeKe[no]));
-          TypeF2B(String(typeKe[no]));
-          TriggerF2B(String(triggerKe[no])); 
-          ActionF2B(String(actionKe[no]));
+          NoF2B(no);
+          ModeF2B(modeKe[no]);
+          TypeF2B(typeKe[no]);
+          TriggerF2B(triggerKe[no]); 
+          ActionF2B(actionKe[no]);
         }
         if(LtexMode)
         {
           mode++;   if(mode >= (sizeof(addressGmodeKe) / sizeof(addressGmodeKe[0])) - 1)     mode = (sizeof(addressGmodeKe) / sizeof(addressGmodeKe[0])) - 1;   // untuk sample batasin dulu sampai 10 dlu aja
           modeKe[no] = mode;
-          ModeF2B(String(modeKe[no]));
+          ModeF2B(modeKe[no]);
         }
         if(LtexType)
         {
           type++;      if(type >= 3)      type = 3;    // edit disini dulu
           typeKe[no] = type;
-          TypeF2B(String(typeKe[no]));
+          TypeF2B(typeKe[no]);
           
           triggerKe[no] = 1;
-          TriggerF2B(String(triggerKe[no]));
+          TriggerF2B(triggerKe[no]);
         }
         if(LtexTrigger)
         {
@@ -300,13 +300,13 @@ void F2B_LogicSet(){
             if(trigger >= 8)     trigger = 8;
           }
           triggerKe[no] = trigger;
-          TriggerF2B(String(triggerKe[no]));
+          TriggerF2B(triggerKe[no]);
         }
         if(LtexAction)
         {
           action++;    if(action >= 20) action = 20;    // kenapa ada 13, karena action nya ada 13 tipe, see on top
           actionKe[no] = action;
-          ActionF2B(String(actionKe[no]));
+          ActionF2B(actionKe[no]);
         }
         break;
       case tUP:
@@ -315,38 +315,38 @@ void F2B_LogicSet(){
         if(LtexNo)
         {
           no--;      if(no <= 1)     no = 1;
-          NoF2B(String(no));
-          ModeF2B(String(modeKe[no]));
-          TypeF2B(String(typeKe[no]));
-          TriggerF2B(String(triggerKe[no])); 
-          ActionF2B(String(actionKe[no]));
+          NoF2B(no);
+          ModeF2B(modeKe[no]);
+          TypeF2B(typeKe[no]);
+          TriggerF2B(triggerKe[no]); 
+          ActionF2B(actionKe[no]);
         }
         if(LtexMode)
         {
           mode--;      if(mode <= 1)     mode = 1;
           modeKe[no] = mode;
-          ModeF2B(String(modeKe[no]));
+          ModeF2B(modeKe[no]);
         }
         if(LtexType)
         {
           type--;      if(type <= 1)     type = 1;
           typeKe[no] = type;
-          TypeF2B(String(typeKe[no]));
+          TypeF2B(typeKe[no]);
 
           triggerKe[no] = 1;
-          TriggerF2B(String(triggerKe[no]));
+          TriggerF2B(triggerKe[no]);
         }
         if(LtexTrigger)
         {
           trigger--;  if(trigger <= 1)     trigger = 1;
           triggerKe[no] = trigger;
-          TriggerF2B(String(triggerKe[no]));
+          TriggerF2B(triggerKe[no]);
         }
         if(LtexAction)
         {
           action--;    if(action <= 1) action = 1;
           actionKe[no] = action;
-          ActionF2B(String(actionKe[no]));
+          ActionF2B(actionKe[no]);
         }
         break;
       case tCHANGE:
@@ -376,11 +376,11 @@ void F2B_LogicSet(){
         type = 0;
         trigger = 0;
         action = 0;
-        NoF2B("");
-        ModeF2B("");
-        TypeF2B("");
-        TriggerF2B("");
-        ActionF2B("");
+        NoF2B(no);
+        ModeF2B(mode);
+        TypeF2B(type);
+        TriggerF2B(trigger);
+        ActionF2B(action);
 //        NoF2B(String(no));
 //        ModeF2B(String(mode));
 //        TypeF2B(String(type));
@@ -784,72 +784,104 @@ void ActionF2A(int actionA, int actionB, int actionC, int actionD, int actionE){
   Serial2.write(0xff);
 }
 
-void NoF2B(String noString){
+void NoF2B(int noInt){
   Serial2.print("tF2BNo.txt=");
   Serial2.print("\"");
-  Serial2.print(noString);
+  Serial2.print(String(noInt));
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 }
 
-void ModeF2B(String modeString){
-  if(modeString == "0")       modeString = "";
+void ModeF2B(int modeInt){
   Serial2.print("tF2BMode.txt=");
   Serial2.print("\"");
-  Serial2.print(modeString);
+  
+  if(modeInt == 0)      Serial2.print(String(""));
+  else                  Serial2.print(String(modeInt));
+  
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 }
 
-void TypeF2B(String typeString){
-  if(typeString == "0")       typeString = "";
-  else if(typeString == "1")  typeString = "RFID";
-  else if(typeString == "2")  typeString = "DI";
-  else if(typeString == "3")  typeString = "DO";
+void TypeF2B(int typeInt){
   Serial2.print("tF2BType.txt=");
   Serial2.print("\"");
-  Serial2.print(typeString);
+  
+  if(typeInt == 0)       Serial2.print("");
+  else if(typeInt == 1)  Serial2.print("RFID");
+  else if(typeInt == 2)  Serial2.print("DI");
+  else if(typeInt == 3)  Serial2.print("DO");
+  
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 }
 
-void TriggerF2B(String triggerString){
-  if(triggerString == "0")    triggerString = "";
-  if(triggerString == "1")    triggerString = "";
-  dummyIdRFID[1]
+void TriggerF2B(int triggerInt){
   Serial2.print("tF2BTrigger.txt=");
   Serial2.print("\"");
-  Serial2.print(triggerString);
+
+  if(type == 0)                              Serial2.print("");
+  else if(type == 1)                         Serial2.print(dummyIdRFID[triggerInt]);
+  else if(type == 2 && triggerInt == 1)      Serial2.print("1,HIGH");
+  else if(type == 2 && triggerInt == 2)      Serial2.print("1,LOW");
+  else if(type == 2 && triggerInt == 3)      Serial2.print("2,HIGH");
+  else if(type == 2 && triggerInt == 4)      Serial2.print("2,LOW");
+  else if(type == 2 && triggerInt == 5)      Serial2.print("3,HIGH");
+  else if(type == 2 && triggerInt == 6)      Serial2.print("3,LOW");
+  else if(type == 2 && triggerInt == 7)      Serial2.print("4,HIGH");
+  else if(type == 2 && triggerInt == 8)      Serial2.print("4,LOW");
+  else if(type == 2 && triggerInt == 9)      Serial2.print("5,HIGH");
+  else if(type == 2 && triggerInt == 10)     Serial2.print("5,LOW");
+  else if(type == 3 && triggerInt == 1)      Serial2.print("1,HIGH");
+  else if(type == 3 && triggerInt == 2)      Serial2.print("1,LOW");
+  else if(type == 3 && triggerInt == 3)      Serial2.print("2,HIGH");
+  else if(type == 3 && triggerInt == 4)      Serial2.print("2,LOW");
+  else if(type == 3 && triggerInt == 5)      Serial2.print("3,HIGH");
+  else if(type == 3 && triggerInt == 6)      Serial2.print("3,LOW");
+  else if(type == 3 && triggerInt == 7)      Serial2.print("4,HIGH");
+  else if(type == 3 && triggerInt == 8)      Serial2.print("4,LOW");
+  else if(type == 3 && triggerInt == 9)      Serial2.print("5,HIGH");
+  else if(type == 3 && triggerInt == 10)     Serial2.print("5,LOW");
+  
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
 }
 
-void ActionF2B(String actionString){
-  if(actionString == "0")     actionString = "";
-//  if     (actionString == "1")    actionString = "Berhenti";
-//  else if(actionString == "2")    actionString = "Maju";
-//  else if(actionString == "3")    actionString = "Belok Kiri";
-//  else if(actionString == "4")    actionString = "Belok Kanan";
-//  else if(actionString == "5")    actionString = "Balik Kiri";
-//  else if(actionString == "6")    actionString = "Balik Kanan";
-//  else if(actionString == "7")    actionString = "Lift On";
-//  else if(actionString == "8")    actionString = "Lift Off";
-//  else if(actionString == "9")    actionString = "DO 1,LOW";
-//  else if(actionString == "10")   actionString = "DO 2,LOW";
-//  else if(actionString == "11")   actionString = "DO 3,LOW";
-//  else if(actionString == "12")   actionString = "DO 4,LOW";
-//  else if(actionString == "13")   actionString = "DO 5,LOW";
+void ActionF2B(int actionInt){
   Serial2.print("tF2BAction.txt=");
   Serial2.print("\"");
-  Serial2.print(actionString);
+
+//  if(actionInt == 0)          Serial2.print("");
+//  else if(actionInt == 1)     Serial2.print("Berhenti");
+//  else if(actionInt == 2)     Serial2.print("Maju");
+//  else if(actionInt == 3)     Serial2.print("Belok Kiri");
+//  else if(actionInt == 4)     Serial2.print("Belok Kanan");
+//  else if(actionInt == 5)     Serial2.print("Balik Kiri");
+//  else if(actionInt == 6)     Serial2.print("Balik Kanan");
+//  else if(actionInt == 7)     Serial2.print("Lift On");
+//  else if(actionInt == 8)     Serial2.print("Lift Off");
+//  else if(actionInt == 9)     Serial2.print("Buzzer On");
+//  else if(actionInt == 10)    Serial2.print("Buzzer Off");
+//  else if(actionInt == 11)    Serial2.print("DO 01,HIGH");
+//  else if(actionInt == 12)    Serial2.print("DO 01,LOW");
+//  else if(actionInt == 13)    Serial2.print("DO 02,HIGH");
+//  else if(actionInt == 14)    Serial2.print("DO 02,LOW");
+//  else if(actionInt == 15)    Serial2.print("DO 03,HIGH");
+//  else if(actionInt == 16)    Serial2.print("DO 03,LOW");
+//  else if(actionInt == 17)    Serial2.print("DO 04,HIGH");
+//  else if(actionInt == 18)    Serial2.print("DO 04,LOW");
+//  else if(actionInt == 19)    Serial2.print("DO 05,HIGH");
+//  else if(actionInt == 20)    Serial2.print("DO 05,LOW");
+  Serial2.print(String(actionInt));
+
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -904,8 +936,8 @@ void pilihTeks(){
     LtexType = true;
     LtexTrigger = false;
     LtexAction = false;
-
-    tF2BType.getText(buffer, sizeof(buffer));
+    
+    tF2BType.getText(buffer, sizeof(buffer));    
     baper = buffer;
     if(baper == "")             type = 0;
     else if(baper == "RFID")    type = 1;
@@ -926,11 +958,14 @@ void pilihTeks(){
     LtexTrigger = true;
     LtexAction = false;
 
-    tF2BType.getText(buffer, sizeof(buffer));
-    type = atoi(buffer);
+    tF2BType.getText(buffer, sizeof(buffer));    
+    baper = buffer;
+    if(baper == "")             type = 0;
+    else if(baper == "RFID")    type = 1;
+    else if(baper == "DI")      type = 2;
+    else if(baper == "DO")      type = 3;
     
-    tF2BTrigger.getText(buffer, sizeof(buffer));
-    trigger = atoi(buffer);
+    trigger = 1;
   }
   if(Teks == teksAction){
     Teks = teksIDLE;
