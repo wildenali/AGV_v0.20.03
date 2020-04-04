@@ -33,34 +33,64 @@ enum teks{teksIDLE, teksNo, teksMode, teksType, teksTrigger, teksAction}Teks;
 #define typeDI    2
 #define typeDO    3
 
-uint32_t addressGspeed = 1;
-uint32_t addressGaccel = 2;
-uint32_t addressGgainP = 3;
-uint32_t addressGgainI = 4;
-uint32_t addressGgainD = 5;
-uint32_t addressGnoRefDist = 6;
-uint32_t addressGminDistSens[20] = { 7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26};    // maksimal nilai yang bisa dimasukan ke eeprom adalah 255, sedangkan untuk nilai address, bisa lebih dari 255, di coba di 2003 pun bisa
+#define addressGspeed       1
+#define addressGaccel       2
+#define addressGgainP       3
+#define addressGgainI       4
+#define addressGgainD       5
+#define addressGnoRefDist   6
 
-//uint32_t addressCOBA[10] = {41,  51,  61, 71, 81, 91, 101, 111, 121, 13}; // kenapa dilewatin sepuluh, karena itu untuk menyimpan data string si rfid nya
+int addressGminDistSens[20] = { 7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26};    // maksimal nilai yang bisa dimasukan ke eeprom adalah 255, sedangkan untuk nilai address, bisa lebih dari 255, di coba di 2003 pun bisa
+
+//#define jumlahData   10
+#define jumlahData   11
+//int addressGnoKe[10+1]        = {137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147};
+//int addressGnoKe[1+jumlahData]        = {1000,
+//                                         1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010,
+//                                         1011
+//                                        };
+
+//int addressGmodeKe[1+10]      = {148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158};
+int addressGmodeKe[1+jumlahData]      = {2000,
+                                         2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
+                                         2011
+                                        };
+
+//int addressGtypeKe[1+10]      = {159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169};
+int addressGtypeKe[1+jumlahData]      = {3000,
+                                         3001, 3002, 3003, 3004, 3005, 3006, 3007, 3008, 3009, 3010,
+                                         3011
+                                        };
+
+//int addressGtriggerKe[1+10]   = {170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180};
+int addressGtriggerKe[1+jumlahData]   = {4000,
+                                         4001, 4002, 4003, 4004, 4005, 4006, 4007, 4008, 4009, 4010,
+                                         4011
+                                        };
+
+//int addressGactionKe[1+10]    = {181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191};
+int addressGactionKe[1+jumlahData]    = {5000,
+                                         5001, 5002, 5003, 5004, 5005, 5006, 5007, 5008, 5009, 5010,
+                                         5011
+                                        };
+
+//int addressGdummyIdRFID[11] = {27,  37,  47, 57, 67, 77, 87, 97, 107, 117, 127};
+int addressGidRFID[1+jumlahData]      = {6000,
+                                         6010, 6020, 6030, 6040, 6050, 6060, 6070, 6080, 6090, 6100,
+                                         6011
+                                        };
+
+String dummyIdRFID[1+jumlahData];
+
 int noID;
-String dummyIdRFID[11];
-uint32_t addressGdummyIdRFID[11] = {27,  37,  47, 57, 67, 77, 87, 97, 107, 117, 127};
 
-
-
-uint32_t addressGnoKe[11]     = {137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147};
-uint32_t addressGmodeKe[11]     = {148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158};
-uint32_t addressGtypeKe[11]     = {159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169};
-uint32_t addressGtriggerKe[11]  = {170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180};
-uint32_t addressGactionKe[11]   = {181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191};
-
-
-
+// kenapa pakai uint32_t karena untuk kebutuhan Nextion, dia butuh tipe data tersebut supaya bisa dikirim ke nextion
 uint32_t Gspeed;               // G for Global variable
 uint32_t Gaccel;               // G for Global variable
 uint32_t GgainP;
 uint32_t GgainI;
 uint32_t GgainD;
+
 int32_t  GnoRefDist;
 bool stateDigitalInput[5];
 bool lastStateDigitalInput[5];

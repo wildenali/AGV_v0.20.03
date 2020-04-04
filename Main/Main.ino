@@ -24,7 +24,6 @@ void setup() {
  
   pinMode(13, OUTPUT);
 
-  Menu = E;
   Serial.println("Menu Utama");
 
   pinMode(22, INPUT_PULLUP);
@@ -41,12 +40,25 @@ void setup() {
     pinMode(digitalOutput[i], OUTPUT);
     digitalWrite(digitalOutput[i], LOW);
   }
+
+  dummyIdRFID[0]  = "";
   
   for(int i = 1; i < (sizeof(dummyIdRFID) / sizeof(dummyIdRFID[0])); i++)
   {
-    dummyIdRFID[i] = EEPROM_readString(addressGdummyIdRFID[i]);
+    dummyIdRFID[i] = EEPROM_readString(addressGidRFID[i]);
   }
 
+  dummyIdRFID[1]  = "1000000001";
+  dummyIdRFID[2]  = "1000000002";
+  dummyIdRFID[3]  = "1000000003";
+  dummyIdRFID[4]  = "1000000004";
+  dummyIdRFID[5]  = "1000000005";
+  dummyIdRFID[6]  = "1000000006";
+  dummyIdRFID[7]  = "1000000007";
+  dummyIdRFID[8]  = "1000000008";
+  dummyIdRFID[9]  = "1000000009";
+  dummyIdRFID[10] = "1000000010";
+  dummyIdRFID[11] = "1000000011";
 
 //EEPROM.write(addressGnoKe[1],  1); EEPROM.write(addressGmodeKe[1],  1); EEPROM.write(addressGtypeKe[1],  1); EEPROM.write(addressGtriggerKe[1],  1);  EEPROM.write(addressGactionKe[1],  1);
 //EEPROM.write(addressGnoKe[2],  2); EEPROM.write(addressGmodeKe[2],  2); EEPROM.write(addressGtypeKe[2],  1); EEPROM.write(addressGtriggerKe[2],  2);  EEPROM.write(addressGactionKe[2],  2);
@@ -57,11 +69,10 @@ void setup() {
 //EEPROM.write(addressGnoKe[7],  7); EEPROM.write(addressGmodeKe[7],  2); EEPROM.write(addressGtypeKe[7],  1); EEPROM.write(addressGtriggerKe[7],  5);  EEPROM.write(addressGactionKe[7],  7);
 //EEPROM.write(addressGnoKe[8],  8); EEPROM.write(addressGmodeKe[8],  3); EEPROM.write(addressGtypeKe[8],  2); EEPROM.write(addressGtriggerKe[8], 20);  EEPROM.write(addressGactionKe[8],  8);
 //EEPROM.write(addressGnoKe[9],  9); EEPROM.write(addressGmodeKe[9],  4); EEPROM.write(addressGtypeKe[9],  3); EEPROM.write(addressGtriggerKe[9], 30);  EEPROM.write(addressGactionKe[9],  9);
-//EEPROM.write(addressGnoKe[10], 10); EEPROM.write(addressGmodeKe[10], 5); EEPROM.write(addressGtypeKe[10], 3); EEPROM.write(addressGtriggerKe[10],41);  EEPROM.write(addressGactionKe[10], 1);
-  
+//EEPROM.write(addressGnoKe[10], 10); EEPROM.write(addressGmodeKe[10], 5); EEPROM.write(addressGtypeKe[10], 3); EEPROM.write(addressGtriggerKe[10],41);  EEPROM.write(addressGactionKe[10], 1);  
 //  for(int i = 1; i < (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])); i++)
 //  {
-//    noKe[i]     = EEPROM.read(addressGnoKe[i]);
+//    noKe[i]       = EEPROM.read(addressGnoKe[i]);
 //    modeKe[i]     = EEPROM.read(addressGmodeKe[i]);
 //    typeKe[i]     = EEPROM.read(addressGtypeKe[i]);
 //    triggerKe[i]  = EEPROM.read(addressGtriggerKe[i]);
@@ -75,30 +86,29 @@ void setup() {
 //  }
 
   
-  for(int i = 1; i < (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])); i++)
+  for(int i = 1; i < (sizeof(addressGmodeKe) / sizeof(addressGmodeKe[0])); i++)//  for(int i = 1; i < (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])); i++)
   {
-    noKe[i]       = 0;
+//    noKe[i]       = 0;
     modeKe[i]     = 0;
     typeKe[i]     = 0;
     triggerKe[i]  = 0;
     actionKe[i]   = 0;
-
-    Serial.print(noKe[i]);          Serial.print("_");
+    
+//    Serial.print(noKe[i]);          Serial.print("_");
     Serial.print(modeKe[i]);        Serial.print("_");
     Serial.print(typeKe[i]);        Serial.print("_");
     Serial.print(triggerKe[i]);     Serial.print("_");
     Serial.print(actionKe[i]);      Serial.print("\n");
   }
   
+  Menu = E;
   
 }
 
 void loop() {
-  
   nexLoop(nex_listen_list_F0_MainMenu);  
-//  Serial.println("Menu Utama");
+  Serial.println("Menu Utama");
 //  Serial.println(Menu);
-
   
   switch(Menu){
     case E:
@@ -122,7 +132,7 @@ void loop() {
       break;
     default:
       break;
-  }  
+  }
 }
 
 

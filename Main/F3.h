@@ -124,7 +124,7 @@ void F3A_RFID_Data(){
         Tombol = tIDLE;
         Serial.println("bF3ADown");
         noID++;
-        if(noID >= 8)  noID = 8;
+        if(noID >= jumlahData - 2)  noID = jumlahData - 2;    //if(noID >= 8)  noID = 8;
         noA = noID + 0;
         noB = noID + 1;
         noC = noID + 2;
@@ -282,7 +282,7 @@ void F3B_RFID_Data(){
         Serial.println("bF3BUp");
         
         noID++;
-        if(noID >= 10)  noID = 10;
+        if(noID >= jumlahData)  noID = jumlahData;
         Serial2.print("nF3BNoID.val=");
         Serial2.print(noID);
         Serial2.write(0xff);
@@ -336,8 +336,8 @@ void F3B_RFID_Data(){
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.write(0xff);
-//        EEPROM.update(addressGdummyIdRFID[noID], dummyIdRFID[noID]); 
-        EEPROM_writeString(addressGdummyIdRFID[noID], dummyIdRFID[noID]);
+//        EEPROM.update(addressGidRFID[noID], dummyIdRFID[noID]); 
+        EEPROM_writeString(addressGidRFID[noID], dummyIdRFID[noID]);
         break;
       default:
         break;
@@ -419,7 +419,7 @@ void F3C_RFID_Data(){
         Serial.println("bF3CDown");
 
         noID++;
-        if(noID >= 10)  noID = 10;
+        if(noID >= jumlahData)  noID = jumlahData;
         Serial2.print("nF3CNoID.val=");
         Serial2.print(noID);
         Serial2.write(0xff);
@@ -466,7 +466,7 @@ void F3D_RFID_Data(){
         Serial.println("bF3DYes");
         
         dummyIdRFID[noID] = "";
-        EEPROM_writeString(addressGdummyIdRFID[noID], dummyIdRFID[noID]);
+        EEPROM_writeString(addressGidRFID[noID], dummyIdRFID[noID]);
 
         
         return false;

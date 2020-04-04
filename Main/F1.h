@@ -40,7 +40,7 @@ void F1A_PlayMenu(){
         Serial.println("bF1APlus");
         nF1ANum.getValue(&Gmode);
         Gmode += 1;
-        if(Gmode >= 100) Gmode = 100;
+        if(Gmode >= jumlahData) Gmode = jumlahData;
         nF1ANum.setValue(Gmode);
         EEPROM.write(addressGmode, Gmode);
         break;
