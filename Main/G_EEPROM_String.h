@@ -1,7 +1,9 @@
-void EEPROM_writeString(char add,String data);
-String EEPROM_readString(char add);
+//void EEPROM_writeString(char add,String data);
+//String EEPROM_readString(char add);
+void EEPROM_writeString(int add,String data);
+String EEPROM_readString(int add);
 
-void EEPROM_writeString(char add,String data)
+void EEPROM_writeString(int add,String data)
 {
   int _size = data.length();
   int i;
@@ -13,7 +15,7 @@ void EEPROM_writeString(char add,String data)
 }
  
  
-String EEPROM_readString(char add)
+String EEPROM_readString(int add)
 {
   int i;
   char data[10]; //Max 100 Bytes

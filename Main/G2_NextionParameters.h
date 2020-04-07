@@ -1,116 +1,115 @@
 // Declare your Nextion objects - Example (page = 0, id = 1, objname = "b0")
-NexPage   pageE           = NexPage(0, 0, "E_Password");       // ========== Object in F0_MainMenu ==========
-NexButton bEPassword      = NexButton(0, 3, "bEPassword");
-NexButton bEClear         = NexButton(0, 2, "bEClear");
-NexButton bEOk            = NexButton(0, 1, "bEOk");             // ========== Object in F0_MainMenu ==========
+NexPage   pageE           = NexPage(1, 0, "E_Password");       // ========== Object in F0_MainMenu ==========
+NexButton bEPassword      = NexButton(1, 3, "bEPassword");
+NexButton bEClear         = NexButton(1, 2, "bEClear");
+NexButton bEOk            = NexButton(1, 1, "bEOk");             // ========== Object in F0_MainMenu ==========
 
-NexPage   pageF0          = NexPage(1, 0, "F0_MainMenu");       // ========== Object in F0_MainMenu ==========
-NexButton bF1             = NexButton(1, 1, "bF1");
-NexButton bF2             = NexButton(1, 2, "bF2");
-NexButton bF3             = NexButton(1, 3, "bF3");
-NexButton bF4             = NexButton(1, 4, "bF4");             // ========== Object in F0_MainMenu ==========
+NexPage   pageF0          = NexPage(2, 0, "F0_MainMenu");       // ========== Object in F0_MainMenu ==========
+NexButton bF1             = NexButton(2, 1, "bF1");
+NexButton bF2             = NexButton(2, 2, "bF2");
+NexButton bF3             = NexButton(2, 3, "bF3");
+NexButton bF4             = NexButton(2, 4, "bF4");             // ========== Object in F0_MainMenu ==========
 
-NexPage   pageF1A         = NexPage(2, 0, "F1A_PlayMenu");    // ========== Object in F1A_PlayMenu ==========
-NexButton bF1ABack        = NexButton(2, 5, "bF1ABack");
-NexButton bF1ANext        = NexButton(2, 4, "bF1ANext");
-NexButton bF1AMinus       = NexButton(2, 7, "bF1AMinus");
-NexButton bF1APlus        = NexButton(2, 8, "bF1APlus");
-NexNumber nF1ANum         = NexNumber(2, 6, "nF1ANum");       // ========== Object in F1A_PlayMenu ==========
+NexPage   pageF1A         = NexPage(3, 0, "F1A_PlayMenu");    // ========== Object in F1A_PlayMenu ==========
+NexButton bF1ABack        = NexButton(3, 5, "bF1ABack");
+NexButton bF1ANext        = NexButton(3, 4, "bF1ANext");
+NexButton bF1AMinus       = NexButton(3, 7, "bF1AMinus");
+NexButton bF1APlus        = NexButton(3, 8, "bF1APlus");
+NexNumber nF1ANum         = NexNumber(3, 6, "nF1ANum");       // ========== Object in F1A_PlayMenu ==========
 
-NexPage   pageF1B         = NexPage(3, 0, "F1B_Go");          // ========== Object in F1B_Go ==========
-NexNumber nF1BPrevID      = NexNumber(3, 5, "nF1BPrevID");
-NexNumber nF1BMode        = NexNumber(3, 14, "nF1BMode");
-NexNumber nF1BNextID      = NexNumber(3, 7, "nF1BNextID");
-NexButton bF1BCancel      = NexButton(3, 6, "bF1BCancel");
-NexButton bF1BPause       = NexButton(3, 8, "bF1BPause");
-NexButton bF1BGo          = NexButton(3, 9, "bF1BGo");        // ========== Object in F1B_Go ==========
+NexPage   pageF1B         = NexPage(4, 0, "F1B_Go");          // ========== Object in F1B_Go ==========
+//NexNumber nF1BPrevID      = NexNumber(4, 5, "nF1BPrevID");
+NexNumber nF1BMode        = NexNumber(4, 12, "nF1BMode");
+//NexNumber nF1BNextID      = NexNumber(4, 7, "nF1BNextID");
+NexButton bF1BCancel      = NexButton(4, 5, "bF1BCancel");
+NexButton bF1BPause       = NexButton(4, 6, "bF1BPause");
+NexButton bF1BGo          = NexButton(4, 7, "bF1BGo");        // ========== Object in F1B_Go ==========
 
-NexPage   pageF2A         = NexPage(4, 0, "F2A_LogicSet");    // ========== Object in F2A_LogicSet ==========
-NexButton bF2ABack        = NexButton(4, 4, "bF2ABack");
-NexButton bF2ANext        = NexButton(4, 3, "bF2ANext");
-NexButton bF2AUp          = NexButton(4, 20, "bF2AUp");
-NexButton bF2ADown        = NexButton(4, 21, "bF2ADown");     // ========== Object in F2A_LogicSet ==========
+NexPage   pageF2A         = NexPage(5, 0, "F2A_LogicSet");    // ========== Object in F2A_LogicSet ==========
+NexButton bF2ABack        = NexButton(5, 4, "bF2ABack");
+NexButton bF2ANext        = NexButton(5, 3, "bF2ANext");
+NexButton bF2AUp          = NexButton(5, 20, "bF2AUp");
+NexButton bF2ADown        = NexButton(5, 21, "bF2ADown");     // ========== Object in F2A_LogicSet ==========
 
-NexPage   pageF2B         = NexPage(5, 0, "F2B_LogicSet");    // ========== Object in F2B_LogicSet ==========
-NexButton bF2BBack        = NexButton(5, 4, "bF2BBack");
-NexButton bF2BSave        = NexButton(5, 3, "bF2BSave");
-NexText   tF2BNo          = NexText(5, 13, "tF2BNo");
-NexText   tF2BMode        = NexText(5, 12, "tF2BMode");
-NexText   tF2BType        = NexText(5, 14, "tF2BType");
-NexText   tF2BTrigger     = NexText(5, 15, "tF2BTrigger");
-NexText   tF2BAction      = NexText(5, 16, "tF2BAction");
-//NexButton bF2BChange      = NexButton(5, 17, "bF2BChange");
-NexButton bF2BUp          = NexButton(5, 5, "bF2BUp");
-NexButton bF2BDown        = NexButton(5, 6, "bF2BDown");      // ========== Object in F2B_LogicSet ==========
+NexPage   pageF2B         = NexPage(6, 0, "F2B_LogicSet");    // ========== Object in F2B_LogicSet ==========
+NexButton bF2BBack        = NexButton(6, 4, "bF2BBack");
+NexButton bF2BSave        = NexButton(6, 3, "bF2BSave");
+NexText   tF2BNo          = NexText(6, 13, "tF2BNo");
+NexText   tF2BMode        = NexText(6, 12, "tF2BMode");
+NexText   tF2BType        = NexText(6, 14, "tF2BType");
+NexText   tF2BTrigger     = NexText(6, 15, "tF2BTrigger");
+NexText   tF2BAction      = NexText(6, 16, "tF2BAction");
+NexButton bF2BUp          = NexButton(6, 5, "bF2BUp");
+NexButton bF2BDown        = NexButton(6, 6, "bF2BDown");      // ========== Object in F2B_LogicSet ==========
 
-NexPage   pageF3A         = NexPage(6, 0, "F3A_RFID_Data");   // ========== Object in F3A_RFID_Data ==========
-NexButton bF3ABack        = NexButton(6, 4, "bF3ABack");
-NexButton bF3ANext        = NexButton(6, 5, "bF3ANext");
-NexButton bF3ADown        = NexButton(6, 6, "bF3ADown");
-NexButton bF3AUp          = NexButton(6, 7, "bF3ANext");     // ========== Object in F3A_RFID_Data ==========
+NexPage   pageF3A         = NexPage(7, 0, "F3A_RFID_Data");   // ========== Object in F3A_RFID_Data ==========
+NexButton bF3ABack        = NexButton(7, 4, "bF3ABack");
+NexButton bF3ANext        = NexButton(7, 5, "bF3ANext");
+NexButton bF3ADown        = NexButton(7, 6, "bF3ADown");
+NexButton bF3AUp          = NexButton(7, 7, "bF3ANext");     // ========== Object in F3A_RFID_Data ==========
 
-NexPage   pageF3B         = NexPage(7, 0, "F3B_RFID_Data");   // ========== Object in F3B_RFID_Data ==========
-NexButton bF3BBack        = NexButton(7, 4, "bF3BBack");
-NexButton bF3BNext        = NexButton(7, 5, "bF3BNext");
-NexButton bF3BPrevID      = NexButton(7, 6, "bF3BSPrevID");
-NexButton bF3BNextID      = NexButton(7, 7, "bF3BNextID");
-NexButton bF3BSave        = NexButton(7, 8, "bF3BSave");      // ========== Object in F3B_RFID_Data ==========
+NexPage   pageF3B         = NexPage(8, 0, "F3B_RFID_Data");   // ========== Object in F3B_RFID_Data ==========
+NexButton bF3BBack        = NexButton(8, 4, "bF3BBack");
+NexButton bF3BNext        = NexButton(8, 5, "bF3BNext");
+NexButton bF3BPrevID      = NexButton(8, 6, "bF3BSPrevID");
+NexButton bF3BNextID      = NexButton(8, 7, "bF3BNextID");
+NexButton bF3BSave        = NexButton(8, 8, "bF3BSave");      // ========== Object in F3B_RFID_Data ==========
 
-NexPage   pageF3C         = NexPage(8, 0, "F3C_RFID_Data");   // ========== Object in F3C_RFID_Data ==========
-NexButton bF3CBack        = NexButton(8, 4, "bF3CBack");
-NexButton bF3CDelete      = NexButton(8, 5, "bF3CDelete");
-NexButton bF3CDown        = NexButton(8, 6, "bF3CPrevID");
-NexButton bF3CUp          = NexButton(8, 7, "bF3CNextID");     // ========== Object in F3C_RFID_Data ==========
+NexPage   pageF3C         = NexPage(9, 0, "F3C_RFID_Data");   // ========== Object in F3C_RFID_Data ==========
+NexButton bF3CBack        = NexButton(9, 4, "bF3CBack");
+NexButton bF3CDelete      = NexButton(9, 5, "bF3CDelete");
+NexButton bF3CDown        = NexButton(9, 6, "bF3CPrevID");
+NexButton bF3CUp          = NexButton(9, 7, "bF3CNextID");     // ========== Object in F3C_RFID_Data ==========
 
-NexPage   pageF3D         = NexPage(9, 0, "F3D_RFID_Data");   // ========== Object in F3D_RFID_Data ==========
-NexButton bF3DYes         = NexButton(9, 5, "bF3DYes");
-NexButton bF3DNo          = NexButton(9, 4, "bF3DNo");        // ========== Object in F3D_RFID_Data ==========
+NexPage   pageF3D         = NexPage(10, 0, "F3D_RFID_Data");   // ========== Object in F3D_RFID_Data ==========
+NexButton bF3DYes         = NexButton(10, 5, "bF3DYes");
+NexButton bF3DNo          = NexButton(10, 4, "bF3DNo");        // ========== Object in F3D_RFID_Data ==========
 
-NexPage   pageF4A         = NexPage(10, 0, "F4A_MachineSet");   // ========== Object in F4A_MachineSet ==========
-NexNumber nF4ASpeed       = NexNumber(10, 12, "nF4ASpeed");
-NexNumber nF4AAccel       = NexNumber(10, 13, "nF4AAccel");
-NexButton bF4ABack        = NexButton(10, 4, "bF4ABack");
-NexButton bF4ANext        = NexButton(10, 3, "bF4ANext");
-NexButton bF4AMinus       = NexButton(10, 10, "bF4AMinus");
-NexButton bF4APlus        = NexButton(10, 11, "bF4APlus");  // ========== Object in F4A_MachineSet ==========
+NexPage   pageF4A         = NexPage(11, 0, "F4A_MachineSet");   // ========== Object in F4A_MachineSet ==========
+NexNumber nF4ASpeed       = NexNumber(11, 12, "nF4ASpeed");
+NexNumber nF4AAccel       = NexNumber(11, 13, "nF4AAccel");
+NexButton bF4ABack        = NexButton(11, 4, "bF4ABack");
+NexButton bF4ANext        = NexButton(11, 3, "bF4ANext");
+NexButton bF4AMinus       = NexButton(11, 10, "bF4AMinus");
+NexButton bF4APlus        = NexButton(11, 11, "bF4APlus");  // ========== Object in F4A_MachineSet ==========
 
-NexPage   pageF4B         = NexPage(11, 0, "F4B_MachineSet");   // ========== Object in F4B_MachineSet ==========
-NexNumber nF4BGainP       = NexNumber(11, 14, "nF4BGainP");
-NexNumber nF4BGainI       = NexNumber(11, 15, "nF4BGainI");
-NexNumber nF4BGainD       = NexNumber(11, 16, "nF4BGainD");
-NexButton bF4BBack        = NexButton(11, 4, "bF4BBack");
-NexButton bF4BNext        = NexButton(11, 3, "bF4BNext");
-NexButton bF4BMinus       = NexButton(11, 10, "bF4BMinus");
-NexButton bF4BPlus        = NexButton(11, 11, "bF4BPlus");      // ========== Object in F4B_MachineSet ==========
+NexPage   pageF4B         = NexPage(12, 0, "F4B_MachineSet");   // ========== Object in F4B_MachineSet ==========
+NexNumber nF4BGainP       = NexNumber(12, 14, "nF4BGainP");
+NexNumber nF4BGainI       = NexNumber(12, 15, "nF4BGainI");
+NexNumber nF4BGainD       = NexNumber(12, 16, "nF4BGainD");
+NexButton bF4BBack        = NexButton(12, 4, "bF4BBack");
+NexButton bF4BNext        = NexButton(12, 3, "bF4BNext");
+NexButton bF4BMinus       = NexButton(12, 10, "bF4BMinus");
+NexButton bF4BPlus        = NexButton(12, 11, "bF4BPlus");      // ========== Object in F4B_MachineSet ==========
 
-NexPage   pageF4C         = NexPage(12, 0, "F4C_MachineSet");   // ========== Object in F4C_MachineSet ==========
-NexButton bF4CBack        = NexButton(12, 6, "bF4CBack");
-NexButton bF4CNext        = NexButton(12, 7, "bF4CNext");
-NexButton bF4CMinus       = NexButton(12, 10, "bF4BMinus");
-NexButton bF4CPlus        = NexButton(12, 11, "bF4BPlus");
-NexButton bF4CPrevDist    = NexButton(12, 8, "bF4CPrevDist");
-NexButton bF4CNextDist    = NexButton(12, 9, "bF4CNextDist");
-NexNumber nF4CNoRefDist   = NexNumber(12, 4, "nF4CNoRefDist");  // referensi distance
-NexNumber nF4CRefDist     = NexNumber(12, 5, "nF4CRefDist");   // ========== Object in F4C_MachineSet ==========
+NexPage   pageF4C         = NexPage(13, 0, "F4C_MachineSet");   // ========== Object in F4C_MachineSet ==========
+NexButton bF4CBack        = NexButton(13, 6, "bF4CBack");
+NexButton bF4CNext        = NexButton(13, 7, "bF4CNext");
+NexButton bF4CMinus       = NexButton(13, 10, "bF4BMinus");
+NexButton bF4CPlus        = NexButton(13, 11, "bF4BPlus");
+NexButton bF4CPrevDist    = NexButton(13, 8, "bF4CPrevDist");
+NexButton bF4CNextDist    = NexButton(13, 9, "bF4CNextDist");
+NexNumber nF4CNoRefDist   = NexNumber(13, 4, "nF4CNoRefDist");  // referensi distance
+NexNumber nF4CRefDist     = NexNumber(13, 5, "nF4CRefDist");   // ========== Object in F4C_MachineSet ==========
 
-NexPage       pageF4D     = NexPage(13, 0, "F4D_MachineSet");   // ========== Object in F4D_MachineSet ==========
-NexText       tF4DDI00    = NexText(13, 3, "tF4DDI00");
-NexText       tF4DDI01    = NexText(13, 4, "tF4DDI01");
-NexText       tF4DDI02    = NexText(13, 5, "tF4DDI02");
-NexText       tF4DDI03    = NexText(13, 7, "tF4DDI03");
-NexText       tF4DDI04    = NexText(13, 8, "tF4DDI04");
-NexDSButton   btF4DDO00   = NexDSButton(13, 11, "btF4DDO00");
-NexDSButton   btF4DDO01   = NexDSButton(13, 12, "btF4DDO01");
-NexDSButton   btF4DDO02   = NexDSButton(13, 13, "btF4DDO02");
-NexDSButton   btF4DDO03   = NexDSButton(13, 14, "btF4DDO03");
-NexDSButton   btF4DDO04   = NexDSButton(13, 15, "btF4DDO04");
-NexButton     bF4DBack    = NexButton(13, 9, "bF4DBack");
-NexButton     bF4DNext    = NexButton(13, 10, "bF4DNext");// ========== Object in F4D_MachineSet ==========
+NexPage       pageF4D     = NexPage(14, 0, "F4D_MachineSet");   // ========== Object in F4D_MachineSet ==========
+NexText       tF4DDI00    = NexText(14, 3, "tF4DDI00");
+NexText       tF4DDI01    = NexText(14, 4, "tF4DDI01");
+NexText       tF4DDI02    = NexText(14, 5, "tF4DDI02");
+NexText       tF4DDI03    = NexText(14, 7, "tF4DDI03");
+NexText       tF4DDI04    = NexText(14, 8, "tF4DDI04");
+NexDSButton   btF4DDO00   = NexDSButton(14, 11, "btF4DDO00");
+NexDSButton   btF4DDO01   = NexDSButton(14, 12, "btF4DDO01");
+NexDSButton   btF4DDO02   = NexDSButton(14, 13, "btF4DDO02");
+NexDSButton   btF4DDO03   = NexDSButton(14, 14, "btF4DDO03");
+NexDSButton   btF4DDO04   = NexDSButton(14, 15, "btF4DDO04");
+NexButton     bF4DBack    = NexButton(14, 9, "bF4DBack");
+NexButton     bF4DNext    = NexButton(14, 10, "bF4DNext");// ========== Object in F4D_MachineSet ==========
 
-NexPage   pageF4E         = NexPage(14, 0, "F4E_MachineSet");   // ========== Object in F4E_MachineSet ==========
-NexButton bF4EBack        = NexButton(14, 3, "bF4EBack");
-NexGauge  zF4ELineSensor  = NexGauge(14, 5, "zF4ELineSensor");
-NexText   tF4ELineSensor  = NexText(14, 6, "tF4ELineSensor");  // ========== Object in F4E_MachineSet ==========
+NexPage   pageF4E         = NexPage(15, 0, "F4E_MachineSet");   // ========== Object in F4E_MachineSet ==========
+NexButton bF4EBack        = NexButton(15, 3, "bF4EBack");
+NexGauge  zF4ELineSensor  = NexGauge(15, 5, "zF4ELineSensor");
+NexText   tF4ELineSensor  = NexText(15, 6, "tF4ELineSensor");  // ========== Object in F4E_MachineSet ==========
 
 NexTouch *nex_listen_list_E_Password[]      = {&pageE, &bEPassword, &bEClear, &bEOk, NULL};                                   // ========== list of E_Password ==========
 NexTouch *nex_listen_list_F0_MainMenu[]     = {&pageF0, &bF1, &bF2, &bF3, &bF4,NULL};                                   // ========== list of F0_MainMenu ==========

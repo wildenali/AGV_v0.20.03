@@ -7,11 +7,11 @@
 #include "RFID_Data.h"
 #include "E.h"
 #include "F0.h"
-#include "F1.h"
+//#include "F1.h"
 #include "F2.h"
 #include "F3.h"
 #include "F4.h"
-
+#include "F1.h"
 
 
 
@@ -41,74 +41,142 @@ void setup() {
     digitalWrite(digitalOutput[i], LOW);
   }
 
-  dummyIdRFID[0]  = "";
-  
-  for(int i = 1; i < (sizeof(dummyIdRFID) / sizeof(dummyIdRFID[0])); i++)
+/*  // ====================== RESET DATA ======================
+  for(int i = 0; i <= jumlahData ; i++){
+    mode = 0;
+    type = 0;
+    trigger = 0;
+    action = 0;
+    EEPROM.write(addressGmodeKe[i], mode);
+    EEPROM.write(addressGtypeKe[i], type);
+    EEPROM.write(addressGtriggerKe[i], trigger);
+    EEPROM.write(addressGactionKe[i], action);
+    
+//    EEPROM_writeString(addressGidRFID[i], "");
+  }
+*/  // ====================== RESET DATA ======================
+
+/*  // =========== dummy id RFID untuk testing ===========
+    idRFID[1]  = "2000000001";  idRFID[11] = "2000000011";  idRFID[21] = "2000000021";
+    idRFID[2]  = "2000000002";  idRFID[12] = "2000000012";  idRFID[22] = "2000000022";
+    idRFID[3]  = "2000000003";  idRFID[13] = "2000000013";  idRFID[23] = "2000000023";
+    idRFID[4]  = "2000000004";  idRFID[14] = "2000000014";  idRFID[24] = "2000000024";
+    idRFID[5]  = "2000000005";  idRFID[15] = "2000000015";  idRFID[25] = "2000000025";
+    idRFID[6]  = "2000000006";  idRFID[16] = "2000000016";  idRFID[26] = "2000000026";
+    idRFID[7]  = "2000000007";  idRFID[17] = "2000000017";  idRFID[27] = "2000000027";
+    idRFID[8]  = "2000000008";  idRFID[18] = "2000000018";  idRFID[28] = "2000000028";
+    idRFID[9]  = "2000000009";  idRFID[19] = "2000000019";  idRFID[29] = "2000000029";
+    idRFID[10] = "2000000010";  idRFID[20] = "2000000020";  idRFID[30] = "2000000030";
+    EEPROM_writeString(addressGidRFID[0], "0"); 
+    for(int i = 1; i <= jumlahData; i++){
+      EEPROM_writeString(addressGidRFID[i], idRFID[i]); 
+    }
+*/  // =========== dummy id RFID untuk testing ===========
+
+  for(int i = 1; i < (sizeof(idRFID) / sizeof(idRFID[0])); i++)
   {
-    dummyIdRFID[i] = EEPROM_readString(addressGidRFID[i]);
+    idRFID[i] = EEPROM_readString(addressGidRFID[i]);
+    Serial.println(idRFID[i]);
   }
 
-  dummyIdRFID[1]  = "1000000001";
-  dummyIdRFID[2]  = "1000000002";
-  dummyIdRFID[3]  = "1000000003";
-  dummyIdRFID[4]  = "1000000004";
-  dummyIdRFID[5]  = "1000000005";
-  dummyIdRFID[6]  = "1000000006";
-  dummyIdRFID[7]  = "1000000007";
-  dummyIdRFID[8]  = "1000000008";
-  dummyIdRFID[9]  = "1000000009";
-  dummyIdRFID[10] = "1000000010";
-  dummyIdRFID[11] = "1000000011";
-
-//EEPROM.write(addressGnoKe[1],  1); EEPROM.write(addressGmodeKe[1],  1); EEPROM.write(addressGtypeKe[1],  1); EEPROM.write(addressGtriggerKe[1],  1);  EEPROM.write(addressGactionKe[1],  1);
-//EEPROM.write(addressGnoKe[2],  2); EEPROM.write(addressGmodeKe[2],  2); EEPROM.write(addressGtypeKe[2],  1); EEPROM.write(addressGtriggerKe[2],  2);  EEPROM.write(addressGactionKe[2],  2);
-//EEPROM.write(addressGnoKe[3],  3); EEPROM.write(addressGmodeKe[3],  3); EEPROM.write(addressGtypeKe[3],  2); EEPROM.write(addressGtriggerKe[3], 11);  EEPROM.write(addressGactionKe[3],  3);
-//EEPROM.write(addressGnoKe[4],  4); EEPROM.write(addressGmodeKe[4],  4); EEPROM.write(addressGtypeKe[4],  2); EEPROM.write(addressGtriggerKe[4], 10);  EEPROM.write(addressGactionKe[4],  4);
-//EEPROM.write(addressGnoKe[5],  5); EEPROM.write(addressGmodeKe[5],  5); EEPROM.write(addressGtypeKe[5],  3); EEPROM.write(addressGtriggerKe[5], 21);  EEPROM.write(addressGactionKe[5],  5);
-//EEPROM.write(addressGnoKe[6],  6); EEPROM.write(addressGmodeKe[6],  1); EEPROM.write(addressGtypeKe[6],  1); EEPROM.write(addressGtriggerKe[6],  4);  EEPROM.write(addressGactionKe[6],  6);
-//EEPROM.write(addressGnoKe[7],  7); EEPROM.write(addressGmodeKe[7],  2); EEPROM.write(addressGtypeKe[7],  1); EEPROM.write(addressGtriggerKe[7],  5);  EEPROM.write(addressGactionKe[7],  7);
-//EEPROM.write(addressGnoKe[8],  8); EEPROM.write(addressGmodeKe[8],  3); EEPROM.write(addressGtypeKe[8],  2); EEPROM.write(addressGtriggerKe[8], 20);  EEPROM.write(addressGactionKe[8],  8);
-//EEPROM.write(addressGnoKe[9],  9); EEPROM.write(addressGmodeKe[9],  4); EEPROM.write(addressGtypeKe[9],  3); EEPROM.write(addressGtriggerKe[9], 30);  EEPROM.write(addressGactionKe[9],  9);
-//EEPROM.write(addressGnoKe[10], 10); EEPROM.write(addressGmodeKe[10], 5); EEPROM.write(addressGtypeKe[10], 3); EEPROM.write(addressGtriggerKe[10],41);  EEPROM.write(addressGactionKe[10], 1);  
-//  for(int i = 1; i < (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])); i++)
-//  {
-//    noKe[i]       = EEPROM.read(addressGnoKe[i]);
-//    modeKe[i]     = EEPROM.read(addressGmodeKe[i]);
-//    typeKe[i]     = EEPROM.read(addressGtypeKe[i]);
-//    triggerKe[i]  = EEPROM.read(addressGtriggerKe[i]);
-//    actionKe[i]   = EEPROM.read(addressGactionKe[i]);
-//
-//    Serial.print(noKe[i]);        Serial.print("_");
-//    Serial.print(modeKe[i]);        Serial.print("_");
-//    Serial.print(typeKe[i]);        Serial.print("_");
-//    Serial.print(triggerKe[i]);     Serial.print("_");
-//    Serial.print(actionKe[i]);      Serial.print("\n");
-//  }
-
-  
-  for(int i = 1; i < (sizeof(addressGmodeKe) / sizeof(addressGmodeKe[0])); i++)//  for(int i = 1; i < (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])); i++)
+// ====================== READ DATA ======================
+  for(int i = 1; i <= jumlahData ; i++)
   {
-//    noKe[i]       = 0;
-    modeKe[i]     = 0;
-    typeKe[i]     = 0;
-    triggerKe[i]  = 0;
-    actionKe[i]   = 0;
-    
-//    Serial.print(noKe[i]);          Serial.print("_");
+    modeKe[i]     = EEPROM.read(addressGmodeKe[i]);
+    typeKe[i]     = EEPROM.read(addressGtypeKe[i]);
+    triggerKe[i]  = EEPROM.read(addressGtriggerKe[i]);
+    actionKe[i]   = EEPROM.read(addressGactionKe[i]);
+
+    Serial.print(i);                Serial.print("_");
     Serial.print(modeKe[i]);        Serial.print("_");
     Serial.print(typeKe[i]);        Serial.print("_");
     Serial.print(triggerKe[i]);     Serial.print("_");
     Serial.print(actionKe[i]);      Serial.print("\n");
   }
-  
+// ====================== READ DATA ======================
+
+/*  // Contoh sampe data  
+  for(int i = 1; i < (sizeof(addressGmodeKe) / sizeof(addressGmodeKe[0])); i++)//  for(int i = 1; i < (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])); i++)
+  {
+    modeKe[i]     = 0;
+    typeKe[i]     = 0;
+    triggerKe[i]  = 0;
+    actionKe[i]   = 0;
+    
+    Serial.print(i);                Serial.print("_");
+    Serial.print(modeKe[i]);        Serial.print("_");
+    Serial.print(typeKe[i]);        Serial.print("_");
+    Serial.print(triggerKe[i]);     Serial.print("_");
+    Serial.print(actionKe[i]);      Serial.print("\n");
+  }
+  // ============= CONTOH SAMPLE AJA ======================
+  modeKe[1] = 1;
+  modeKe[2] = 1;
+  modeKe[3] = 1;
+  modeKe[4] = 1;
+  modeKe[5] = 1;
+  modeKe[6] = 2;
+  modeKe[7] = 2;
+  modeKe[8] = 2;
+  modeKe[9] = 0;
+  modeKe[10] = 0;
+  for(int i = 11; i <= jumlahData; i++){
+    modeKe[i] = 0;
+  }
+
+  typeKe[1] = 1;
+  typeKe[2] = 1;
+  typeKe[3] = 2;
+  typeKe[4] = 2;
+  typeKe[5] = 3;
+  typeKe[6] = 1;
+  typeKe[7] = 1;
+  typeKe[8] = 2;
+  typeKe[9] = 0;
+  typeKe[10] = 0;
+  for(int i = 11; i <= jumlahData; i++){
+    typeKe[i] = 0;
+  }
+
+  triggerKe[1] = 1;
+  triggerKe[2] = 2;
+  triggerKe[3] = 1;
+  triggerKe[4] = 5;
+  triggerKe[5] = 10;
+  triggerKe[6] = 4;
+  triggerKe[7] = 7;
+  triggerKe[8] = 3;
+  triggerKe[9] = 0;
+  triggerKe[10] = 0;
+  for(int i = 11; i <= jumlahData; i++){
+    triggerKe[i] = 0;
+  }
+
+  actionKe[1] = 1;
+  actionKe[2] = 2;
+  actionKe[3] = 10;
+  actionKe[4] = 15;
+  actionKe[5] = 18;
+  actionKe[6] = 5;
+  actionKe[7] = 3;
+  actionKe[8] = 7;
+  actionKe[9] = 0;
+  actionKe[10] = 0;
+  for(int i = 11; i <= jumlahData; i++){
+    actionKe[i] = 0;
+  }
+  // ============= CONTOH SAMPLE AJA ======================
+*/
+
   Menu = E;
-  
+
+//  delay(3000);
+
 }
 
 void loop() {
   nexLoop(nex_listen_list_F0_MainMenu);  
   Serial.println("Menu Utama");
-//  Serial.println(Menu);
   
   switch(Menu){
     case E:

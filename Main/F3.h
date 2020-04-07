@@ -32,21 +32,21 @@ void F3A_RFID_Data(){
 
   Serial2.print("tF3ARFIDA.txt=");
   Serial2.print("\"");
-  Serial2.print(dummyIdRFID[noA]);
+  Serial2.print(idRFID[noA]);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.print("tF3ARFIDB.txt=");
   Serial2.print("\"");
-  Serial2.print(dummyIdRFID[noB]);
+  Serial2.print(idRFID[noB]);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.print("tF3ARFIDC.txt=");
   Serial2.print("\"");
-  Serial2.print(dummyIdRFID[noC]);
+  Serial2.print(idRFID[noC]);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -100,21 +100,21 @@ void F3A_RFID_Data(){
       
         Serial2.print("tF3ARFIDA.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noA]);
+        Serial2.print(idRFID[noA]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.print("tF3ARFIDB.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noB]);
+        Serial2.print(idRFID[noB]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.print("tF3ARFIDC.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noC]);
+        Serial2.print(idRFID[noC]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
@@ -146,21 +146,21 @@ void F3A_RFID_Data(){
 
         Serial2.print("tF3ARFIDA.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noA]);
+        Serial2.print(idRFID[noA]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.print("tF3ARFIDB.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noB]);
+        Serial2.print(idRFID[noB]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.print("tF3ARFIDC.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noC]);
+        Serial2.print(idRFID[noC]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
@@ -192,21 +192,21 @@ void F3A_RFID_Data(){
 
         Serial2.print("tF3ARFIDA.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noA]);
+        Serial2.print(idRFID[noA]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.print("tF3ARFIDB.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noB]);
+        Serial2.print(idRFID[noB]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.print("tF3ARFIDC.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noC]);
+        Serial2.print(idRFID[noC]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
@@ -232,7 +232,7 @@ void F3B_RFID_Data(){
 
   Serial2.print("tF3BRFID.txt=");
   Serial2.print("\"");
-  Serial2.print(dummyIdRFID[noID]);
+  Serial2.print(idRFID[noID]);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -271,7 +271,7 @@ void F3B_RFID_Data(){
 
         Serial2.print("tF3BRFID.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print(idRFID[noID]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
@@ -291,7 +291,7 @@ void F3B_RFID_Data(){
 
         Serial2.print("tF3BRFID.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print(idRFID[noID]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
@@ -311,7 +311,7 @@ void F3B_RFID_Data(){
         
         Serial2.print("tF3BRFID.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print(idRFID[noID]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
@@ -327,17 +327,17 @@ void F3B_RFID_Data(){
         Serial2.write(0xff);
         Serial2.write(0xff);
 
-        dummyIdRFID[noID] = dummyDataRFID();
+        idRFID[noID] = dummyDataRFID();
         
         Serial2.print("tF3BRFID.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print(idRFID[noID]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.write(0xff);
-//        EEPROM.update(addressGidRFID[noID], dummyIdRFID[noID]); 
-        EEPROM_writeString(addressGidRFID[noID], dummyIdRFID[noID]);
+//        EEPROM.update(addressGidRFID[noID], idRFID[noID]); 
+        EEPROM_writeString(addressGidRFID[noID], idRFID[noID]);
         break;
       default:
         break;
@@ -359,7 +359,7 @@ void F3C_RFID_Data(){
 
   Serial2.print("tF3CRFID.txt=");
   Serial2.print("\"");
-  Serial2.print(dummyIdRFID[noID]);
+  Serial2.print(idRFID[noID]);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -388,7 +388,7 @@ void F3C_RFID_Data(){
 
         Serial2.print("tF3CRFID.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print(idRFID[noID]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
@@ -408,7 +408,7 @@ void F3C_RFID_Data(){
 
         Serial2.print("tF3CRFID.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print(idRFID[noID]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
@@ -428,7 +428,7 @@ void F3C_RFID_Data(){
 
         Serial2.print("tF3CRFID.txt=");
         Serial2.print("\"");
-        Serial2.print(dummyIdRFID[noID]);
+        Serial2.print(idRFID[noID]);
         Serial2.print("\"");
         Serial2.write(0xff);
         Serial2.write(0xff);
@@ -452,7 +452,7 @@ void F3D_RFID_Data(){
 
   Serial2.print("tF3DRFID.txt=");
   Serial2.print("\"");
-  Serial2.print(dummyIdRFID[noID]);
+  Serial2.print(idRFID[noID]);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -465,10 +465,9 @@ void F3D_RFID_Data(){
         Tombol = tIDLE;
         Serial.println("bF3DYes");
         
-        dummyIdRFID[noID] = "";
-        EEPROM_writeString(addressGidRFID[noID], dummyIdRFID[noID]);
+        idRFID[noID] = "";
+        EEPROM_writeString(addressGidRFID[noID], idRFID[noID]);
 
-        
         return false;
         break;
       case tNO:

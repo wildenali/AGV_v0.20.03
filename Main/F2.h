@@ -44,37 +44,33 @@ void TypeF2B(int typeInt);
 void TriggerF2B(int triggerInt);
 void ActionF2B(int actionInt);
 
-  void sample();
+void pilihTeks();
+void sample();
   
-  bool LtexNo = false;
-  bool LtexMode = false;
-  bool LtexType = false;
-  bool LtexTrigger = false;
-  bool LtexAction = false;
+bool LtexNo = false;
+bool LtexMode = false;
+bool LtexType = false;
+bool LtexTrigger = false;
+bool LtexAction = false;
 
-  
-  void pilihTeks();
 
-  int no;
-  int mode;
-  int type;
-  int trigger;
-  int action;
 
-//  int noKe[jumlahData+1];
-  int noKe;
-  
-  int modeKe[jumlahData+1];   // kenapa ada 10, karena maksimal data nya ada 10, 1 untuk buffer aja, biar dimulainya tidak dari 0 si array nya   
-  int typeKe[jumlahData+1];
-  int triggerKe[jumlahData+1];
-  int actionKe[jumlahData+1];
+
+int no;
+int mode;
+int type;
+int trigger;
+int action;
+
+int modeKe[jumlahData+1];   // kenapa ada 10, karena maksimal data nya ada 10, 1 untuk buffer aja, biar dimulainya tidak dari 0 si array nya   
+int typeKe[jumlahData+1];
+int triggerKe[jumlahData+1];
+int actionKe[jumlahData+1];
 
         
 void F2A_LogicSet(){
   pageF2A.show();
   Serial.println("F2A_LogicSet");
-    
-  // ============= CONTOH SAMPLE AJA ======================
   int numA = 1;
   int numB = 2;
   int numC = 3;
@@ -82,60 +78,6 @@ void F2A_LogicSet(){
   int numE = 5;
   
 
-  modeKe[1] = 2;
-  modeKe[2] = 2;
-  modeKe[3] = 1;
-  modeKe[4] = 1;
-  modeKe[5] = 1;
-  modeKe[6] = 0;
-  modeKe[7] = 0;
-  modeKe[8] = 0;
-  modeKe[9] = 0;
-  modeKe[10] = 0;
-  modeKe[11] = 0;
-
-  typeKe[1] = 1;
-  typeKe[2] = 1;
-  typeKe[3] = 0;
-  typeKe[4] = 2;
-  typeKe[5] = 3;
-  typeKe[6] = 0;
-  typeKe[7] = 0;
-  typeKe[8] = 0;
-  typeKe[9] = 0;
-  typeKe[10] = 0;
-  typeKe[11] = 0;
-
-  triggerKe[1] = 1;
-  triggerKe[2] = 2;
-  triggerKe[3] = 0;
-  triggerKe[4] = 5;
-  triggerKe[5] = 10;
-  triggerKe[6] = 0;
-  triggerKe[7] = 0;
-  triggerKe[8] = 0;
-  triggerKe[9] = 0;
-  triggerKe[10] = 0;
-  triggerKe[11] = 0;
-
-  actionKe[1] = 1;
-  actionKe[2] = 2;
-  actionKe[3] = 0;
-  actionKe[4] = 15;
-  actionKe[5] = 18;
-  actionKe[6] = 0;
-  actionKe[7] = 0;
-  actionKe[8] = 0;
-  actionKe[9] = 0;
-  actionKe[10] = 0;
-  actionKe[11] = 0;
-  // ============= CONTOH SAMPLE AJA ======================
-
-//  NoF2A(noKe[1],                  noKe[2],              noKe[3],              noKe[4],              noKe[5]);
-//  ModeF2A(modeKe[noKe[1]],        modeKe[noKe[2]],      modeKe[noKe[3]],      modeKe[noKe[4]],      modeKe[noKe[5]]);
-//  TypeF2A(typeKe[noKe[1]],        typeKe[noKe[2]],      typeKe[noKe[3]],      typeKe[noKe[4]],      typeKe[noKe[5]]);
-//  TriggerF2A(triggerKe[noKe[1]],  triggerKe[noKe[2]],   triggerKe[noKe[3]],   triggerKe[noKe[4]],   triggerKe[noKe[5]]);
-//  ActionF2A(actionKe[noKe[1]],    actionKe[noKe[2]],    actionKe[noKe[3]],    actionKe[noKe[4]],    actionKe[noKe[5]]);
   NoF2A(numA,                  numB,              numC,              numD,              numE);
   ModeF2A(modeKe[numA],        modeKe[numB],      modeKe[numC],      modeKe[numD],      modeKe[numE]);
   TypeF2A(typeKe[numA],        typeKe[numB],      typeKe[numC],      typeKe[numD],      typeKe[numE]);
@@ -159,11 +101,6 @@ void F2A_LogicSet(){
         pageF2A.show();
         Serial.println("F2A_LogicSet");
         
-//        NoF2A(noKe[1],                  noKe[2],              noKe[3],              noKe[4],              noKe[5]);
-//        ModeF2A(modeKe[noKe[1]],        modeKe[noKe[2]],      modeKe[noKe[3]],      modeKe[noKe[4]],      modeKe[noKe[5]]);
-//        TypeF2A(typeKe[noKe[1]],        typeKe[noKe[2]],      typeKe[noKe[3]],      typeKe[noKe[4]],      typeKe[noKe[5]]);
-//        TriggerF2A(triggerKe[noKe[1]],  triggerKe[noKe[2]],   triggerKe[noKe[3]],   triggerKe[noKe[4]],   triggerKe[noKe[5]]);
-//        ActionF2A(actionKe[noKe[1]],    actionKe[noKe[2]],    actionKe[noKe[3]],    actionKe[noKe[4]],    actionKe[noKe[5]]);
         NoF2A(numA,                  numB,              numC,              numD,              numE);
         ModeF2A(modeKe[numA],        modeKe[numB],      modeKe[numC],      modeKe[numD],      modeKe[numE]);
         TypeF2A(typeKe[numA],        typeKe[numB],      typeKe[numC],      typeKe[numD],      typeKe[numE]);
@@ -175,22 +112,12 @@ void F2A_LogicSet(){
         Tombol = tIDLE;
         Serial.println("bF2ADown");
 
-//        noKe[1]++;        if(noKe[1] >= jumlahData - 4)       noKe[1] = jumlahData - 4;
-//        noKe[2]++;        if(noKe[2] >= jumlahData - 3)       noKe[2] = jumlahData - 3;
-//        noKe[3]++;        if(noKe[3] >= jumlahData - 2)       noKe[3] = jumlahData - 2;
-//        noKe[4]++;        if(noKe[4] >= jumlahData - 1)       noKe[4] = jumlahData - 1;
-//        noKe[5]++;        if(noKe[5] >= jumlahData)           noKe[5] = jumlahData;
         numA++;        if(numA >= jumlahData - 4)       numA = jumlahData - 4;
         numB++;        if(numB >= jumlahData - 3)       numB = jumlahData - 3;
         numC++;        if(numC >= jumlahData - 2)       numC = jumlahData - 2;
         numD++;        if(numD >= jumlahData - 1)       numD = jumlahData - 1;
         numE++;        if(numE >= jumlahData)           numE = jumlahData;
         
-//        NoF2A(noKe[1],                  noKe[2],              noKe[3],              noKe[4],              noKe[5]);
-//        ModeF2A(modeKe[noKe[1]],        modeKe[noKe[2]],      modeKe[noKe[3]],      modeKe[noKe[4]],      modeKe[noKe[5]]);
-//        TypeF2A(typeKe[noKe[1]],        typeKe[noKe[2]],      typeKe[noKe[3]],      typeKe[noKe[4]],      typeKe[noKe[5]]);
-//        TriggerF2A(triggerKe[noKe[1]],  triggerKe[noKe[2]],   triggerKe[noKe[3]],   triggerKe[noKe[4]],   triggerKe[noKe[5]]);
-//        ActionF2A(actionKe[noKe[1]],    actionKe[noKe[2]],    actionKe[noKe[3]],    actionKe[noKe[4]],    actionKe[noKe[5]]);
         NoF2A(numA,                  numB,              numC,              numD,              numE);
         ModeF2A(modeKe[numA],        modeKe[numB],      modeKe[numC],      modeKe[numD],      modeKe[numE]);
         TypeF2A(typeKe[numA],        typeKe[numB],      typeKe[numC],      typeKe[numD],      typeKe[numE]);
@@ -202,22 +129,12 @@ void F2A_LogicSet(){
         Tombol = tIDLE;
         Serial.println("bF2AUp");
         
-//        noKe[1]--;        if(noKe[1] <= 1)       noKe[1] = 1;
-//        noKe[2]--;        if(noKe[2] <= 2)       noKe[2] = 2;
-//        noKe[3]--;        if(noKe[3] <= 3)       noKe[3] = 3;
-//        noKe[4]--;        if(noKe[4] <= 4)       noKe[4] = 4;
-//        noKe[5]--;        if(noKe[5] <= 5)       noKe[5] = 5;
         numA--;        if(numA <= 1)       numA = 1;
         numB--;        if(numB <= 2)       numB = 2;
         numC--;        if(numC <= 3)       numC = 3;
         numD--;        if(numD <= 4)       numD = 4;
         numE--;        if(numE <= 5)       numE = 5;
         
-//        NoF2A(noKe[1],                  noKe[2],              noKe[3],              noKe[4],              noKe[5]);
-//        ModeF2A(modeKe[noKe[1]],        modeKe[noKe[2]],      modeKe[noKe[3]],      modeKe[noKe[4]],      modeKe[noKe[5]]);
-//        TypeF2A(typeKe[noKe[1]],        typeKe[noKe[2]],      typeKe[noKe[3]],      typeKe[noKe[4]],      typeKe[noKe[5]]);
-//        TriggerF2A(triggerKe[noKe[1]],  triggerKe[noKe[2]],   triggerKe[noKe[3]],   triggerKe[noKe[4]],   triggerKe[noKe[5]]);
-//        ActionF2A(actionKe[noKe[1]],    actionKe[noKe[2]],    actionKe[noKe[3]],    actionKe[noKe[4]],    actionKe[noKe[5]]);
         NoF2A(numA,                  numB,              numC,              numD,              numE);
         ModeF2A(modeKe[numA],        modeKe[numB],      modeKe[numC],      modeKe[numD],      modeKe[numE]);
         TypeF2A(typeKe[numA],        typeKe[numB],      typeKe[numC],      typeKe[numD],      typeKe[numE]);
@@ -248,7 +165,7 @@ void F2B_LogicSet(){
   ActionF2B(action);
 
   
-  Teks = teksNo;   // kondisi awal yg aktfi si numF4ASpeed
+  Teks = teksNo;
   LtexNo = true;
   LtexMode = true;
   LtexType = true;
@@ -271,14 +188,18 @@ void F2B_LogicSet(){
         Serial.println("bF2BDown");
         if(LtexNo)
         {
-//          no++;     if(no >= (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])) - 1)     no = (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])) - 1;   // untuk sample batasin dulu sampai 10 dlu aja
           no++;     if(no >= jumlahData)     no = jumlahData;   // untuk sample batasin dulu sampai 10 dlu aja
           NoF2B(no);
           ModeF2B(modeKe[no]);
           TypeF2B(typeKe[no]);
-          Serial.println(typeKe[no]);
           TriggerF2B(triggerKe[no]); 
           ActionF2B(actionKe[no]);
+          
+//          Serial.print(no);                Serial.print("_");
+//          Serial.print(modeKe[no]);        Serial.print("_");
+//          Serial.print(typeKe[no]);        Serial.print("_");
+//          Serial.print(triggerKe[no]);     Serial.print("_");
+//          Serial.print(actionKe[no]);      Serial.print("\n");
         }
         if(LtexMode)
         {
@@ -291,7 +212,10 @@ void F2B_LogicSet(){
           type++;      if(type >= 3)      type = 3;    // edit disini dulu
           typeKe[no] = type;
           TypeF2B(typeKe[no]);
-          
+
+//          trigger = 0;
+//          triggerKe[no] = trigger;
+//          trigger = 0;
           triggerKe[no] = 1;
           TriggerF2B(triggerKe[no]);
         }
@@ -300,7 +224,7 @@ void F2B_LogicSet(){
           trigger++;
           if(type == 1)
           {
-            if(trigger >= (sizeof(dummyIdRFID) / sizeof(dummyIdRFID[0])) - 1)     trigger = (sizeof(dummyIdRFID) / sizeof(dummyIdRFID[0])) - 1;
+            if(trigger >= (sizeof(idRFID) / sizeof(idRFID[0])) - 1)     trigger = (sizeof(idRFID) / sizeof(idRFID[0])) - 1;
           }
           else if(type == 2 || type == 3)
           {
@@ -321,7 +245,7 @@ void F2B_LogicSet(){
         Serial.println("bF2BUp");
         if(LtexNo)
         {
-          no--;      if(no <= 1)     no = 1;
+          no--;      if(no <= 0)     no = 0;
           NoF2B(no);
           ModeF2B(modeKe[no]);
           TypeF2B(typeKe[no]);
@@ -330,28 +254,28 @@ void F2B_LogicSet(){
         }
         if(LtexMode)
         {
-          mode--;      if(mode <= 1)     mode = 1;
+          mode--;      if(mode <= 0)     mode = 0;
           modeKe[no] = mode;
           ModeF2B(modeKe[no]);
         }
         if(LtexType)
         {
-          type--;      if(type <= 1)     type = 1;
+          type--;      if(type <= 0)     type = 0;
           typeKe[no] = type;
           TypeF2B(typeKe[no]);
-
+          
           triggerKe[no] = 1;
           TriggerF2B(triggerKe[no]);
         }
         if(LtexTrigger)
         {
-          trigger--;  if(trigger <= 1)     trigger = 1;
+          trigger--;  if(trigger <= 0)  trigger = 0;
           triggerKe[no] = trigger;
           TriggerF2B(triggerKe[no]);
         }
         if(LtexAction)
         {
-          action--;    if(action <= 1) action = 1;
+          action--;    if(action <= 0) action = 0;
           actionKe[no] = action;
           ActionF2B(actionKe[no]);
         }
@@ -365,14 +289,22 @@ void F2B_LogicSet(){
         Serial.print(trigger);              Serial.print(" ");
         Serial.print(action);               Serial.print("\n\n");
 
-//        EEPROM.write(addressGnoKe[no], no);
-//        EEPROM.write(addressGmodeKe[no], mode);
-//        EEPROM.write(addressGtypeKe[no], type);
-//        EEPROM.write(addressGtriggerKe[no], trigger);
-//        EEPROM.write(addressGactionKe[no], action);
+        
+        EEPROM.write(addressGmodeKe[no], modeKe[no]);
+        EEPROM.write(addressGtypeKe[no], typeKe[no]);
+        EEPROM.write(addressGtriggerKe[no], triggerKe[no]);
+        EEPROM.write(addressGactionKe[no], actionKe[no]);
         pageF2B.show();
 
-        // Sementara paksa di kosongkan dulu
+        Teks = teksNo;
+        LtexNo = true;
+        LtexMode = true;
+        LtexType = true;
+        LtexTrigger = true;
+        LtexAction = true;
+        type = typeRFID;
+        
+        // Refresh the screen
         no = 0;
         mode = 0;
         type = 0;
@@ -384,7 +316,6 @@ void F2B_LogicSet(){
         TypeF2B(typeKe[no]);
         TriggerF2B(triggerKe[no]); 
         ActionF2B(actionKe[no]);
-        
         break;
       default:
         break;
@@ -482,6 +413,7 @@ void ModeF2A(int modeA, int modeB, int modeC, int modeD, int modeE){
 }
 
 String typeAstring, typeBstring, typeCstring, typeDstring, typeEstring;
+
 void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
 //  String typeAstring, typeBstring, typeCstring, typeDstring, typeEstring;
   if     (typeA == typeIDLE)      {typeAstring = "";}
@@ -548,7 +480,7 @@ void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
 void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int triggerE){
   Serial2.print("tF2ATriggerA.txt=");
   Serial2.print("\"");
-  if     (typeAstring == "RFID")                     Serial2.print(dummyIdRFID[triggerA]);
+  if     (typeAstring == "RFID")                     Serial2.print(idRFID[triggerA]);
   else if(typeAstring == "DI" && triggerA == 1)      Serial2.print("1,HIGH");
   else if(typeAstring == "DI" && triggerA == 2)      Serial2.print("1,LOW");
   else if(typeAstring == "DI" && triggerA == 3)      Serial2.print("2,HIGH");
@@ -570,7 +502,6 @@ void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int trig
   else if(typeAstring == "DO" && triggerA == 9)      Serial2.print("5,HIGH");
   else if(typeAstring == "DO" && triggerA == 10)     Serial2.print("5,LOW");
   else                                               Serial2.print("");
-//  Serial2.print(dummyIdRFID[triggerA]);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -578,7 +509,7 @@ void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int trig
 
   Serial2.print("tF2ATriggerB.txt=");
   Serial2.print("\"");
-  if     (typeBstring == "RFID")                     Serial2.print(dummyIdRFID[triggerB]);
+  if     (typeBstring == "RFID")                     Serial2.print(idRFID[triggerB]);
   else if(typeBstring == "DI" && triggerB == 1)      Serial2.print("1,HIGH");
   else if(typeBstring == "DI" && triggerB == 2)      Serial2.print("1,LOW");
   else if(typeBstring == "DI" && triggerB == 3)      Serial2.print("2,HIGH");
@@ -607,7 +538,7 @@ void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int trig
 
   Serial2.print("tF2ATriggerC.txt=");
   Serial2.print("\"");
-  if     (typeCstring == "RFID")                     Serial2.print(dummyIdRFID[triggerC]);
+  if     (typeCstring == "RFID")                     Serial2.print(idRFID[triggerC]);
   else if(typeCstring == "DI" && triggerC == 1)      Serial2.print("1,HIGH");
   else if(typeCstring == "DI" && triggerC == 2)      Serial2.print("1,LOW");
   else if(typeCstring == "DI" && triggerC == 3)      Serial2.print("2,HIGH");
@@ -636,7 +567,7 @@ void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int trig
 
   Serial2.print("tF2ATriggerD.txt=");
   Serial2.print("\"");
-  if     (typeDstring == "RFID")                     Serial2.print(dummyIdRFID[triggerD]);
+  if     (typeDstring == "RFID")                     Serial2.print(idRFID[triggerD]);
   else if(typeDstring == "DI" && triggerD == 1)      Serial2.print("1,HIGH");
   else if(typeDstring == "DI" && triggerD == 2)      Serial2.print("1,LOW");
   else if(typeDstring == "DI" && triggerD == 3)      Serial2.print("2,HIGH");
@@ -666,7 +597,7 @@ void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int trig
   Serial.println(typeKe[5]);    //Serial.println(typeKe[noKe[5]]);
   Serial2.print("tF2ATriggerE.txt=");
   Serial2.print("\"");
-  if     (typeEstring == "RFID")                     Serial2.print(dummyIdRFID[triggerE]);
+  if     (typeEstring == "RFID")                     Serial2.print(idRFID[triggerE]);
   else if(typeEstring == "DI" && triggerE == 1)      Serial2.print("1,HIGH");
   else if(typeEstring == "DI" && triggerE == 2)      Serial2.print("1,LOW");
   else if(typeEstring == "DI" && triggerE == 3)      Serial2.print("2,HIGH");
@@ -697,7 +628,6 @@ void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int trig
 void ActionF2A(int actionA, int actionB, int actionC, int actionD, int actionE){
   Serial2.print("tF2AActionA.txt=");
   Serial2.print("\"");
-//  Serial2.print(actionA);
   if     (actionA == 0)     Serial2.print("");
   else if(actionA == 1)     Serial2.print("Berhenti");
   else if(actionA == 2)     Serial2.print("Maju");
@@ -726,7 +656,6 @@ void ActionF2A(int actionA, int actionB, int actionC, int actionD, int actionE){
 
   Serial2.print("tF2AActionB.txt=");
   Serial2.print("\"");
-//  Serial2.print(actionB);
   if     (actionB == 0)     Serial2.print("");
   else if(actionB == 1)     Serial2.print("Berhenti");
   else if(actionB == 2)     Serial2.print("Maju");
@@ -755,7 +684,6 @@ void ActionF2A(int actionA, int actionB, int actionC, int actionD, int actionE){
 
   Serial2.print("tF2AActionC.txt=");
   Serial2.print("\"");
-//  Serial2.print(actionC);
   if     (actionC == 0)     Serial2.print("");
   else if(actionC == 1)     Serial2.print("Berhenti");
   else if(actionC == 2)     Serial2.print("Maju");
@@ -784,7 +712,6 @@ void ActionF2A(int actionA, int actionB, int actionC, int actionD, int actionE){
 
   Serial2.print("tF2AActionD.txt=");
   Serial2.print("\"");
-//  Serial2.print(actionD);
   if     (actionD == 0)     Serial2.print("");
   else if(actionD == 1)     Serial2.print("Berhenti");
   else if(actionD == 2)     Serial2.print("Maju");
@@ -813,7 +740,6 @@ void ActionF2A(int actionA, int actionB, int actionC, int actionD, int actionE){
 
   Serial2.print("tF2AActionE.txt=");
   Serial2.print("\"");
-//  Serial2.print(actionE);
   if     (actionE == 0)     Serial2.print("");
   else if(actionE == 1)     Serial2.print("Berhenti");
   else if(actionE == 2)     Serial2.print("Maju");
@@ -891,7 +817,7 @@ void TriggerF2B(int triggerInt){
   Serial2.print("\"");
     
   if     (baper == "")                          Serial2.print("");
-  else if(baper == "RFID")                      Serial2.print(dummyIdRFID[triggerInt]);
+  else if(baper == "RFID")                      Serial2.print(idRFID[triggerInt]);
   else if(baper == "DI" && triggerInt == 1)     Serial2.print("1,HIGH");
   else if(baper == "DI" && triggerInt == 2)     Serial2.print("1,LOW");
   else if(baper == "DI" && triggerInt == 3)     Serial2.print("2,HIGH");
@@ -952,9 +878,6 @@ void ActionF2B(int actionInt){
 }
 
 void pilihTeks(){
-  String baper;
-  char buffer[10] = {0};
-  memset(buffer, 0, sizeof(buffer));
   if(Teks == teksNo){
     Teks = teksIDLE;
     Serial.println("F2B teksNo");
@@ -983,8 +906,7 @@ void pilihTeks(){
     LtexTrigger = false;
     LtexAction = false;
 
-    tF2BMode.getText(buffer, sizeof(buffer));
-    mode = atoi(buffer);
+    mode = modeKe[no];
   }
   if(Teks == teksType){
     Teks = teksIDLE;
@@ -1000,12 +922,7 @@ void pilihTeks(){
     LtexTrigger = false;
     LtexAction = false;
     
-    tF2BType.getText(buffer, sizeof(buffer));    
-    baper = buffer;
-    if     (baper == "")        type = 0;
-    else if(baper == "RFID")    type = 1;
-    else if(baper == "DI")      type = 2;
-    else if(baper == "DO")      type = 3;
+    type = typeKe[no];
   }
   if(Teks == teksTrigger){
     Teks = teksIDLE;
@@ -1021,14 +938,8 @@ void pilihTeks(){
     LtexTrigger = true;
     LtexAction = false;
 
-    tF2BType.getText(buffer, sizeof(buffer));    
-    baper = buffer;
-    if     (baper == "")        type = 0;
-    else if(baper == "RFID")    type = 1;
-    else if(baper == "DI")      type = 2;
-    else if(baper == "DO")      type = 3;
-    
-    trigger = 1;
+    type = typeKe[no];
+    trigger = triggerKe[no];
   }
   if(Teks == teksAction){
     Teks = teksIDLE;
@@ -1044,85 +955,6 @@ void pilihTeks(){
     LtexTrigger = false;
     LtexAction = true;
 
-    tF2BAction.getText(buffer, sizeof(buffer)); //    action = atoi(buffer);
-    baper = buffer;
-    if     (baper == "")              action = 0;
-    else if(baper == "Berhenti")      action = 1;
-    else if(baper == "Maju")          action = 2;
-    else if(baper == "Belok Kiri")    action = 3;
-    else if(baper == "Belok Kanan")   action = 4;
-    else if(baper == "Balik Kiri")    action = 5;
-    else if(baper == "Balik Kanan")   action = 6;
-    else if(baper == "Lift On")       action = 7;
-    else if(baper == "Lift Off")      action = 8;
-    else if(baper == "Buzzer On")     action = 9;
-    else if(baper == "Buzzer Off")    action = 10;
-    else if(baper == "DO 01,HIGH")    action = 11;
-    else if(baper == "DO 01,LOW")     action = 12;
-    else if(baper == "DO 02,HIGH")    action = 13;
-    else if(baper == "DO 02,LOW")     action = 14;
-    else if(baper == "DO 03,HIGH")    action = 15;
-    else if(baper == "DO 03,LOW")     action = 16;
-    else if(baper == "DO 04,HIGH")    action = 17;
-    else if(baper == "DO 04,LOW")     action = 18;
-    else if(baper == "DO 05,HIGH")    action = 19;
-    else if(baper == "DO 05,LOW")     action = 20;
+    action = actionKe[no];
   }
 }
-
-void sample(){
-//  noKe[1] = 1;
-//  noKe[2] = 2;
-//  noKe[3] = 3;
-//  noKe[4] = 4;
-//  noKe[5] = 5;
-//
-//  modeKe[noKe[1]] = 2;
-//  modeKe[noKe[2]] = 2;
-//  modeKe[noKe[3]] = 1;
-//  modeKe[noKe[4]] = 1;
-//  modeKe[noKe[5]] = 1;
-//  modeKe[noKe[6]] = 0;
-//  modeKe[noKe[7]] = 0;
-//  modeKe[noKe[8]] = 0;
-//  modeKe[noKe[9]] = 0;
-//  modeKe[noKe[10]] = 0;
-//  modeKe[noKe[11]] = 0;
-//
-//  typeKe[noKe[1]] = 1;
-//  typeKe[noKe[2]] = 1;
-//  typeKe[noKe[3]] = 0;
-//  typeKe[noKe[4]] = 2;
-//  typeKe[noKe[5]] = 3;
-//  typeKe[noKe[6]] = 0;
-//  typeKe[noKe[7]] = 0;
-//  typeKe[noKe[8]] = 0;
-//  typeKe[noKe[9]] = 0;
-//  typeKe[noKe[10]] = 0;
-//  typeKe[noKe[11]] = 0;
-//
-//  triggerKe[noKe[1]] = 1;
-//  triggerKe[noKe[2]] = 2;
-//  triggerKe[noKe[3]] = 0;
-//  triggerKe[noKe[4]] = 5;
-//  triggerKe[noKe[5]] = 10;
-//  triggerKe[noKe[6]] = 0;
-//  triggerKe[noKe[7]] = 0;
-//  triggerKe[noKe[8]] = 0;
-//  triggerKe[noKe[9]] = 0;
-//  triggerKe[noKe[10]] = 0;
-//  triggerKe[noKe[11]] = 0;
-//
-//  actionKe[noKe[1]] = 1;
-//  actionKe[noKe[2]] = 2;
-//  actionKe[noKe[3]] = 0;
-//  actionKe[noKe[4]] = 15;
-//  actionKe[noKe[5]] = 18;
-//  actionKe[noKe[6]] = 0;
-//  actionKe[noKe[7]] = 0;
-//  actionKe[noKe[8]] = 0;
-//  actionKe[noKe[9]] = 0;
-//  actionKe[noKe[10]] = 0;
-//  actionKe[noKe[11]] = 0;
-}
-

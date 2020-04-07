@@ -56,14 +56,16 @@ void F4A_MachineSet(){
         if(LnumSpeed){
           nF4ASpeed.getValue(&Gspeed);
           Gspeed -= 1;
-          if(Gspeed <= 1) Gspeed = 1;
+          if(Gspeed <= 1)   Gspeed = 1;
+          if(Gspeed >= 10)  Gspeed = 10;
           nF4ASpeed.setValue(Gspeed);
           EEPROM.write(addressGspeed, Gspeed); 
         }
         if(LnumAccel){
           nF4AAccel.getValue(&Gaccel);
           Gaccel -= 1;
-          if(Gaccel <= 1) Gaccel = 1;
+          if(Gaccel <= 1)   Gaccel = 1;
+          if(Gspeed >= 10)  Gspeed = 10;
           nF4AAccel.setValue(Gaccel);
           EEPROM.write(addressGaccel, Gaccel); 
         }
@@ -74,14 +76,16 @@ void F4A_MachineSet(){
         if(LnumSpeed){
           nF4ASpeed.getValue(&Gspeed);
           Gspeed += 1;
-          if(Gspeed >= 10) Gspeed = 10;
+          if(Gspeed <= 1)   Gspeed = 1;
+          if(Gspeed >= 10)  Gspeed = 10;
           nF4ASpeed.setValue(Gspeed);
           EEPROM.write(addressGspeed, Gspeed); 
         }
         if(LnumAccel){
           nF4AAccel.getValue(&Gaccel);
           Gaccel += 1;
-          if(Gaccel >= 10) Gaccel = 10;
+          if(Gaccel <= 1)   Gaccel = 1;
+          if(Gspeed >= 10)  Gspeed = 10;
           nF4AAccel.setValue(Gaccel);
           EEPROM.write(addressGaccel, Gaccel); 
         }
@@ -161,21 +165,24 @@ void F4B_MachineSet(){
         if(LnumGainP){
           nF4BGainP.getValue(&GgainP);
           GgainP -= 1;
-          if(GgainP <= 1) GgainP = 1;
+          if(GgainP <= 1)   GgainP = 1;
+          if(GgainP >= 10)  GgainP = 10;
           nF4BGainP.setValue(GgainP);
           EEPROM.write(addressGgainP, GgainP);
         }
         if(LnumGainI){
           nF4BGainI.getValue(&GgainI);
           GgainI -= 1;
-          if(GgainI <= 1) GgainI = 1;
+          if(GgainI <= 1)   GgainI = 1;
+          if(GgainI >= 10)  GgainI = 10;
           nF4BGainI.setValue(GgainI);
           EEPROM.write(addressGgainI, GgainI);
         }
         if(LnumGainD){
           nF4BGainD.getValue(&GgainD);
           GgainD -= 1;
-          if(GgainD <= 1) GgainD = 1;
+          if(GgainD <= 1)   GgainD = 1;
+          if(GgainD >= 10)  GgainD = 10;
           nF4BGainD.setValue(GgainD);
           EEPROM.write(addressGgainD, GgainD);
         }
@@ -186,21 +193,24 @@ void F4B_MachineSet(){
         if(LnumGainP){
           nF4BGainP.getValue(&GgainP);
           GgainP += 1;
-          if(GgainP >= 10) GgainP = 10;
+          if(GgainP <= 1)   GgainP = 1;
+          if(GgainP >= 10)  GgainP = 10;
           nF4BGainP.setValue(GgainP);
           EEPROM.write(addressGgainP, GgainP); 
         }
         if(LnumGainI){
           nF4BGainI.getValue(&GgainI);
           GgainI += 1;
-          if(GgainI >= 10) GgainI = 10;
+          if(GgainI <= 1)   GgainI = 1;
+          if(GgainI >= 10)  GgainI = 10;
           nF4BGainI.setValue(GgainI);
           EEPROM.write(addressGgainI, GgainI); 
         }
         if(LnumGainD){
           nF4BGainD.getValue(&GgainD);
           GgainD += 1;
-          if(GgainD >= 10) GgainD = 10;
+          if(GgainD <= 1)   GgainD = 1;
+          if(GgainD >= 10)  GgainD = 10;
           nF4BGainD.setValue(GgainD);
           EEPROM.write(addressGgainD, GgainD); 
         }
@@ -271,8 +281,9 @@ void F4C_MachineSet(){
         Tombol = tIDLE;
         Serial.println("bF4CNextDist");
         nF4CNoRefDist.getValue(&GnoRefDist);
-        GnoRefDist += 1;
-        if(GnoRefDist >= 19) GnoRefDist = 19;
+        GnoRefDist++;
+        if(GnoRefDist <= 0)   GnoRefDist = 0;
+        if(GnoRefDist >= 19)  GnoRefDist = 19;
         nF4CNoRefDist.setValue(GnoRefDist);
         EEPROM.write(addressGnoRefDist, GnoRefDist);
         break;
@@ -280,8 +291,9 @@ void F4C_MachineSet(){
         Tombol = tIDLE;
         Serial.println("bF4CPrevDist");
         nF4CNoRefDist.getValue(&GnoRefDist);
-        GnoRefDist -= 1;
-        if(GnoRefDist <= 0) GnoRefDist = 0;
+        GnoRefDist--;
+        if(GnoRefDist <= 0)   GnoRefDist = 0;
+        if(GnoRefDist >= 19)  GnoRefDist = 19;
         nF4CNoRefDist.setValue(GnoRefDist);
         EEPROM.write(addressGnoRefDist, GnoRefDist);
         break;
@@ -290,7 +302,8 @@ void F4C_MachineSet(){
         Serial.println("bF4CMinus");
         nF4CRefDist.getValue(&GminDistSens[GnoRefDist]);    // minDistSens[GnoRefDist]
         GminDistSens[GnoRefDist] -= 1;
-        if(GminDistSens[GnoRefDist] <= 1) GminDistSens[GnoRefDist] = 1;
+        if(GminDistSens[GnoRefDist] <= 1)     GminDistSens[GnoRefDist] = 1;
+        if(GminDistSens[GnoRefDist] >= 200)   GminDistSens[GnoRefDist] = 200;   // range batas distance avoid 0 sampai 200 cm
         nF4CRefDist.setValue(GminDistSens[GnoRefDist]);
         EEPROM.write(addressGminDistSens[GnoRefDist], GminDistSens[GnoRefDist]);
         break;
@@ -299,7 +312,8 @@ void F4C_MachineSet(){
         Serial.println("bF4CPlus");
         nF4CRefDist.getValue(&GminDistSens[GnoRefDist]);
         GminDistSens[GnoRefDist] += 1;
-        if(GminDistSens[GnoRefDist] >= 200) GminDistSens[GnoRefDist] = 200;   // range batas distance avoid 0 sampai 200 cm
+        if(GminDistSens[GnoRefDist] <= 1)     GminDistSens[GnoRefDist] = 1;
+        if(GminDistSens[GnoRefDist] >= 200)   GminDistSens[GnoRefDist] = 200;   // range batas distance avoid 0 sampai 200 cm
         nF4CRefDist.setValue(GminDistSens[GnoRefDist]);
         EEPROM.write(addressGminDistSens, GminDistSens[GnoRefDist]);
         break;
