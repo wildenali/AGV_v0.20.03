@@ -5,7 +5,7 @@ void F1A_PlayMenu();
 void F1B_Go();
 
 void GOOO();
-void showActionF2B(int actionInt);
+//void showActionF2B(int actionInt);
 
 void F1A_PlayMenu(){
   pageF1A.show();
@@ -67,13 +67,14 @@ void F1A_PlayMenu(){
 }
 
 
-String nextID;
-String prevID = "";
+String nextTarget;
+String prevTarget = "";
+int z;
 
 void F1B_Go(){
   pageF1B.show();
   Serial.println("F1B_Go");
-
+// ================== disini untuk menentukan siapa si Next Target ============================
   int totalKe[1+jumlahData];
   for(int i = 1; i <= jumlahData; i++){
     totalKe[i] = 0;
@@ -87,14 +88,30 @@ void F1B_Go(){
       }
     }
   }
-  int z = 0;
+  Serial.print("Gmode: ");  Serial.println(Gmode);
+  z = 0;
   for(int i = 1; i < Gmode; i++){
     Serial.println(totalKe[i]);
-    z += totalKe[Gmode - 1]; 
+    z += totalKe[i];
   }
-  nextID = idRFID[z + 1];
-  Serial.print("z: ");  Serial.println(z + 1);
+  z = z + 1;
+  
+  Serial.print("z: ");  Serial.println(z);
+  Serial.print("TIPEnya: ");  Serial.println(typeKe[z]);
+  Serial.print("TRIGGER DI: ");  Serial.print(triggerKe[z]);
 
+  
+  if(typeKe[z] == 1){
+    nextTarget = idRFID[z]; 
+  }
+  else if(typeKe[z] == 2){
+    nextTarget = stringDI(triggerKe[z]);
+  }
+  else{
+    nextTarget = "TIDAK ADA";
+  }
+  Serial.print("nextTarget: ");  Serial.println(nextTarget);
+// ================== disini untuk menentukan siapa si Next Target ============================
   
   nF1BMode.setValue(Gmode);
   Serial2.print("gF1BStatusMode.txt=");
@@ -108,7 +125,7 @@ void F1B_Go(){
   
   Serial2.print("tF1BNextID.txt=");
   Serial2.print("\"");
-  Serial2.print(nextID);
+  Serial2.print(nextTarget);
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -208,95 +225,114 @@ void GOOO(){
 
 ///* // ============== versi 1.6 ==============
     int x;
-    x = 1;
-    while(Gmode == 1)
+//    if(Gmode == 1){
+//      x = 1;
+//    }
+//    else if(Gmode == 2){
+//      x = 5;
+//    }
+
+    x = z;
+    Serial.print("NILAI x: ");
+    Serial.println(x);
+//    x = 1;
+//    while(Gmode == 1)
+//    while(Gmode)
+    while(true)
     {
       // lineFollower();
       nexLoop(nex_listen_list_F1B_Go);
       if(Tombol == tPAUSE)    return false;
       if(Tombol == tCANCEL)   return false;
-              
-        if(idRFID[x] == dummyDataRFID() && nextID == idRFID[x])
-        {
-          Serial.print(" nowID: ");     Serial.print(dummyDataRFID());
-          prevID = idRFID[x];
-          actionKe[x];
-          Serial.print(" actionKe ");   Serial.print(x);
-          Serial.print(" : ");          showActionF2B(actionKe[x]);
-          x++;
-          nextID = idRFID[x];     // ini harus ++x;
-          Serial.print(" prevID: ");    Serial.print(prevID);
-          Serial.print(" nextID: ");    Serial.print(nextID);
-          Serial.print("\n");
-
-          Serial2.print("tF1BPrevID.txt=");
-          Serial2.print("\"");
-          Serial2.print(prevID);
-          Serial2.print("\"");
-          Serial2.write(0xff);
-          Serial2.write(0xff);
-          Serial2.write(0xff);
-
+      
+      switch(typeKe[x]){
+        case typeRFID:
+          if(idRFID[x] == dummyDataRFID() && nextTarget == idRFID[x])
+          {
+            Serial.print(" nowID: ");     Serial.print(dummyDataRFID());
+            prevTarget = idRFID[x];
+            
+            actionKe[x];
+            Serial.print(" actionKe ");   Serial.print(x);
+            Serial.print(" : ");          Serial.println(stringAction(x));    //showActionF2B(actionKe[x]);
+            
+            x++;
+            nextTarget = idRFID[x];     // ini harus ++x;
+            Serial.print(" prevTarget: ");    Serial.print(prevTarget);
+            Serial.print(" nextTarget: ");    Serial.print(nextTarget);
+            Serial.print("\n");
+  
+            Serial2.print("tF1BPrevID.txt=");
+            Serial2.print("\"");
+            Serial2.print(prevTarget);
+            Serial2.print("\"");
+            Serial2.write(0xff);
+            Serial2.write(0xff);
+            Serial2.write(0xff);
+  
+            Serial2.print("tF1BNextID.txt=");
+            Serial2.print("\"");
+            Serial2.print(nextTarget);
+            Serial2.print("\"");
+            Serial2.write(0xff);
+            Serial2.write(0xff);
+            Serial2.write(0xff);
+          }
+          break;
+        case typeDI:
           Serial2.print("tF1BNextID.txt=");
           Serial2.print("\"");
-          Serial2.print(nextID);
+          Serial2.print("Ayo KEMANA");
           Serial2.print("\"");
           Serial2.write(0xff);
           Serial2.write(0xff);
           Serial2.write(0xff);
-        }
-
-        
-
-//digitalInput[5] = {pinDigitalInput01, pinDigitalInput02, pinDigitalInput03, pinDigitalInput04, pinDigitalInput05};   // DI[5]
-//digitalOutput[5] = {pinDigitalOutput01, pinDigitalOutput02, pinDigitalOutput03, pinDigitalOutput04, pinDigitalOutput05};   // DI[5]
-//        stateDigitalInput[1] = digitalRead(digitalInput[1]);
-//        if(digitalInput[1] == actionKe[1])
-//        {
-//          
-//        }
+          break;
+        default:
+          break;  
+      }
 
       
     }
 
-    x = 5;
-    while(Gmode == 2)
-    {
-      // lineFollower();
-      nexLoop(nex_listen_list_F1B_Go);
-      if(Tombol == tPAUSE)    return false;
-      if(Tombol == tCANCEL)   return false;
-              
-        if(idRFID[x] == dummyDataRFID() && nextID == idRFID[x])
-        {
-          Serial.print(" nowID: ");     Serial.print(dummyDataRFID());
-          prevID = idRFID[x];
-          actionKe[x];
-          Serial.print(" actionKe ");   Serial.print(x);
-          Serial.print(" : ");          showActionF2B(actionKe[x]);
-          x++;
-          nextID = idRFID[x];     // ini harus ++x;
-          Serial.print(" prevID: ");    Serial.print(prevID);
-          Serial.print(" nextID: ");    Serial.print(nextID);
-          Serial.print("\n");
-
-          Serial2.print("tF1BPrevID.txt=");
-          Serial2.print("\"");
-          Serial2.print(prevID);
-          Serial2.print("\"");
-          Serial2.write(0xff);
-          Serial2.write(0xff);
-          Serial2.write(0xff);
-
-          Serial2.print("tF1BNextID.txt=");
-          Serial2.print("\"");
-          Serial2.print(nextID);
-          Serial2.print("\"");
-          Serial2.write(0xff);
-          Serial2.write(0xff);
-          Serial2.write(0xff);
-        } 
-    }
+//    x = 5;
+//    while(Gmode == 2)
+//    {
+//      // lineFollower();
+//      nexLoop(nex_listen_list_F1B_Go);
+//      if(Tombol == tPAUSE)    return false;
+//      if(Tombol == tCANCEL)   return false;
+//              
+//        if(idRFID[x] == dummyDataRFID() && nextTarget == idRFID[x])
+//        {
+//          Serial.print(" nowID: ");     Serial.print(dummyDataRFID());
+//          prevTarget = idRFID[x];
+//          actionKe[x];
+//          Serial.print(" actionKe ");   Serial.print(x);
+//          Serial.print(" : ");          Serial.println(stringAction(x));    //showActionF2B(actionKe[x]);
+//          x++;
+//          nextTarget = idRFID[x];     // ini harus ++x;
+//          Serial.print(" prevTarget: ");    Serial.print(prevTarget);
+//          Serial.print(" nextTarget: ");    Serial.print(nextTarget);
+//          Serial.print("\n");
+//
+//          Serial2.print("tF1BPrevID.txt=");
+//          Serial2.print("\"");
+//          Serial2.print(prevTarget);
+//          Serial2.print("\"");
+//          Serial2.write(0xff);
+//          Serial2.write(0xff);
+//          Serial2.write(0xff);
+//
+//          Serial2.print("tF1BNextID.txt=");
+//          Serial2.print("\"");
+//          Serial2.print(nextTarget);
+//          Serial2.print("\"");
+//          Serial2.write(0xff);
+//          Serial2.write(0xff);
+//          Serial2.write(0xff);
+//        } 
+//    }
 
 
 
@@ -416,7 +452,7 @@ void showActionF2B(int actionInt){
       if(Tombol == tCANCEL)   return false;
       
       for(int i = 1; i <= jumlahData; i++){
-        if(nextID == dummyDataRFID())
+        if(nextTarget == dummyDataRFID())
 //        if(idRFID[i] == dummyDataRFID())
         {
           Serial.print("ke ");          Serial.print(i);
@@ -425,8 +461,8 @@ void showActionF2B(int actionInt){
           Serial.print(" actionKe ");   Serial.print(actionKe[i]);
           Serial.print(" : ");           showActionF2B(actionKe[i]);
           
-          nextID = idRFID[++i];     // ini harus ++x;
-          Serial.print(" nextID: ");    Serial.print(nextID);
+          nextTarget = idRFID[++i];     // ini harus ++x;
+          Serial.print(" nextTarget: ");    Serial.print(nextTarget);
           Serial.print("\n");
         }
       }
@@ -451,18 +487,18 @@ void showActionF2B(int actionInt){
         
         if(idRFID[i] == dummyDataRFID())
         {
-          prevID = idRFID[i];
+          prevTarget = idRFID[i];
           actionKe[i];
           Serial.print(" actionKe ");   Serial.print(i);
           Serial.print(" : ");          showActionF2B(actionKe[i]);          
-          nextID = idRFID[++i];     // ini harus ++x;
+          nextTarget = idRFID[++i];     // ini harus ++x;
         }else{
           Serial.print(" actionKe ");   Serial.print(actionKe[0]);
           Serial.print(" : ");          showActionF2B(0);
         }
 
-        Serial.print(" prevID: ");    Serial.print(prevID);
-        Serial.print(" nextID: ");    Serial.print(nextID);
+        Serial.print(" prevTarget: ");    Serial.print(prevTarget);
+        Serial.print(" nextTarget: ");    Serial.print(nextTarget);
         Serial.print("\n");
       }
       
@@ -483,21 +519,21 @@ void showActionF2B(int actionInt){
         Serial.print(" : ");          Serial.print(idRFID[i]);
         Serial.print(" nowID: ");     Serial.print(dummyDataRFID());
         
-        if(idRFID[i] == dummyDataRFID() && nextID == idRFID[i])
+        if(idRFID[i] == dummyDataRFID() && nextTarget == idRFID[i])
         {
-          prevID = idRFID[i];
+          prevTarget = idRFID[i];
           actionKe[i];
           Serial.print(" actionKe ");   Serial.print(i);
           Serial.print(" : ");          showActionF2B(actionKe[i]);          
-          nextID = idRFID[++i];     // ini harus ++x;
+          nextTarget = idRFID[++i];     // ini harus ++x;
         }
         else{
           Serial.print(" actionKe ");   Serial.print(actionKe[0]);
           Serial.print(" : ");          showActionF2B(0);
         }
 
-        Serial.print(" prevID: ");    Serial.print(prevID);
-        Serial.print(" nextID: ");    Serial.print(nextID);
+        Serial.print(" prevTarget: ");    Serial.print(prevTarget);
+        Serial.print(" nextTarget: ");    Serial.print(nextTarget);
         Serial.print("\n");
       }
       
@@ -515,20 +551,20 @@ void showActionF2B(int actionInt){
       
       for(int i = 1; i <= jumlahData; i++){
         
-        if(idRFID[i] == dummyDataRFID() && nextID == idRFID[i])
+        if(idRFID[i] == dummyDataRFID() && nextTarget == idRFID[i])
         {
           Serial.print("ke ");          Serial.print(i);
           Serial.print(" : ");          Serial.print(idRFID[i]);
           Serial.print(" nowID: ");     Serial.print(dummyDataRFID());
         
-          prevID = idRFID[i];
+          prevTarget = idRFID[i];
           actionKe[i];
           Serial.print(" actionKe ");   Serial.print(i);
           Serial.print(" : ");          showActionF2B(actionKe[i]);          
-          nextID = idRFID[++i];     // ini harus ++x;
+          nextTarget = idRFID[++i];     // ini harus ++x;
 
-          Serial.print(" prevID: ");    Serial.print(prevID);
-          Serial.print(" nextID: ");    Serial.print(nextID);
+          Serial.print(" prevTarget: ");    Serial.print(prevTarget);
+          Serial.print(" nextTarget: ");    Serial.print(nextTarget);
           Serial.print("\n");
         }
 

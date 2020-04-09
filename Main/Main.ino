@@ -15,6 +15,7 @@
 
 
 
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -172,6 +173,17 @@ void setup() {
 
 //  delay(3000);
 
+//  String stringDI[11] = {"", "DI 1,HIGH", "DI 1,LOW", "DI 2,HIGH", "DI 2,LOW", "DI 3,HIGH", "DI 3,LOW", "DI 4,HIGH", "DI 4,LOW", "DI 5,HIGH", "DI 5,LOW"};
+//  String stringDO[11] = {"", "DO 1,HIGH", "DO 1,LOW", "DO 2,HIGH", "DO 2,LOW", "DO 3,HIGH", "DO 3,LOW", "DO 4,HIGH", "DO 4,LOW", "DO 5,HIGH", "DO 5,LOW"};
+
+  for(int i = 0; i <= 10; i++){
+    Serial.println(stringDI(i));
+  }
+
+//  for(int i = 0; i <= 10; i++){
+//    Serial.println(stringDO(i));
+//  }
+  
 }
 
 void loop() {
