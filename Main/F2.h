@@ -10,6 +10,7 @@ void F2B_LogicSet();
 // 3 > DO (Digital Output)
 
 // ========== Action ==========
+// 0 > (kosong)
 // 1 > Berhenti
 // 2 > Maju
 // 3 > Belok Kiri
@@ -47,25 +48,25 @@ void ActionF2B(int actionInt);
 void pilihTeks();
 void sample();
   
-bool LtexNo = false;
-bool LtexMode = false;
-bool LtexType = false;
-bool LtexTrigger = false;
-bool LtexAction = false;
-
-
-
-
-int no;
-int mode;
-int type;
-int trigger;
-int action;
-
-int modeKe[jumlahData+1];   // kenapa ada 10, karena maksimal data nya ada 10, 1 untuk buffer aja, biar dimulainya tidak dari 0 si array nya   
-int typeKe[jumlahData+1];
-int triggerKe[jumlahData+1];
-int actionKe[jumlahData+1];
+//bool LtexNo = false;
+//bool LtexMode = false;
+//bool LtexType = false;
+//bool LtexTrigger = false;
+//bool LtexAction = false;
+//
+//
+//
+//
+//int no;
+//int mode;
+//int type;
+//int trigger;
+//int action;
+//
+//int modeKe[jumlahData+1];   // kenapa ada 10, karena maksimal data nya ada 10, 1 untuk buffer aja, biar dimulainya tidak dari 0 si array nya   
+//int typeKe[jumlahData+1];
+//int triggerKe[jumlahData+1];
+//int actionKe[jumlahData+1];
 
         
 void F2A_LogicSet(){

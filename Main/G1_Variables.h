@@ -24,7 +24,7 @@
 
 
 enum menu{F0=0, F1=1, F2=2, F3=3, F4=4, MENUIDLE=5, E=99} Menu;
-enum tombol{tIDLE, tBACK, tNEXT, tGO, tCANCEL, tPLUS, tMINUS, tUP, tDOWN, tSAVE, tDELETE, tYES, tNO, tBACKSPACE, tPAUSE, tLOW, tHIGH, tPASSWORD, tCLEAR, tOK}Tombol;
+enum tombol{tIDLE, tBACK, tNEXT, tGO, tCANCEL, tPLUS, tMINUS, tUP, tDOWN, tSAVE, tDELETE, tYES, tNO, tBACKSPACE, tSTOP, tLOW, tHIGH, tPASSWORD, tCLEAR, tOK}Tombol;
 enum number{numIDLE, numF4ASpeed, numF4AAccel, numF4BGainP, numF4BGainI, numF4BGainD}Number;
 enum teks{teksIDLE, teksNo, teksMode, teksType, teksTrigger, teksAction}Teks;
 
@@ -144,67 +144,23 @@ unsigned int digitalOutput[5] = {pinDigitalOutput01, pinDigitalOutput02, pinDigi
 uint32_t GdistSens[20];
 uint32_t GminDistSens[20];
 
+uint32_t addressGmode = 0;
+uint32_t Gmode;               // G for Global variable
 
-String stringDI(int inputDI){
-  if(inputDI == 0)         return "";
-  else if(inputDI == 1)    return "DI 1,HIGH";
-  else if(inputDI == 2)    return "DI 1,LOW";
-  else if(inputDI == 3)    return "DI 2,HIGH";
-  else if(inputDI == 4)    return "DI 2,LOW";
-  else if(inputDI == 5)    return "DI 3,HIGH";
-  else if(inputDI == 6)    return "DI 3,LOW";
-  else if(inputDI == 7)    return "DI 4,HIGH";
-  else if(inputDI == 8)    return "DI 4,LOW";
-  else if(inputDI == 9)    return "DI 5,HIGH";
-  else if(inputDI == 10)   return "DI 5,LOW";
-}
+bool LtexNo = false;
+bool LtexMode = false;
+bool LtexType = false;
+bool LtexTrigger = false;
+bool LtexAction = false;
 
-String stringAction(int inputAction){
-  if(inputAction == 0)         return "";
-  else if(inputAction == 1)    return "Berhenti";
-  else if(inputAction == 2)    return "Maju";
-  else if(inputAction == 3)    return "Belok Kiri";
-  else if(inputAction == 4)    return "Belok Kanan";
-  else if(inputAction == 5)    return "Balik Kiri";
-  else if(inputAction == 6)    return "Balik Kanan";
-  else if(inputAction == 7)    return "Lift On";
-  else if(inputAction == 8)    return "Lift Off";
-  else if(inputAction == 9)    return "Buzzer On";
-  else if(inputAction == 10)   return "Buzzer Off";
-  else if(inputAction == 11)   return "DO 01,HIGH";
-  else if(inputAction == 12)   return "DO 01,LOW";
-  else if(inputAction == 13)   return "DO 02,HIGH";
-  else if(inputAction == 14)   return "DO 02,LOW";
-  else if(inputAction == 15)   return "DO 03,HIGH";
-  else if(inputAction == 16)   return "DO 03,LOW";
-  else if(inputAction == 17)   return "DO 04,HIGH";
-  else if(inputAction == 18)   return "DO 04,LOW";
-  else if(inputAction == 19)   return "DO 05,HIGH";
-  else if(inputAction == 20)   return "DO 05,LOW";
-  
-//  if     (actionInt == 0)     Serial2.print("");
-//  else if(actionInt == 1)     Serial2.print("Berhenti");
-//  else if(actionInt == 2)     Serial2.print("Maju");
-//  else if(actionInt == 3)     Serial2.print("Belok Kiri");
-//  else if(actionInt == 4)     Serial2.print("Belok Kanan");
-//  else if(actionInt == 5)     Serial2.print("Balik Kiri");
-//  else if(actionInt == 6)     Serial2.print("Balik Kanan");
-//  else if(actionInt == 7)     Serial2.print("Lift On");
-//  else if(actionInt == 8)     Serial2.print("Lift Off");
-//  else if(actionInt == 9)     Serial2.print("Buzzer On");
-//  else if(actionInt == 10)    Serial2.print("Buzzer Off");
-//  else if(actionInt == 11)    Serial2.print("DO 01,HIGH");
-//  else if(actionInt == 12)    Serial2.print("DO 01,LOW");
-//  else if(actionInt == 13)    Serial2.print("DO 02,HIGH");
-//  else if(actionInt == 14)    Serial2.print("DO 02,LOW");
-//  else if(actionInt == 15)    Serial2.print("DO 03,HIGH");
-//  else if(actionInt == 16)    Serial2.print("DO 03,LOW");
-//  else if(actionInt == 17)    Serial2.print("DO 04,HIGH");
-//  else if(actionInt == 18)    Serial2.print("DO 04,LOW");
-//  else if(actionInt == 19)    Serial2.print("DO 05,HIGH");
-//  else if(actionInt == 20)    Serial2.print("DO 05,LOW");
-}
+int no;
+int mode;
+int type;
+int trigger;
+int action;
 
-
-
+int modeKe[jumlahData+1];   // kenapa ada 10, karena maksimal data nya ada 10, 1 untuk buffer aja, biar dimulainya tidak dari 0 si array nya   
+int typeKe[jumlahData+1];
+int triggerKe[jumlahData+1];
+int actionKe[jumlahData+1];
 

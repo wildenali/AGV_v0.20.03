@@ -22,7 +22,7 @@ NexPage   pageF1B         = NexPage(4, 0, "F1B_Go");          // ========== Obje
 NexNumber nF1BMode        = NexNumber(4, 12, "nF1BMode");
 //NexNumber nF1BNextID      = NexNumber(4, 7, "nF1BNextID");
 NexButton bF1BCancel      = NexButton(4, 5, "bF1BCancel");
-NexButton bF1BPause       = NexButton(4, 6, "bF1BPause");
+NexButton bF1BStop        = NexButton(4, 6, "bF1BStop");
 NexButton bF1BGo          = NexButton(4, 7, "bF1BGo");        // ========== Object in F1B_Go ==========
 
 NexPage   pageF2A         = NexPage(5, 0, "F2A_LogicSet");    // ========== Object in F2A_LogicSet ==========
@@ -114,7 +114,7 @@ NexText   tF4ELineSensor  = NexText(15, 6, "tF4ELineSensor");  // ========== Obj
 NexTouch *nex_listen_list_E_Password[]      = {&pageE, &bEPassword, &bEClear, &bEOk, NULL};                                   // ========== list of E_Password ==========
 NexTouch *nex_listen_list_F0_MainMenu[]     = {&pageF0, &bF1, &bF2, &bF3, &bF4,NULL};                                   // ========== list of F0_MainMenu ==========
 NexTouch *nex_listen_list_F1A_PlayMenu[]    = {&pageF1A, &bF1ABack, &bF1ANext, &bF1AMinus, &bF1APlus, NULL};            // ========== list of F1A_PlayMenu ==========
-NexTouch *nex_listen_list_F1B_Go[]          = {&pageF1B, &bF1BCancel, &bF1BPause, &bF1BGo, NULL};                       // ========== list of F1B_Go  ==========
+NexTouch *nex_listen_list_F1B_Go[]          = {&pageF1B, &bF1BCancel, &bF1BStop, &bF1BGo, NULL};                       // ========== list of F1B_Go  ==========
 NexTouch *nex_listen_list_F2A_LogicSet[]    = {&pageF2A, &bF2ABack, &bF2ANext, &bF2AUp, &bF2ADown, NULL};               // ========== list of F2A_LogicSet  ==========
 NexTouch *nex_listen_list_F2B_LogicSet[]    = {&pageF2B, &bF2BBack, &bF2BSave, &bF2BUp, &bF2BDown, &tF2BNo, &tF2BMode, &tF2BType, &tF2BTrigger, &tF2BAction, NULL};               // ========== list of F2B_LogicSet  ==========
 NexTouch *nex_listen_list_F3A_RFID_Data[]   = {&pageF3A, &bF3ABack, &bF3ANext, &bF3ADown, &bF3AUp, NULL};                                   // ========== list of F3A_RFID_Data ==========
@@ -146,7 +146,7 @@ void bF1AMinus_PopCallback(void *ptr)   {Tombol = tMINUS;}
 void bF1APlus_PopCallback(void *ptr)    {Tombol = tPLUS;}      // ========== Callback in F1A_PlayMenu ==========
 
 void bF1BCancel_PopCallback(void *ptr)  {Tombol = tCANCEL;}   // ========== Callback in F1B_Go ==========
-void bF1BPause_PopCallback(void *ptr)   {Tombol = tPAUSE;}
+void bF1BStop_PopCallback(void *ptr)    {Tombol = tSTOP;}
 void bF1BGo_PopCallback(void *ptr)      {Tombol = tGO;}       // ========== Callback in F1B_Go ==========
 
 void bF2ABack_PopCallback(void *ptr)    {Tombol = tBACK;}     // ========== Callback in F2A_LogicSet ==========
@@ -257,7 +257,7 @@ void G2_NextionParameters(){
   bF1APlus.attachPop(bF1APlus_PopCallback);               // ========== Register the pop event in F1A_PlayMenu ==========
   
   bF1BCancel.attachPop(bF1BCancel_PopCallback);           // ========== Register the pop event in F1B_Go ==========
-  bF1BPause.attachPop(bF1BPause_PopCallback);
+  bF1BStop.attachPop(bF1BStop_PopCallback);
   bF1BGo.attachPop(bF1BGo_PopCallback);                   // ========== Register the pop event in F1B_Go ==========
   
   bF2ABack.attachPop(bF2ABack_PopCallback);               // ========== Register the pop event in F2A_LogicSet ==========
@@ -360,3 +360,177 @@ void readDistanceSensor(){
     GdistSens[i] = analogRead(A0);
   }
 }
+
+
+String stringDI(int inputDI){
+  if(inputDI == 0)         return "";
+  else if(inputDI == 1)    return "DI 1,HIGH";
+  else if(inputDI == 2)    return "DI 1,LOW";
+  else if(inputDI == 3)    return "DI 2,HIGH";
+  else if(inputDI == 4)    return "DI 2,LOW";
+  else if(inputDI == 5)    return "DI 3,HIGH";
+  else if(inputDI == 6)    return "DI 3,LOW";
+  else if(inputDI == 7)    return "DI 4,HIGH";
+  else if(inputDI == 8)    return "DI 4,LOW";
+  else if(inputDI == 9)    return "DI 5,HIGH";
+  else if(inputDI == 10)   return "DI 5,LOW";
+}
+
+String stringAction(int inputAction){
+  if(inputAction == 0)         return "";
+  else if(inputAction == 1)    return "Berhenti";
+  else if(inputAction == 2)    return "Maju";
+  else if(inputAction == 3)    return "Belok Kiri";
+  else if(inputAction == 4)    return "Belok Kanan";
+  else if(inputAction == 5)    return "Balik Kiri";
+  else if(inputAction == 6)    return "Balik Kanan";
+  else if(inputAction == 7)    return "Lift On";
+  else if(inputAction == 8)    return "Lift Off";
+  else if(inputAction == 9)    return "Buzzer On";
+  else if(inputAction == 10)   return "Buzzer Off";
+  else if(inputAction == 11)   return "DO 01,HIGH";
+  else if(inputAction == 12)   return "DO 01,LOW";
+  else if(inputAction == 13)   return "DO 02,HIGH";
+  else if(inputAction == 14)   return "DO 02,LOW";
+  else if(inputAction == 15)   return "DO 03,HIGH";
+  else if(inputAction == 16)   return "DO 03,LOW";
+  else if(inputAction == 17)   return "DO 04,HIGH";
+  else if(inputAction == 18)   return "DO 04,LOW";
+  else if(inputAction == 19)   return "DO 05,HIGH";
+  else if(inputAction == 20)   return "DO 05,LOW";  
+}
+
+void resetData(bool statusReset){
+  if(statusReset == true){
+    for(int i = 0; i <= jumlahData ; i++){
+      mode = 0;
+      type = 0;
+      trigger = 0;
+      action = 0;
+      EEPROM.write(addressGmodeKe[i], mode);
+      EEPROM.write(addressGtypeKe[i], type);
+      EEPROM.write(addressGtriggerKe[i], trigger);
+      EEPROM.write(addressGactionKe[i], action);    
+      EEPROM_writeString(addressGidRFID[i], "");
+    }
+  }
+}
+
+void readData(){
+  for(int i = 1; i < (sizeof(idRFID) / sizeof(idRFID[0])); i++)
+  {
+    idRFID[i] = EEPROM_readString(addressGidRFID[i]);
+    Serial.println(idRFID[i]);
+  }
+  for(int i = 1; i <= jumlahData ; i++)
+  {
+    modeKe[i]     = EEPROM.read(addressGmodeKe[i]);
+    typeKe[i]     = EEPROM.read(addressGtypeKe[i]);
+    triggerKe[i]  = EEPROM.read(addressGtriggerKe[i]);
+    actionKe[i]   = EEPROM.read(addressGactionKe[i]);
+
+    Serial.print(i);                Serial.print("_");
+    Serial.print(modeKe[i]);        Serial.print("_");
+    Serial.print(typeKe[i]);        Serial.print("_");
+    Serial.print(triggerKe[i]);     Serial.print("_");
+    Serial.print(actionKe[i]);      Serial.print("\n");
+  }  
+}
+
+void dummyDataRFID(bool statusDummyDataRFID){
+// =========== dummy id RFID untuk testing ===========
+  if(statusDummyDataRFID == true){
+    idRFID[1]  = "2000000001";  idRFID[11] = "2000000011";  idRFID[21] = "2000000021";
+    idRFID[2]  = "2000000002";  idRFID[12] = "2000000012";  idRFID[22] = "2000000022";
+    idRFID[3]  = "2000000003";  idRFID[13] = "2000000013";  idRFID[23] = "2000000023";
+    idRFID[4]  = "2000000004";  idRFID[14] = "2000000014";  idRFID[24] = "2000000024";
+    idRFID[5]  = "2000000005";  idRFID[15] = "2000000015";  idRFID[25] = "2000000025";
+    idRFID[6]  = "2000000006";  idRFID[16] = "2000000016";  idRFID[26] = "2000000026";
+    idRFID[7]  = "2000000007";  idRFID[17] = "2000000017";  idRFID[27] = "2000000027";
+    idRFID[8]  = "2000000008";  idRFID[18] = "2000000018";  idRFID[28] = "2000000028";
+    idRFID[9]  = "2000000009";  idRFID[19] = "2000000019";  idRFID[29] = "2000000029";
+    idRFID[10] = "2000000010";  idRFID[20] = "2000000020";  idRFID[30] = "2000000030";
+    EEPROM_writeString(addressGidRFID[0], "0"); 
+    for(int i = 1; i <= jumlahData; i++){
+      EEPROM_writeString(addressGidRFID[i], idRFID[i]); 
+    }
+  }
+// =========== dummy id RFID untuk testing ===========
+}
+
+void contohData(bool statusContohData){
+// Contoh sampe data
+  if(statusContohData == true){
+    for(int i = 1; i < (sizeof(addressGmodeKe) / sizeof(addressGmodeKe[0])); i++)//  for(int i = 1; i < (sizeof(addressGnoKe) / sizeof(addressGnoKe[0])); i++)
+    {
+      modeKe[i]     = 0;
+      typeKe[i]     = 0;
+      triggerKe[i]  = 0;
+      actionKe[i]   = 0;
+      
+      Serial.print(i);                Serial.print("_");
+      Serial.print(modeKe[i]);        Serial.print("_");
+      Serial.print(typeKe[i]);        Serial.print("_");
+      Serial.print(triggerKe[i]);     Serial.print("_");
+      Serial.print(actionKe[i]);      Serial.print("\n");
+    }
+    // ============= CONTOH SAMPLE AJA ======================
+    modeKe[1] = 1;
+    modeKe[2] = 1;
+    modeKe[3] = 1;
+    modeKe[4] = 1;
+    modeKe[5] = 1;
+    modeKe[6] = 2;
+    modeKe[7] = 2;
+    modeKe[8] = 2;
+    modeKe[9] = 0;
+    modeKe[10] = 0;
+    for(int i = 11; i <= jumlahData; i++){
+      modeKe[i] = 0;
+    }
+  
+    typeKe[1] = 1;
+    typeKe[2] = 1;
+    typeKe[3] = 2;
+    typeKe[4] = 2;
+    typeKe[5] = 3;
+    typeKe[6] = 1;
+    typeKe[7] = 1;
+    typeKe[8] = 2;
+    typeKe[9] = 0;
+    typeKe[10] = 0;
+    for(int i = 11; i <= jumlahData; i++){
+      typeKe[i] = 0;
+    }
+  
+    triggerKe[1] = 1;
+    triggerKe[2] = 2;
+    triggerKe[3] = 1;
+    triggerKe[4] = 5;
+    triggerKe[5] = 10;
+    triggerKe[6] = 4;
+    triggerKe[7] = 7;
+    triggerKe[8] = 3;
+    triggerKe[9] = 0;
+    triggerKe[10] = 0;
+    for(int i = 11; i <= jumlahData; i++){
+      triggerKe[i] = 0;
+    }
+  
+    actionKe[1] = 1;
+    actionKe[2] = 2;
+    actionKe[3] = 10;
+    actionKe[4] = 15;
+    actionKe[5] = 18;
+    actionKe[6] = 5;
+    actionKe[7] = 3;
+    actionKe[8] = 7;
+    actionKe[9] = 0;
+    actionKe[10] = 0;
+    for(int i = 11; i <= jumlahData; i++){
+      actionKe[i] = 0;
+    }
+  }
+  // ============= CONTOH SAMPLE AJA ======================
+}
+
