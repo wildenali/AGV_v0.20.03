@@ -238,20 +238,32 @@ void GOOO(){
   
   while(true){
     nexLoop(nex_listen_list_F1B_Go);
+    Usb.Task();
+    
     if(Tombol == tSTOP)    return false;
     if(Tombol == tCANCEL)   return false;
+
+    String scanRFID;
     while(true)
     { 
       LetsGOOO(response);
 
       
       nexLoop(nex_listen_list_F1B_Go);
+      Usb.Task();
+
+      if(scanFinished == true){
+        scanRFID = scanResult;
+        scanFinished = false;
+        scanResult = "";
+      }
+      
       if(Tombol == tSTOP)    return false;
       if(Tombol == tCANCEL)   return false;
       
       switch(typeKe[urutanKe]){
         case typeRFID:
-          if(idRFID[urutanKe] == dummyDataRFID() && nextTarget == idRFID[urutanKe])
+          if(idRFID[urutanKe] == scanRFID && nextTarget == idRFID[urutanKe])
           {
             prevTarget = idRFID[urutanKe];
             actionKe[urutanKe];
@@ -261,7 +273,7 @@ void GOOO(){
             Serial.print(" prevTarget     : ");   Serial.println(prevTarget);
             Serial.print(" stringAction   : ");   Serial.println(stringAction(actionKe[urutanKe]));
 
-            Serial.print(" nowRFID        : ");   Serial.println(dummyDataRFID());
+            Serial.print(" nowRFID        : ");   Serial.println(scanRFID);
             Serial.print(" actionKe[]     : ");   Serial.println(actionKe[urutanKe]);
             response = doAction(actionKe[urutanKe]);
             

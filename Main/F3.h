@@ -3,7 +3,6 @@ void F3B_RFID_Data();
 void F3C_RFID_Data();
 void F3D_RFID_Data();
 
-
 void F3A_RFID_Data(){
   pageF3A.show();
   Serial.println("F3A_RFID_Data");
@@ -51,17 +50,31 @@ void F3A_RFID_Data(){
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
-    
+
+  scanResult = "";
+  Serial2.print("tF3ARFIDRead.txt=");
+  Serial2.print("\"");
+  Serial2.print(scanResult);
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+
   while(true){
     nexLoop(nex_listen_list_F3A_RFID_Data);
-    
-    Serial2.print("tF3ARFIDRead.txt=");
-    Serial2.print("\"");
-    Serial2.print(dummyDataRFID());
-    Serial2.print("\"");
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
+    Usb.Task();
+
+    if(scanFinished == true){
+      Serial2.print("tF3ARFIDRead.txt=");
+      Serial2.print("\"");
+      Serial2.print(scanResult);
+      Serial2.print("\"");
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      scanFinished = false;
+      scanResult = "";
+    }
     
     switch(Tombol){
       case tBACK:
@@ -218,6 +231,7 @@ void F3A_RFID_Data(){
   }
 }
 
+
 void F3B_RFID_Data(){
   pageF3B.show();
   Serial.println("F3B_RFID_Data");
@@ -238,16 +252,23 @@ void F3B_RFID_Data(){
   Serial2.write(0xff);
   Serial2.write(0xff);
   
+  String saveScanResult;
   while(true){
     nexLoop(nex_listen_list_F3B_RFID_Data);
+    Usb.Task();
     
-    Serial2.print("tF3BRFIDRead.txt=");
-    Serial2.print("\"");
-    Serial2.print(dummyDataRFID());
-    Serial2.print("\"");
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
+    if(scanFinished == true){
+      saveScanResult = scanResult;
+      Serial2.print("tF3BRFIDRead.txt=");
+      Serial2.print("\"");
+      Serial2.print(saveScanResult);
+      Serial2.print("\"");
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      Serial2.write(0xff);
+      scanFinished = false;
+      scanResult = "";
+    }
     
     switch(Tombol){
       case tBACK:
@@ -327,7 +348,7 @@ void F3B_RFID_Data(){
         Serial2.write(0xff);
         Serial2.write(0xff);
 
-        idRFID[noID] = dummyDataRFID();
+        idRFID[noID] = saveScanResult;
         
         Serial2.print("tF3BRFID.txt=");
         Serial2.print("\"");
@@ -336,7 +357,6 @@ void F3B_RFID_Data(){
         Serial2.write(0xff);
         Serial2.write(0xff);
         Serial2.write(0xff);
-//        EEPROM.update(addressGidRFID[noID], idRFID[noID]); 
         EEPROM_writeString(addressGidRFID[noID], idRFID[noID]);
         break;
       default:

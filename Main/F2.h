@@ -101,6 +101,8 @@ void F2A_LogicSet(){
         F2B_LogicSet();
         pageF2A.show();
         Serial.println("F2A_LogicSet");
+
+        readDataLogicSetting();
         
         NoF2A(numA,                  numB,              numC,              numD,              numE);
         ModeF2A(modeKe[numA],        modeKe[numB],      modeKe[numC],      modeKe[numD],      modeKe[numE]);

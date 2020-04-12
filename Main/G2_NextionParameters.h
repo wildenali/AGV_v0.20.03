@@ -415,13 +415,14 @@ void resetData(bool statusReset){
     }
   }
 }
-
-void readData(){
+void readDataRFID(){
   for(int i = 1; i < (sizeof(idRFID) / sizeof(idRFID[0])); i++)
   {
     idRFID[i] = EEPROM_readString(addressGidRFID[i]);
     Serial.println(idRFID[i]);
   }
+}
+void readDataLogicSetting(){
   for(int i = 1; i <= jumlahData ; i++)
   {
     modeKe[i]     = EEPROM.read(addressGmodeKe[i]);

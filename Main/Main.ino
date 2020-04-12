@@ -19,7 +19,8 @@ void setup() {
   
   nexInit();
   G2_NextionParameters();
- 
+  setupRFID_Data();
+  
   pinMode(13, OUTPUT);
 
   Serial.println("Menu Utama");
@@ -41,7 +42,8 @@ void setup() {
 
   resetData(false);
   dummyDataRFID(false);
-  readData();
+  readDataRFID();
+  readDataLogicSetting();
   contohData(false);
 
   Menu = E;
@@ -51,10 +53,23 @@ void setup() {
     Serial.println(stringDI(i));
   }
 
+
 }
 
 void loop() {
-  nexLoop(nex_listen_list_F0_MainMenu);  
+  nexLoop(nex_listen_list_F0_MainMenu);
+  Usb.Task();
+//  if(scanFinished == true){
+//    Serial.print("Panjang Data: ");   Serial.println(scanResult.length());
+//    
+//    scanResult = scanResult.substring(scanResult.length() - 10, scanResult.length());
+//    Serial.print("Hasil       : ");   Serial.println(scanResult);
+//    scanFinished = false;
+//    scanResult = "";
+//  }
+//  if(scanRFID() == "85192051e4"){
+//    Serial.println("YES");
+//  }
 //  Serial.println("Menu Utama");
   
   switch(Menu){
