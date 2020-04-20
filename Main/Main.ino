@@ -15,7 +15,7 @@
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
+  Serial.begin(115200);
   
   nexInit();
   G2_NextionParameters();
@@ -27,7 +27,7 @@ void setup() {
 
   pinMode(22, INPUT_PULLUP);
 
-  for(int i = 0; i < (sizeof(digitalInput) / sizeof(digitalInput[0])); i++)
+  for(int i = 1; i < (sizeof(digitalInput) / sizeof(digitalInput[0])); i++)
   {
     pinMode(digitalInput[i], INPUT_PULLUP);
     stateDigitalInput[i] = 0;
@@ -53,6 +53,64 @@ void setup() {
     Serial.println(stringDI(i));
   }
 
+//  int len_ID, len_DT;
+//  String message = "";
+//  String id, Data;
+  
+//  while(true){
+//    Serial.print(stringDI(0));   Serial.print(" ");
+//    Serial.print(stringDI(1));   Serial.print(" ");
+//    Serial.print(stringDI(2));   Serial.print(" ");
+//    Serial.print(stringDI(3));   Serial.print(" ");
+//    Serial.print(stringDI(4));   Serial.print(" ");
+//    Serial.print(stringDI(5));   Serial.print(" ");
+//    Serial.print(stringDI(6));   Serial.print(" ");
+//    Serial.print(stringDI(7));   Serial.print(" ");
+//    Serial.print(stringDI(8));   Serial.print(" ");
+//    Serial.print(stringDI(9));   Serial.print(" ");
+//    Serial.print(stringDI(10));   Serial.print(" ");
+////    len_ID = stringDI(1).indexOf(",");
+////    len_DT = message.indexOf("#");
+////    id = stringDI(1).substring(3,4); // parsing id
+////    Data = message.substring(len_ID+1, len_DT); // parsing data
+//
+////    Serial.print(stringDI(1).substring(3,4));   Serial.print(" ");
+////    Serial.print(stringDI(2).substring(3,4));   Serial.print(" ");
+////    Serial.print(stringDI(3).substring(3,4));   Serial.print(" ");
+////    Serial.print(stringDI(4).substring(3,4));   Serial.print(" ");
+////    Serial.print(stringDI(5).substring(3,4));   Serial.print(" ");
+////    Serial.print(stringDI(6).substring(3,4));   Serial.print(" ");
+////    Serial.print(stringDI(7).substring(3,4));   Serial.print(" ");
+////    Serial.print(stringDI(8).substring(3,4));   Serial.print(" ");
+////    Serial.print(stringDI(9).substring(3,4));   Serial.print(" ");
+////    Serial.print(stringDI(10).substring(3,4));  Serial.print(" ");
+//
+//    Serial.print(stringDI(1).substring(5,6));   Serial.print(" ");
+//    Serial.print(stringDI(2).substring(5,6));   Serial.print(" ");
+//    Serial.print(stringDI(3).substring(5,6));   Serial.print(" ");
+//    Serial.print(stringDI(4).substring(5,6));   Serial.print(" ");
+//    Serial.print(stringDI(5).substring(5,6));   Serial.print(" ");
+//    Serial.print(stringDI(6).substring(5,6));   Serial.print(" ");
+//    Serial.print(stringDI(7).substring(5,6));   Serial.print(" ");
+//    Serial.print(stringDI(8).substring(5,6));   Serial.print(" ");
+//    Serial.print(stringDI(9).substring(5,6));   Serial.print(" ");
+//    Serial.print(stringDI(10).substring(5,6));  Serial.print(" ");
+//
+//    int coba = 2;
+//    if(stringDI(1).substring(5,6) == "H"){
+//      Serial.print("high NIH");
+//    }
+//    Serial.println();
+//    
+//    
+//  }
+//  while(true){
+//    Serial.print(digitalRead(digitalInput[0]));   Serial.print(" ");
+//    Serial.print(digitalRead(digitalInput[1]));   Serial.print(" ");
+//    Serial.print(digitalRead(digitalInput[2]));   Serial.print(" ");
+//    Serial.print(digitalRead(digitalInput[3]));   Serial.print(" ");
+//    Serial.print(digitalRead(digitalInput[4]));   Serial.print("n");
+//  }
 
 }
 
@@ -96,8 +154,3 @@ void loop() {
       break;
   }
 }
-
-
-
-
-

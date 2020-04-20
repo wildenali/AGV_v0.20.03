@@ -11,17 +11,19 @@
 
 #define pinDigitalInput22 22
 
-#define pinDigitalInput01 23  // DI01
+#define pinDigitalInput01 23  // Coklat // DI01
 #define pinDigitalInput02 24
-#define pinDigitalInput03 25
+#define pinDigitalInput03 25  // Merah
 #define pinDigitalInput04 26
-#define pinDigitalInput05 27
+#define pinDigitalInput05 27  //Orange
 #define pinDigitalOutput01 28
-#define pinDigitalOutput02 29
+#define pinDigitalOutput02 29 // Kuning
 #define pinDigitalOutput03 30
-#define pinDigitalOutput04 31
+#define pinDigitalOutput04 31 // Hijau
 #define pinDigitalOutput05 32
 
+                              // A1 Ungu
+                              // A2 Biru
 
 enum menu{F0=0, F1=1, F2=2, F3=3, F4=4, MENUIDLE=5, E=99} Menu;
 enum tombol{tIDLE, tBACK, tNEXT, tGO, tCANCEL, tPLUS, tMINUS, tUP, tDOWN, tSAVE, tDELETE, tYES, tNO, tBACKSPACE, tSTOP, tLOW, tHIGH, tPASSWORD, tCLEAR, tOK}Tombol;
@@ -139,8 +141,8 @@ uint32_t GgainD;
 int32_t  GnoRefDist;
 bool stateDigitalInput[5];
 bool lastStateDigitalInput[5];
-unsigned int digitalInput[5] = {pinDigitalInput01, pinDigitalInput02, pinDigitalInput03, pinDigitalInput04, pinDigitalInput05};   // DI[5]
-unsigned int digitalOutput[5] = {pinDigitalOutput01, pinDigitalOutput02, pinDigitalOutput03, pinDigitalOutput04, pinDigitalOutput05};   // DI[5]
+unsigned int digitalInput[5+1] = {99, pinDigitalInput01, pinDigitalInput02, pinDigitalInput03, pinDigitalInput04, pinDigitalInput05};   // DI[5]      // 99 untuk buangaan, biar di awali dari 1 nanti pas di panggil klo butuh
+unsigned int digitalOutput[5+1] = {99, pinDigitalOutput01, pinDigitalOutput02, pinDigitalOutput03, pinDigitalOutput04, pinDigitalOutput05};   // DI[5]
 uint32_t GdistSens[20];
 uint32_t GminDistSens[20];
 
