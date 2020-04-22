@@ -8,6 +8,7 @@ void F2B_LogicSet();
 // 1 > RFID
 // 2 > DI (Digital Input)
 // 3 > DO (Digital Output)
+// 4 > LORA
 
 // ========== Action ==========
 // 0 > (kosong)
@@ -31,6 +32,11 @@ void F2B_LogicSet();
 // 18 > DO 04,HIGH
 // 19 > DO 05,LOW
 // 20 > DO 05,HIGH
+// 21 > Tx_1
+// 22 > Tx_2
+// 23 > Tx_3
+// 24 > Tx_4
+// 25 > Tx_5
 
 
 void NoF2A(int noA, int noB, int noC, int noD, int noE);
@@ -206,7 +212,7 @@ void F2B_LogicSet(){
         }
         if(LtexType)
         {
-          type++;     if(type >= 2)      type = 2;    // edit disini dulu          
+          type++;     if(type >= 3)      type = 3;
           typeKe[no] = type;
           TypeF2B(typeKe[no]);
 
@@ -222,14 +228,21 @@ void F2B_LogicSet(){
           }
           else if(type == 2)
           {
-            if(trigger >= 10)     trigger = 10;   // ini jumlah triger
+            if(trigger >= 10)     trigger = 10;   // ini jumlah triger, kenapa ada 10 triger pada typeDI, yaitu
+                                                  // DO 01,LOW        DO 02,LOW       DO 03,LOW       DO 04,LOW       DO 05,LOW
+                                                  // DO 01,HIGH       DO 02,HIGH      DO 03,HIGH      DO 04,HIGH      DO 05,HIGH
+          }
+          else if(type == 3)
+          {
+            if(trigger >= 5)     trigger = 5;   // ini jumlah triger, kenapa ada 5 triger pada typeLORA, yaitu
+                                                  // Rx_1        Rx_2       Rx_3       Rx_4       Rx_5
           }
           triggerKe[no] = trigger;
           TriggerF2B(triggerKe[no]);
         }
         if(LtexAction)
         {
-          action++;    if(action >= 20) action = 20;    // kenapa ada 13, karena action nya ada 13 tipe, see on top
+          action++;    if(action >= 25) action = 25;    // kenapa ada 25, karena action nya ada 25 jenis, see on top
           actionKe[no] = action;
           ActionF2B(actionKe[no]);
         }
@@ -413,6 +426,7 @@ void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
   if     (typeA == typeIDLE)      {typeAstring = "";}
   else if(typeA == typeRFID)      {typeAstring = "RFID";}
   else if(typeA == typeDI)        {typeAstring = "DI";}
+  else if(typeA == typeLORA)      {typeAstring = "LORA";}
   Serial2.print("tF2ATypeA.txt=");
   Serial2.print("\"");
   Serial2.print(typeAstring);
@@ -424,6 +438,7 @@ void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
   if     (typeB == typeIDLE)      {typeBstring = "";}
   else if(typeB == typeRFID)      {typeBstring = "RFID";}
   else if(typeB == typeDI)        {typeBstring = "DI";}
+  else if(typeB == typeLORA)      {typeBstring = "LORA";}
   Serial2.print("tF2ATypeB.txt=");
   Serial2.print("\"");
   Serial2.print(typeBstring);
@@ -435,6 +450,7 @@ void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
   if     (typeC == typeIDLE)      {typeCstring = "";}
   else if(typeC == typeRFID)      {typeCstring = "RFID";}
   else if(typeC == typeDI)        {typeCstring = "DI";}
+  else if(typeC == typeLORA)      {typeCstring = "LORA";}
   Serial2.print("tF2ATypeC.txt=");
   Serial2.print("\"");
   Serial2.print(typeCstring);
@@ -446,6 +462,7 @@ void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
   if     (typeD == typeIDLE)      {typeDstring = "";}
   else if(typeD == typeRFID)      {typeDstring = "RFID";}
   else if(typeD == typeDI)        {typeDstring = "DI";}
+  else if(typeD == typeLORA)      {typeDstring = "LORA";}
   Serial2.print("tF2ATypeD.txt=");
   Serial2.print("\"");
   Serial2.print(typeDstring);
@@ -457,6 +474,7 @@ void TypeF2A(int typeA, int typeB, int typeC, int typeD, int typeE){
   if     (typeE == typeIDLE)      {typeEstring = "";}
   else if(typeE == typeRFID)      {typeEstring = "RFID";}
   else if(typeE == typeDI)        {typeEstring = "DI";}
+  else if(typeE == typeLORA)      {typeEstring = "LORA";}
   Serial2.print("tF2ATypeE.txt=");
   Serial2.print("\"");
   Serial2.print(typeEstring);
@@ -471,6 +489,7 @@ void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int trig
   Serial2.print("\"");
   if     (typeAstring == "RFID")    Serial2.print(idRFID[triggerA]);
   else if(typeAstring == "DI")      Serial2.print(stringDI(triggerA));
+  else if(typeAstring == "LORA")    Serial2.print(stringLORA(triggerA));
   else                              Serial2.print("");
   Serial2.print("\"");
   Serial2.write(0xff);
@@ -481,6 +500,7 @@ void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int trig
   Serial2.print("\"");
   if     (typeBstring == "RFID")    Serial2.print(idRFID[triggerB]);
   else if(typeBstring == "DI")      Serial2.print(stringDI(triggerB));
+  else if(typeBstring == "LORA")    Serial2.print(stringLORA(triggerB));
   else                              Serial2.print("");
   Serial2.print("\"");
   Serial2.write(0xff);
@@ -491,6 +511,7 @@ void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int trig
   Serial2.print("\"");
   if     (typeCstring == "RFID")    Serial2.print(idRFID[triggerC]);
   else if(typeCstring == "DI")      Serial2.print(stringDI(triggerC));
+  else if(typeCstring == "LORA")    Serial2.print(stringLORA(triggerC));
   else                              Serial2.print("");
   Serial2.print("\"");
   Serial2.write(0xff);
@@ -501,6 +522,7 @@ void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int trig
   Serial2.print("\"");
   if     (typeDstring == "RFID")    Serial2.print(idRFID[triggerD]);
   else if(typeDstring == "DI")      Serial2.print(stringDI(triggerD));
+  else if(typeDstring == "LORA")    Serial2.print(stringLORA(triggerD));
   else                              Serial2.print("");
   Serial2.print("\"");
   Serial2.write(0xff);
@@ -512,6 +534,7 @@ void TriggerF2A(int triggerA, int triggerB, int triggerC, int triggerD, int trig
   Serial2.print("\"");
   if     (typeEstring == "RFID")    Serial2.print(idRFID[triggerE]);
   else if(typeEstring == "DI")      Serial2.print(stringDI(triggerE));
+  else if(typeEstring == "LORA")    Serial2.print(stringLORA(triggerE));
   else                              Serial2.print("");
   Serial2.print("\"");
   Serial2.write(0xff);
@@ -590,6 +613,7 @@ void TypeF2B(int typeInt){
   if     (typeInt == 0)     Serial2.print("");
   else if(typeInt == 1)     Serial2.print("RFID");
   else if(typeInt == 2)     Serial2.print("DI");
+  else if(typeInt == 3)     Serial2.print("LORA");
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);
@@ -606,7 +630,8 @@ void TriggerF2B(int triggerInt){
   Serial2.print("\"");
   if     (baper == "")        Serial2.print("");
   else if(baper == "RFID")    Serial2.print(idRFID[triggerInt]);
-  else if(baper == "DI")      Serial2.print(stringDI(triggerInt));  
+  else if(baper == "DI")      Serial2.print(stringDI(triggerInt));
+  else if(baper == "LORA")    Serial2.print(stringLORA(triggerInt));
   Serial2.print("\"");
   Serial2.write(0xff);
   Serial2.write(0xff);

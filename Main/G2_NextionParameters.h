@@ -18,9 +18,7 @@ NexButton bF1APlus        = NexButton(3, 8, "bF1APlus");
 NexNumber nF1ANum         = NexNumber(3, 6, "nF1ANum");       // ========== Object in F1A_PlayMenu ==========
 
 NexPage   pageF1B         = NexPage(4, 0, "F1B_Go");          // ========== Object in F1B_Go ==========
-//NexNumber nF1BPrevID      = NexNumber(4, 5, "nF1BPrevID");
 NexNumber nF1BMode        = NexNumber(4, 12, "nF1BMode");
-//NexNumber nF1BNextID      = NexNumber(4, 7, "nF1BNextID");
 NexButton bF1BCancel      = NexButton(4, 5, "bF1BCancel");
 NexButton bF1BStop        = NexButton(4, 6, "bF1BStop");
 NexButton bF1BGo          = NexButton(4, 7, "bF1BGo");        // ========== Object in F1B_Go ==========
@@ -272,7 +270,6 @@ void G2_NextionParameters(){
   tF2BType.attachPop(tF2BType_PopCallback);
   tF2BTrigger.attachPop(tF2BTrigger_PopCallback);
   tF2BAction.attachPop(tF2BAction_PopCallback);
-//  bF2BChange.attachPop(bF2BChange_PopCallback);
   bF2BUp.attachPop(bF2BUp_PopCallback);
   bF2BDown.attachPop(bF2BDown_PopCallback);               // ========== Register the pop event in F2B_LogicSet ==========
 
@@ -376,6 +373,15 @@ String stringDI(int inputDI){
   else if(inputDI == 10)   return "DI 5,LOW";
 }
 
+String stringLORA(int inputLORA){
+  if(inputLORA == 0)         return "";
+  else if(inputLORA == 1)    return "Rx_1";
+  else if(inputLORA == 2)    return "Rx_2";
+  else if(inputLORA == 3)    return "Rx_3";
+  else if(inputLORA == 4)    return "Rx_4";
+  else if(inputLORA == 5)    return "Rx_5";
+}
+
 String stringAction(int inputAction){
   if(inputAction == 0)         return "";
   else if(inputAction == 1)    return "Berhenti";
@@ -397,7 +403,12 @@ String stringAction(int inputAction){
   else if(inputAction == 17)   return "DO 04,HIGH";
   else if(inputAction == 18)   return "DO 04,LOW";
   else if(inputAction == 19)   return "DO 05,HIGH";
-  else if(inputAction == 20)   return "DO 05,LOW";  
+  else if(inputAction == 20)   return "DO 05,LOW"; 
+  else if(inputAction == 21)   return "Tx_1";
+  else if(inputAction == 22)   return "Tx_2";
+  else if(inputAction == 23)   return "Tx_3";
+  else if(inputAction == 24)   return "Tx_4";
+  else if(inputAction == 25)   return "Tx_5"; 
 }
 
 void resetData(bool statusReset){

@@ -33,7 +33,7 @@ enum teks{teksIDLE, teksNo, teksMode, teksType, teksTrigger, teksAction}Teks;
 #define typeIDLE  0
 #define typeRFID  1
 #define typeDI    2
-#define typeDO    3
+#define typeLORA  3   // tipe Baru
 
 #define addressGspeed       1
 #define addressGaccel       2
@@ -166,3 +166,7 @@ int typeKe[jumlahData+1];
 int triggerKe[jumlahData+1];
 int actionKe[jumlahData+1];
 
+String nextTarget;
+String prevTarget = "";
+int urutanKe;
+int urutanLastTarget;

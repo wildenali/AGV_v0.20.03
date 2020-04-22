@@ -17,6 +17,7 @@ void doAction_LiftOff();
 void doAction_BuzzerOn();
 void doAction_BuzzerOff();
 void doAction_DO(int pinDO);
+void doAction_LORA(String dataDoActionLORA);
 
 // ========== Action ==========
 // 0 > (kosong)
@@ -40,6 +41,11 @@ void doAction_DO(int pinDO);
 // 18 > DO 04,HIGH
 // 19 > DO 05,LOW
 // 20 > DO 05,HIGH
+// 21 > Tx_1
+// 22 > Tx_2
+// 23 > Tx_3
+// 24 > Tx_4
+// 25 > Tx_5
 
 void F1A_PlayMenu(){
   pageF1A.show();
@@ -98,10 +104,10 @@ void F1A_PlayMenu(){
 }
 
 
-String nextTarget;
-String prevTarget = "";
-int urutanKe;
-int urutanLastTarget;
+//String nextTarget;
+//String prevTarget = "";
+//int urutanKe;
+//int urutanLastTarget;
 
 void F1B_Go(){
   pageF1B.show();
@@ -126,20 +132,24 @@ void F1B_Go(){
     urutanKe += totalKe[i];
   }
   urutanKe = urutanKe + 1;
-  
+
   if(typeKe[urutanKe] == 1){
-    nextTarget = idRFID[urutanKe]; 
+    nextTarget = idRFID[triggerKe[urutanKe]];
   }
   else if(typeKe[urutanKe] == 2){
     nextTarget = stringDI(triggerKe[urutanKe]);
   }
+  else if(typeKe[urutanKe] == 3){
+    nextTarget = stringLORA(triggerKe[urutanKe]);
+  }
   else{
     nextTarget = "TIDAK ADA";
   }
-  Serial.print("Gmode       : ");  Serial.println(Gmode);
   Serial.print("urutanKe    : ");  Serial.println(urutanKe);
+  Serial.print("Gmode       : ");  Serial.println(Gmode);
   Serial.print("TIPEnya     : ");  Serial.println(typeKe[urutanKe]);
   Serial.print("TRIGGER DI  : ");  Serial.println(triggerKe[urutanKe]);
+  Serial.print("Action DI   : ");  Serial.println(actionKe[urutanKe]);
   Serial.print("nextTarget  : ");  Serial.println(nextTarget);
 
   Serial.println("=========================================");
@@ -158,7 +168,7 @@ void F1B_Go(){
   Serial2.write(0xff);
 
   
-  Serial2.print("tF1BNextID.txt=");
+  Serial2.print("tF1BNextTarget.txt=");
   Serial2.print("\"");
   Serial2.print(nextTarget);
   Serial2.print("\"");
@@ -244,7 +254,7 @@ void GOOO(){
   response = 0;
   Serial.println("GO GO Gooo");
 
-  Serial2.print("tF1BNextID.txt=");
+  Serial2.print("tF1BNextTarget.txt=");
   Serial2.print("\"");
   Serial2.print(nextTarget);
   Serial2.print("\"");
@@ -262,14 +272,18 @@ void GOOO(){
 
   
   String scanRFID;
+  String messageFromLora;
+  messageFromLora = "";
+  
   while(true)
   { 
     LetsGOOO(response);
-
     
     nexLoop(nex_listen_list_F1B_Go);
     Usb.Task();
 
+//    Serial.println(scanRFID);
+    
     if(scanFinished == true){
       scanRFID = scanResult;
       scanFinished = false;
@@ -281,9 +295,9 @@ void GOOO(){
     
     switch(typeKe[urutanKe]){
       case typeRFID:
-        if(idRFID[urutanKe] == scanRFID && nextTarget == idRFID[urutanKe])
+        if(idRFID[triggerKe[urutanKe]] == scanRFID && nextTarget == idRFID[triggerKe[urutanKe]])
         {
-          prevTarget = idRFID[urutanKe];
+          prevTarget = idRFID[triggerKe[urutanKe]];
           actionKe[urutanKe];
           stringAction(actionKe[urutanKe]); // ini untuk tampilan ke serial monitor
 
@@ -300,7 +314,7 @@ void GOOO(){
             return false;
           }
           
-          Serial2.print("tF1BPrevID.txt=");
+          Serial2.print("tF1BPrevTarget.txt=");
           Serial2.print("\"");
           Serial2.print(prevTarget);
           Serial2.print("\"");
@@ -317,12 +331,21 @@ void GOOO(){
           Serial2.write(0xff);
 
           // Tempatkan ini di bawah, karena ini increment dari urutanKe, sehingga nextTarget berubah
-          nextTarget = idRFID[++urutanKe];
+          urutanKe++;
+          if(typeKe[urutanKe] == 1){
+            nextTarget = idRFID[triggerKe[urutanKe]];
+          }
+          else if(typeKe[urutanKe] == 2){
+            nextTarget = stringDI(triggerKe[urutanKe]);
+          }
+          else if(typeKe[urutanKe] == 3){
+            nextTarget = stringLORA(triggerKe[urutanKe]);
+          }
           Serial.print(" nextTarget     : ");   Serial.println(nextTarget);
           Serial.print(" stringAction   : ");   Serial.println(stringAction(actionKe[urutanKe]));
 
           
-          Serial2.print("tF1BNextID.txt=");
+          Serial2.print("tF1BNextTarget.txt=");
           Serial2.print("\"");
           Serial2.print(nextTarget);
           Serial2.print("\"");
@@ -365,7 +388,7 @@ void GOOO(){
             return false;
           }
           
-          Serial2.print("tF1BPrevID.txt=");
+          Serial2.print("tF1BPrevTarget.txt=");
           Serial2.print("\"");
           Serial2.print(prevTarget);
           Serial2.print("\"");
@@ -382,12 +405,21 @@ void GOOO(){
           Serial2.write(0xff);
 
           // Tempatkan ini di bawah, karena ini increment dari urutanKe, sehingga nextTarget berubah
-          nextTarget = stringDI(triggerKe[++urutanKe]);
+          urutanKe++;
+          if(typeKe[urutanKe] == 1){
+            nextTarget = idRFID[triggerKe[urutanKe]];
+          }
+          else if(typeKe[urutanKe] == 2){
+            nextTarget = stringDI(triggerKe[urutanKe]);
+          }
+          else if(typeKe[urutanKe] == 3){
+            nextTarget = stringLORA(triggerKe[urutanKe]);
+          }
           Serial.print(" nextTarget     : ");   Serial.println(nextTarget);
           Serial.print(" stringAction   : ");   Serial.println(stringAction(actionKe[urutanKe]));
 
           
-          Serial2.print("tF1BNextID.txt=");
+          Serial2.print("tF1BNextTarget.txt=");
           Serial2.print("\"");
           Serial2.print(nextTarget);
           Serial2.print("\"");
@@ -404,6 +436,75 @@ void GOOO(){
           Serial2.write(0xff);
           
           Serial.print(" urutanKe-------: ");   Serial.println(urutanKe);
+        }
+        break;
+      case typeLORA:
+        if(Serial3.available()){                      // cek bahwa si lora node mengirim data cuma satu kali aja, sebenernya dia punya program otomatisasi kalau ga ke kirim, bakal ngirim lagi, karena ada callback,,,,, pokonya si lora node harus ngirim sekali aja
+          messageFromLora = Serial3.readString();
+        }
+
+        if(stringLORA(triggerKe[urutanKe]) == messageFromLora && nextTarget == stringLORA(triggerKe[urutanKe]))
+        {
+          Serial.print(" urutanKe-------: ");   Serial.println(urutanKe);
+          prevTarget = stringLORA(triggerKe[urutanKe]);
+          actionKe[urutanKe];
+          stringAction(actionKe[urutanKe]); // ini untuk tampilan ke serial monitor
+
+          response = doAction(actionKe[urutanKe]);
+
+          if(urutanKe == urutanLastTarget){
+            Tombol = tCANCEL;
+            return false;
+          }
+          
+          Serial2.print("tF1BPrevTarget.txt=");
+          Serial2.print("\"");
+          Serial2.print(prevTarget);
+          Serial2.print("\"");
+          Serial2.write(0xff);
+          Serial2.write(0xff);
+          Serial2.write(0xff);
+          
+          Serial2.print("tF1BPrevAction.txt=");
+          Serial2.print("\"");
+          Serial2.print(stringAction(actionKe[urutanKe]));
+          Serial2.print("\"");
+          Serial2.write(0xff);
+          Serial2.write(0xff);
+          Serial2.write(0xff);
+
+          // Tempatkan ini di bawah, karena ini increment dari urutanKe, sehingga nextTarget berubah
+          urutanKe++;
+          if(typeKe[urutanKe] == 1){
+            nextTarget = idRFID[triggerKe[urutanKe]];
+          }
+          else if(typeKe[urutanKe] == 2){
+            nextTarget = stringDI(triggerKe[urutanKe]);
+          }
+          else if(typeKe[urutanKe] == 3){
+            nextTarget = stringLORA(triggerKe[urutanKe]);
+          }
+          Serial.print(" nextTarget     : ");   Serial.println(nextTarget);
+          Serial.print(" stringAction   : ");   Serial.println(stringLORA(triggerKe[urutanKe]));
+
+          Serial2.print("tF1BNextTarget.txt=");
+          Serial2.print("\"");
+          Serial2.print(nextTarget);
+          Serial2.print("\"");
+          Serial2.write(0xff);
+          Serial2.write(0xff);
+          Serial2.write(0xff);
+
+          Serial2.print("tF1BNextAction.txt=");
+          Serial2.print("\"");
+          Serial2.print(stringAction(actionKe[urutanKe]));
+          Serial2.print("\"");
+          Serial2.write(0xff);
+          Serial2.write(0xff);
+          Serial2.write(0xff);
+          
+          Serial.print(" urutanKe-------: ");   Serial.println(urutanKe);
+          messageFromLora = "";
         }
         break;
       default:
@@ -457,6 +558,11 @@ int doAction(int statusDoAction){
   else if(statusDoAction == 18)   {doAction_DO(statusDoAction);   return 18;}
   else if(statusDoAction == 19)   {doAction_DO(statusDoAction);   return 19;}
   else if(statusDoAction == 20)   {doAction_DO(statusDoAction);   return 20;}
+  else if(statusDoAction == 21)   {doAction_LORA("Tx_1");         return 21;}
+  else if(statusDoAction == 22)   {doAction_LORA("Tx_2");         return 22;}
+  else if(statusDoAction == 23)   {doAction_LORA("Tx_3");         return 23;}
+  else if(statusDoAction == 24)   {doAction_LORA("Tx_4");         return 24;}
+  else if(statusDoAction == 25)   {doAction_LORA("Tx_5");         return 25;}
 }
 
 void doAction_Berhenti(){
@@ -657,3 +763,141 @@ void doAction_DO(int pinDO){
   }
 }
 
+void doAction_LORA(String dataDoActionLORA){
+  if(dataDoActionLORA == "Tx_1"){
+    Serial3.print(dataDoActionLORA);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(4500);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(65504);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(4500);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(65504);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+  }
+  else if(dataDoActionLORA == "Tx_2"){
+    Serial3.print(dataDoActionLORA);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(4600);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(65504);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(4500);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(65504);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+  }
+  else if(dataDoActionLORA == "Tx_3"){
+    Serial3.print(dataDoActionLORA);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(4700);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(65504);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(4500);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(65504);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+  }
+  else if(dataDoActionLORA == "Tx_4"){
+    Serial3.print(dataDoActionLORA);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(4800);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(65504);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(4500);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(65504);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+  }
+  else if(dataDoActionLORA == "Tx_5"){
+    Serial3.print(dataDoActionLORA);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(4900);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(65504);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(4500);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+    Serial2.print("tF1BNextAction.bco=");
+    Serial2.print(65504);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    Serial2.write(0xff);
+    delay(200);
+  }
+  
+}

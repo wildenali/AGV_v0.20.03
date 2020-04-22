@@ -16,6 +16,9 @@
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
+  Serial.flush();
+  Serial3.begin(9600);    // ini untuk komunikasi dengan serial ttgo esp32
+  Serial3.flush();
   
   nexInit();
   G2_NextionParameters();
@@ -112,22 +115,22 @@ void setup() {
 //    Serial.print(digitalRead(digitalInput[4]));   Serial.print("n");
 //  }
 
+  
+
 }
 
 void loop() {
   nexLoop(nex_listen_list_F0_MainMenu);
   Usb.Task();
-//  if(scanFinished == true){
-//    Serial.print("Panjang Data: ");   Serial.println(scanResult.length());
-//    
-//    scanResult = scanResult.substring(scanResult.length() - 10, scanResult.length());
-//    Serial.print("Hasil       : ");   Serial.println(scanResult);
-//    scanFinished = false;
-//    scanResult = "";
+
+//  String messageSerial3;
+//  while(true){
+//    if(Serial3.available()){
+//      messageSerial3 = Serial3.readStringUntil('\n');
+//      Serial.println(messageSerial3);
+//    }
 //  }
-//  if(scanRFID() == "85192051e4"){
-//    Serial.println("YES");
-//  }
+
 //  Serial.println("Menu Utama");
   
   switch(Menu){
