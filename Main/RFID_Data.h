@@ -55,12 +55,12 @@ void MyParser::OnKeyScanned(bool upper, uint8_t mod, uint8_t key) {
 }
 
 void MyParser::OnScanFinished() {
-  scanResult = scanResult.substring(scanResult.length() - 5, scanResult.length());
+  scanResult = scanResult.substring(scanResult.length() - 5, scanResult.length());    // ini hasil dari RFID HID Reader
   scanFinished = true;
 //  Serial.println(scanResult);
 }
 
-void setupRFID_Data(){
+void setup_RFID_Data(){
   Serial.println("Start RFID Reader");
   if (Usb.Init() == -1) {
     Serial.println("OSC did not start.");
@@ -68,34 +68,3 @@ void setupRFID_Data(){
   delay(200);
   Hid.SetReportParser(0, &Parser);
 }
-
-//String dummyDataRFID(){
-////  String res;
-////  if     (analogRead(1) == 0 && analogRead(2) == 0)                                                 res = "----------";
-////  else if(analogRead(1) == 0 && analogRead(2) > 0 && analogRead(2) <= 1000)                         res = "2000000001";
-////  else if(analogRead(1) == 0 && analogRead(2) > 1000)                                               res = "2000000002";
-////  else if(analogRead(1) > 0 && analogRead(1) < 1000 && analogRead(2) == 0)                          res = "2000000003";
-////  else if(analogRead(1) > 0 && analogRead(1) < 1000 && analogRead(2) > 0 && analogRead(2) <= 1000)  res = "2000000004";
-////  else if(analogRead(1) > 0 && analogRead(1) < 1000 && analogRead(2) > 1000)                        res = "2000000005";
-////  else if(analogRead(1) > 1000 && analogRead(2) == 0)                                               res = "2000000006";
-////  else if(analogRead(1) > 1000 && analogRead(2) > 0 && analogRead(2) <= 1000)                       res = "2000000007";
-////  else if(analogRead(1) > 1000 && analogRead(2) > 1000)                                             res = "2000000008";
-////  return res;
-//  if(scanFinished == true){
-//    Serial.print("Panjang Data: ");   Serial.println(scanResult.length());
-//    
-//    scanResult = scanResult.substring(scanResult.length() - 10, scanResult.length());
-//    Serial.print("Hasil       : ");   Serial.println(scanResult);
-//    scanFinished = false;
-//    scanResult = "";
-//  }
-//}
-//String abc;
-//String scanRFID(){
-//  if(scanFinished == true){
-//    abc = scanResult;
-//    scanFinished = false;
-//    scanResult = "";
-//  }
-//  return "";
-//}

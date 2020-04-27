@@ -57,18 +57,20 @@ void F4A_MachineSet(){
           nF4ASpeed.getValue(&Gspeed);
           Gspeed -= 1;
           if(Gspeed <= 1)   Gspeed = 1;
-          if(Gspeed >= 10)  Gspeed = 10;
+          if(Gspeed >= 50)  Gspeed = 50;
           nF4ASpeed.setValue(Gspeed);
           EEPROM.write(addressGspeed, Gspeed); 
         }
         if(LnumAccel){
           nF4AAccel.getValue(&Gaccel);
           Gaccel -= 1;
-          if(Gaccel <= 1)   Gaccel = 1;
+          if(Gaccel <= 0)   Gaccel = 0;
           if(Gspeed >= 10)  Gspeed = 10;
           nF4AAccel.setValue(Gaccel);
-          EEPROM.write(addressGaccel, Gaccel); 
+          EEPROM.write(addressGaccel, Gaccel);
         }
+        Gspeed = EEPROM.read(addressGspeed);
+        Gaccel = EEPROM.read(addressGaccel);
         break;
       case tPLUS:
         Tombol = tIDLE;
@@ -77,18 +79,20 @@ void F4A_MachineSet(){
           nF4ASpeed.getValue(&Gspeed);
           Gspeed += 1;
           if(Gspeed <= 1)   Gspeed = 1;
-          if(Gspeed >= 10)  Gspeed = 10;
+          if(Gspeed >= 50)  Gspeed = 50;
           nF4ASpeed.setValue(Gspeed);
           EEPROM.write(addressGspeed, Gspeed); 
         }
         if(LnumAccel){
           nF4AAccel.getValue(&Gaccel);
           Gaccel += 1;
-          if(Gaccel <= 1)   Gaccel = 1;
+          if(Gaccel <= 0)   Gaccel = 0;
           if(Gspeed >= 10)  Gspeed = 10;
           nF4AAccel.setValue(Gaccel);
-          EEPROM.write(addressGaccel, Gaccel); 
+          EEPROM.write(addressGaccel, Gaccel);
         }
+        Gspeed = EEPROM.read(addressGspeed);
+        Gaccel = EEPROM.read(addressGaccel); 
         break;
       default:
         break;
@@ -173,7 +177,7 @@ void F4B_MachineSet(){
         if(LnumGainI){
           nF4BGainI.getValue(&GgainI);
           GgainI -= 1;
-          if(GgainI <= 1)   GgainI = 1;
+          if(GgainI <= 0)   GgainI = 0;
           if(GgainI >= 10)  GgainI = 10;
           nF4BGainI.setValue(GgainI);
           EEPROM.write(addressGgainI, GgainI);
@@ -181,11 +185,14 @@ void F4B_MachineSet(){
         if(LnumGainD){
           nF4BGainD.getValue(&GgainD);
           GgainD -= 1;
-          if(GgainD <= 1)   GgainD = 1;
-          if(GgainD >= 10)  GgainD = 10;
+          if(GgainD <= 1)     GgainD = 1;
+          if(GgainD >= 1000)  GgainD = 1000;
           nF4BGainD.setValue(GgainD);
           EEPROM.write(addressGgainD, GgainD);
         }
+        GgainP = EEPROM.read(addressGgainP);
+        GgainI = EEPROM.read(addressGgainI);
+        GgainD = EEPROM.read(addressGgainD);
         break;
       case tPLUS:
         Tombol = tIDLE;
@@ -201,7 +208,7 @@ void F4B_MachineSet(){
         if(LnumGainI){
           nF4BGainI.getValue(&GgainI);
           GgainI += 1;
-          if(GgainI <= 1)   GgainI = 1;
+          if(GgainI <= 0)   GgainI = 0;
           if(GgainI >= 10)  GgainI = 10;
           nF4BGainI.setValue(GgainI);
           EEPROM.write(addressGgainI, GgainI); 
@@ -209,11 +216,14 @@ void F4B_MachineSet(){
         if(LnumGainD){
           nF4BGainD.getValue(&GgainD);
           GgainD += 1;
-          if(GgainD <= 1)   GgainD = 1;
-          if(GgainD >= 10)  GgainD = 10;
+          if(GgainD <= 1)     GgainD = 1;
+          if(GgainD >= 1000)  GgainD = 1000;
           nF4BGainD.setValue(GgainD);
           EEPROM.write(addressGgainD, GgainD); 
         }
+        GgainP = EEPROM.read(addressGgainP);
+        GgainI = EEPROM.read(addressGgainI);
+        GgainD = EEPROM.read(addressGgainD);
         break;
       default:
         break;
@@ -286,6 +296,7 @@ void F4C_MachineSet(){
         if(GnoRefDist >= 19)  GnoRefDist = 19;
         nF4CNoRefDist.setValue(GnoRefDist);
         EEPROM.write(addressGnoRefDist, GnoRefDist);
+        GnoRefDist = EEPROM.read(addressGnoRefDist);
         break;
       case tDOWN:
         Tombol = tIDLE;
@@ -296,6 +307,7 @@ void F4C_MachineSet(){
         if(GnoRefDist >= 19)  GnoRefDist = 19;
         nF4CNoRefDist.setValue(GnoRefDist);
         EEPROM.write(addressGnoRefDist, GnoRefDist);
+        GnoRefDist = EEPROM.read(addressGnoRefDist);
         break;
       case tMINUS:
         Tombol = tIDLE;
@@ -306,6 +318,9 @@ void F4C_MachineSet(){
         if(GminDistSens[GnoRefDist] >= 200)   GminDistSens[GnoRefDist] = 200;   // range batas distance avoid 0 sampai 200 cm
         nF4CRefDist.setValue(GminDistSens[GnoRefDist]);
         EEPROM.write(addressGminDistSens[GnoRefDist], GminDistSens[GnoRefDist]);
+        for(int i = 0; i < (sizeof(GminDistSens) / sizeof(GminDistSens[0])); i++){
+          GminDistSens[i]   = EEPROM.read(addressGminDistSens[i]);  
+        }
         break;
       case tPLUS:
         Tombol = tIDLE;
@@ -316,6 +331,9 @@ void F4C_MachineSet(){
         if(GminDistSens[GnoRefDist] >= 200)   GminDistSens[GnoRefDist] = 200;   // range batas distance avoid 0 sampai 200 cm
         nF4CRefDist.setValue(GminDistSens[GnoRefDist]);
         EEPROM.write(addressGminDistSens, GminDistSens[GnoRefDist]);
+        for(int i = 0; i < (sizeof(GminDistSens) / sizeof(GminDistSens[0])); i++){
+          GminDistSens[i]   = EEPROM.read(addressGminDistSens[i]);  
+        }
         break;
       default:
         break;
@@ -356,8 +374,9 @@ void F4E_MachineSet(){
   Serial.println("F4E_MachineSet");
   while(true){
     nexLoop(nex_listen_list_F4E_MachineSet);
+
     
-    int zF4EvalLineSensor = map(SensorLine(), -100, 100, 0, 180);   // convert from -100 to 100 tobe 0 to 180 for graphic
+    int zF4EvalLineSensor = map(sensorLine(), -100, 100, 0, 180);   // convert from -100 to 100 tobe 0 to 180 for graphic
     Serial2.print("zF4ELineSensor.val=");
     Serial2.print(zF4EvalLineSensor);
     Serial2.write(0xff);
@@ -366,7 +385,7 @@ void F4E_MachineSet(){
 
     char GbufferSensorLine[100] = {0};
     memset(GbufferSensorLine, 0, sizeof(GbufferSensorLine));    // proses dari int to char
-    itoa(SensorLine(), GbufferSensorLine, 10);        // proses dari int to char
+    itoa(sensorLine(), GbufferSensorLine, 10);        // proses dari int to char
     Serial2.print("tF4ELineSensor.txt=");
     Serial2.print("\"");
     Serial2.print(GbufferSensorLine);

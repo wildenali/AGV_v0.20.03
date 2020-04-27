@@ -1,3 +1,6 @@
+#include "CountDown.h"
+CountDown CD1(CountDown::SECONDS);
+
 void F1A_PlayMenu();
 void F1B_Go();
 
@@ -31,35 +34,32 @@ void doAction_LORA(String dataDoActionLORA);
 // 8 > Lift Off
 // 9 > Buzzer On
 // 10 > Buzzer Off
-// 11 > DO 01,LOW
-// 12 > DO 01,HIGH
-// 13 > DO 02,LOW
-// 14 > DO 02,HIGH
-// 15 > DO 03,LOW
-// 16 > DO 03,HIGH
-// 17 > DO 04,LOW
-// 18 > DO 04,HIGH
-// 19 > DO 05,LOW
-// 20 > DO 05,HIGH
-// 21 > Tx_1
-// 22 > Tx_2
-// 23 > Tx_3
-// 24 > Tx_4
-// 25 > Tx_5
+// 11 > DO 00,LOW
+// 12 > DO 00,HIGH
+// 13 > DO 01,LOW
+// 14 > DO 01,HIGH
+// 15 > DO 02,LOW
+// 16 > DO 02,HIGH
+// 17 > DO 03,LOW
+// 18 > DO 03,HIGH
+// 19 > DO 04,LOW
+// 20 > DO 04,HIGH
+// 21 > DO 05,LOW
+// 22 > DO 05,HIGH
+// 23 > Tx_1
+// 24 > Tx_2
+// 25 > Tx_3
+// 26 > Tx_4
+// 27 > Tx_5
+
+int pwmKiri, pwmKanan;
+
 
 void F1A_PlayMenu(){
   pageF1A.show();
   Serial.println("F1A_PlayMenu");
   Gmode = 1;
   nF1ANum.setValue(Gmode);
-
-//  for(int i = 1; i <= jumlahData; i++){
-//    Serial.print(i);                Serial.print("_");
-//    Serial.print(modeKe[i]);        Serial.print("_");
-//    Serial.print(typeKe[i]);        Serial.print("_");
-//    Serial.print(triggerKe[i]);     Serial.print("_");
-//    Serial.print(actionKe[i]);      Serial.print("\n");
-//  }
   
   
   while(true){
@@ -183,9 +183,26 @@ void F1B_Go(){
   Serial2.write(0xff);
   Serial2.write(0xff);
   Serial2.write(0xff);
-  
+
   while(true){
     nexLoop(nex_listen_list_F1B_Go);
+                                                // Serial plot ====================================================================
+                                                  Serial.print(100);
+                                                  Serial.print(" ");
+                                                  Serial.print(sensorCompass());
+                                                  Serial.print(" ");
+                                                  Serial.print(sensorLine());
+                                                  Serial.print(" ");
+                                                  Serial.print(PID_result);
+                                                  Serial.print(" ");
+                                                  Serial.print(pwmKiri);
+                                                  Serial.print(" ");
+                                                  Serial.print(pwmKanan);
+                                                  Serial.print(" ");
+                                                  Serial.print(CD1.remaining());
+                                                  Serial.print(" ");
+                                                  Serial.println(-100);
+                                                // Serial plot ====================================================================  
     switch(Tombol){
       case tCANCEL:
         Tombol = tIDLE;
@@ -240,6 +257,7 @@ void F1B_Go(){
         Serial2.write(0xff);
         Serial2.write(0xff);
 
+        CD1.start(5);
         GOOO();
         
       default:
@@ -248,10 +266,10 @@ void F1B_Go(){
   }
 }
 
-int response = 0;
+int responseGOOO = 0;
 
 void GOOO(){
-  response = 0;
+  responseGOOO = 0;
   Serial.println("GO GO Gooo");
 
   Serial2.print("tF1BNextTarget.txt=");
@@ -274,15 +292,14 @@ void GOOO(){
   String scanRFID;
   String messageFromLora;
   messageFromLora = "";
+  scanRFID = "";
   
   while(true)
   { 
-    LetsGOOO(response);
+    LetsGOOO(responseGOOO);
     
     nexLoop(nex_listen_list_F1B_Go);
     Usb.Task();
-
-//    Serial.println(scanRFID);
     
     if(scanFinished == true){
       scanRFID = scanResult;
@@ -307,7 +324,7 @@ void GOOO(){
 
           Serial.print(" nowRFID        : ");   Serial.println(scanRFID);
           Serial.print(" actionKe[]     : ");   Serial.println(actionKe[urutanKe]);
-          response = doAction(actionKe[urutanKe]);
+          responseGOOO = doAction(actionKe[urutanKe]);
 
           if(urutanKe == urutanLastTarget){
             Tombol = tCANCEL;
@@ -362,6 +379,7 @@ void GOOO(){
           Serial2.write(0xff);
           
           Serial.print(" urutanKe-------: ");   Serial.println(urutanKe);
+          scanRFID = "";
         }
         break;
       case typeDI:
@@ -381,7 +399,7 @@ void GOOO(){
 
           Serial.print(" nowRFID        : ");   Serial.println(scanRFID);
           Serial.print(" actionKe[]     : ");   Serial.println(actionKe[urutanKe]);
-          response = doAction(actionKe[urutanKe]);
+          responseGOOO = doAction(actionKe[urutanKe]);
 
           if(urutanKe == urutanLastTarget){
             Tombol = tCANCEL;
@@ -436,6 +454,7 @@ void GOOO(){
           Serial2.write(0xff);
           
           Serial.print(" urutanKe-------: ");   Serial.println(urutanKe);
+          scanRFID = "";
         }
         break;
       case typeLORA:
@@ -450,7 +469,7 @@ void GOOO(){
           actionKe[urutanKe];
           stringAction(actionKe[urutanKe]); // ini untuk tampilan ke serial monitor
 
-          response = doAction(actionKe[urutanKe]);
+          responseGOOO = doAction(actionKe[urutanKe]);
 
           if(urutanKe == urutanLastTarget){
             Tombol = tCANCEL;
@@ -505,32 +524,50 @@ void GOOO(){
           
           Serial.print(" urutanKe-------: ");   Serial.println(urutanKe);
           messageFromLora = "";
+          scanRFID = "";
         }
         break;
       default:
         break;  
-    }
-
-
-    
+    }    
   }
 }
 
-int pwmKiri, pwmKanan;
 
 void LetsGOOO(int responseLetsGo){
   
-  nexLoop(nex_listen_list_F1B_Go);
-  if(Tombol == tSTOP)    return false;
-  if(Tombol == tCANCEL)   return false;
-
+  PID_compute(sensorLine());
+  
   if(responseLetsGo == 1){
-    pwmKiri = 0;
     pwmKanan = 0;
-  }else{
-    pwmKiri = 225;
-    pwmKanan = 225;
+    pwmKiri = 0;
   }
+  else if(responseLetsGo != 1 && CD1.remaining() != 0){   // accel aktif
+    pwmKanan = Gspeed + (Gaccel * CD1.remaining()) + - PID_result;
+    pwmKiri = Gspeed + (Gaccel * CD1.remaining()) + PID_result;
+  }
+  else if(responseLetsGo != 1 && CD1.remaining() == 0){
+    pwmKanan = Gspeed - PID_result;
+    pwmKiri = Gspeed + PID_result;
+  }
+  
+  Serial.print(100);
+  Serial.print(" ");
+  Serial.print(sensorCompass());
+  Serial.print(" ");
+  Serial.print(sensorLine());
+  Serial.print(" ");
+  Serial.print(PID_result);
+  Serial.print(" ");
+  Serial.print(pwmKiri);
+  Serial.print(" ");
+  Serial.print(pwmKanan);
+  Serial.print(" ");
+  Serial.print(CD1.remaining());
+  Serial.print(" ");
+  Serial.println(-100);
+
+  
 
 //  Serial.print("pwmKiri: ");    Serial.print(pwmKiri);  Serial.print("\t pwmKanan: ");   Serial.println(pwmKanan);
     
@@ -543,7 +580,7 @@ int doAction(int statusDoAction){
   else if(statusDoAction == 3)    {doAction_BelokKiri();          return 3;}
   else if(statusDoAction == 4)    {doAction_BelokKanan();         return 4;}
   else if(statusDoAction == 5)    {doAction_BalikKiri();          return 5;}
-  else if(statusDoAction == 6)    {doAction_BelokKanan();         return 6;}
+  else if(statusDoAction == 6)    {doAction_BalikKanan();         return 6;}
   else if(statusDoAction == 7)    {doAction_LiftOn();             return 7;}
   else if(statusDoAction == 8)    {doAction_LiftOff();            return 8;}
   else if(statusDoAction == 9)    {doAction_BuzzerOn();           return 9;}
@@ -558,346 +595,574 @@ int doAction(int statusDoAction){
   else if(statusDoAction == 18)   {doAction_DO(statusDoAction);   return 18;}
   else if(statusDoAction == 19)   {doAction_DO(statusDoAction);   return 19;}
   else if(statusDoAction == 20)   {doAction_DO(statusDoAction);   return 20;}
-  else if(statusDoAction == 21)   {doAction_LORA("Tx_1");         return 21;}
-  else if(statusDoAction == 22)   {doAction_LORA("Tx_2");         return 22;}
-  else if(statusDoAction == 23)   {doAction_LORA("Tx_3");         return 23;}
-  else if(statusDoAction == 24)   {doAction_LORA("Tx_4");         return 24;}
-  else if(statusDoAction == 25)   {doAction_LORA("Tx_5");         return 25;}
+  else if(statusDoAction == 21)   {doAction_DO(statusDoAction);   return 21;}
+  else if(statusDoAction == 22)   {doAction_DO(statusDoAction);   return 22;}
+  else if(statusDoAction == 23)   {doAction_LORA("Tx_1");         return 23;}
+  else if(statusDoAction == 24)   {doAction_LORA("Tx_2");         return 24;}
+  else if(statusDoAction == 25)   {doAction_LORA("Tx_3");         return 25;}
+  else if(statusDoAction == 26)   {doAction_LORA("Tx_4");         return 26;}
+  else if(statusDoAction == 27)   {doAction_LORA("Tx_5");         return 27;}
 }
 
 void doAction_Berhenti(){
   // pura pura belok Berhenti
-  for(int i = 0; i <= 10; i++){
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(63488);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(65504);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-  }
+  Serial2.print("gF1BStatusMode.bco=");
+  Serial2.print(63488);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  
+  Serial2.print("gF1BStatusMode.txt=");
+  Serial2.print("\"");
+  Serial2.print("BERHENTI");
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
 }
 
 void doAction_Maju(){
   // pura pura belok Maju
-  for(int i = 0; i <= 10; i++){
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(34784);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(65504);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-  }
+  Serial2.print("gF1BStatusMode.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  
+  Serial2.print("gF1BStatusMode.txt=");
+  Serial2.print("\"");
+  Serial2.print("Jalan  -->>");
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  
+  CD1.start(5);
 }
 
 void doAction_BelokKiri(){
-  // pura pura belok kiri
-  for(int i = 0; i <= 10; i++){
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(1500);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(65504);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
+  Serial2.print("gF1BStatusMode.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("gF1BStatusMode.txt=");
+  Serial2.print("\"");
+  Serial2.print("Jalan  -->>");
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("tF1BNextAction.bco=");
+  Serial2.print(1500);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  
+  int targetHeading = sensorCompass() - 90;
+  
+  int _doAction = 0;
+  while(_doAction == 0){
+
+    int selisihRaw = targetHeading - sensorCompass();
+    if(selisihRaw <= -180)           selisihRaw = (selisihRaw + 180) + 180;
+    
+    int selisihTargetHeading = map(selisihRaw, 0, -90, 0, 100);
+    if(selisihTargetHeading >= 100)   selisihTargetHeading = 100;
+    if(selisihTargetHeading <= 0)     selisihTargetHeading = 0;
+    
+    float selisihPersen = (float)selisihTargetHeading / 100;
+
+    if(selisihPersen > 0.5 && selisihRaw < 0){
+      pwmKanan  = Gspeed * selisihPersen;
+      pwmKiri   = 0;
+    }else if(selisihPersen <= 0.5 && selisihRaw < 0){
+      pwmKanan  = Gspeed * 0.5;
+      pwmKiri   = 0;
+    }else if(selisihRaw > 0){
+      pwmKanan  = 0;
+      pwmKiri   = 0;
+    }
+
+    Serial.print("Compass: ");
+    Serial.print(sensorCompass());
+    Serial.print(" targetHeading: ");
+    Serial.print(targetHeading);
+    Serial.print(" SelisihRaw: ");
+    Serial.print(selisihRaw);
+    Serial.print(" selisihTargetHeading: ");
+    Serial.print(selisihTargetHeading);
+    Serial.print(" selisihPersen: ");
+    Serial.print(selisihPersen);
+    Serial.print(" pwmKiri: ");
+    Serial.print(pwmKiri);
+    Serial.print(" pwmKanan: ");
+    Serial.print(pwmKanan);
+    Serial.println();
+
+    if(selisihRaw > -10 && selisihRaw < 10 ) _doAction = 1;   // nilai 10 ini tergantung nanti pembacaan sensor garis, bisa dapet ga di range 10 ini pas garis nya ke detect
   }
+  
+  Serial2.print("tF1BNextAction.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
 }
 
 void doAction_BelokKanan(){
-  // pura pura belok Kanan
-  for(int i = 0; i <= 10; i++){
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(64512);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(65504);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
+  Serial2.print("gF1BStatusMode.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("gF1BStatusMode.txt=");
+  Serial2.print("\"");
+  Serial2.print("Jalan  -->>");
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("tF1BNextAction.bco=");
+  Serial2.print(64512);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  
+  int targetHeading = sensorCompass() + 90;
+
+  int _doAction = 0;
+  while(_doAction == 0){
+//    if(sensorCompass() > targetHeading - 10 && sensorCompass() < targetHeading + 10) _doAction = 1;
+    
+    int selisihRaw = targetHeading - sensorCompass();
+    if(selisihRaw >= 180)          selisihRaw = (selisihRaw - 180) - 180;
+    
+    int selisihTargetHeading = map(selisihRaw, 0, 90, 0, 100);
+    if(selisihTargetHeading >= 100)   selisihTargetHeading = 100;
+    if(selisihTargetHeading <= 0)     selisihTargetHeading = 0;
+    
+    float selisihPersen = (float)selisihTargetHeading / 100;
+
+    if(selisihPersen > 0.5 && selisihRaw > 0){
+      pwmKanan  = 0;
+      pwmKiri   = Gspeed * selisihPersen;
+    }else if(selisihPersen <= 0.5 && selisihRaw > 0){
+      pwmKanan  = 0;
+      pwmKiri   = Gspeed * 0.5;
+    }else if(selisihRaw < 0){
+      pwmKanan  = 0;
+      pwmKiri   = 0;
+    }
+
+    Serial.print("Compass: ");
+    Serial.print(sensorCompass());
+    Serial.print(" targetHeading: ");
+    Serial.print(targetHeading);
+    Serial.print(" SelisihRaw: ");
+    Serial.print(selisihRaw);
+    Serial.print(" selisihTargetHeading: ");
+    Serial.print(selisihTargetHeading);
+    Serial.print(" selisihPersen: ");
+    Serial.print(selisihPersen);
+    Serial.print(" pwmKiri: ");
+    Serial.print(pwmKiri);
+    Serial.print(" pwmKanan: ");
+    Serial.print(pwmKanan);
+    Serial.println();
+    
+    if(selisihRaw > -10 && selisihRaw < 10 ) _doAction = 1;
   }
+  
+  Serial2.print("tF1BNextAction.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
 }
 
 void doAction_BalikKiri(){
-  // pura pura Balik kiri
-  for(int i = 0; i <= 10; i++){
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(1500);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(0);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
+  Serial2.print("gF1BStatusMode.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("gF1BStatusMode.txt=");
+  Serial2.print("\"");
+  Serial2.print("Jalan  -->>");
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("tF1BNextAction.bco=");
+  Serial2.print(2500);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+
+  int targetHeading = sensorCompass() - 180;
+  
+  int _doAction = 0;
+  while(_doAction == 0){
+
+    int selisihRaw = targetHeading - sensorCompass();
+    if(selisihRaw <= -180)           selisihRaw = (selisihRaw + 180) + 180;
+    
+    int selisihTargetHeading = map(selisihRaw, 0, -180, 0, 100);
+    if(selisihTargetHeading >= 100)   selisihTargetHeading = 100;
+    if(selisihTargetHeading <= 0)     selisihTargetHeading = 0;
+    
+    float selisihPersen = (float)selisihTargetHeading / 100;
+
+    if(selisihRaw > 135){    // 135 = 180 - 45, kenapa karena untuk range si robot menghadap ke depannya, di kasih range dulu
+      pwmKanan  = Gspeed;
+      pwmKiri   = 0;
+    }else if(selisihPersen > 0.5 && selisihRaw < 0){
+      pwmKanan  = Gspeed * selisihPersen;
+      pwmKiri   = 0;
+    }else if(selisihPersen <= 0.5 && selisihRaw < 0){
+      pwmKanan  = Gspeed * 0.5;
+      pwmKiri   = 0;
+    }else if(selisihRaw >= 0 && selisihRaw <= 135){
+      pwmKanan  = 0;
+      pwmKiri   = 0;
+    }
+
+    Serial.print("Compass: ");
+    Serial.print(sensorCompass());
+    Serial.print(" targetHeading: ");
+    Serial.print(targetHeading);
+    Serial.print(" SelisihRaw: ");
+    Serial.print(selisihRaw);
+    Serial.print(" selisihTargetHeading: ");
+    Serial.print(selisihTargetHeading);
+    Serial.print(" selisihPersen: ");
+    Serial.print(selisihPersen);
+    Serial.print(" pwmKiri: ");
+    Serial.print(pwmKiri);
+    Serial.print(" pwmKanan: ");
+    Serial.print(pwmKanan);
+    Serial.println();
+    
+    if(selisihRaw > -10 && selisihRaw < 10 ) _doAction = 1;
   }
+  Serial2.print("tF1BNextAction.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
 }
 
 void doAction_BalikKanan(){
-  // pura pura Balik Kanan
-  for(int i = 0; i <= 10; i++){
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(64512);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(0);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-  }  
+  Serial2.print("gF1BStatusMode.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("gF1BStatusMode.txt=");
+  Serial2.print("\"");
+  Serial2.print("Jalan  -->>");
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("tF1BNextAction.bco=");
+  Serial2.print(3500);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+
+  int targetHeading = sensorCompass() + 180;
+  
+  int _doAction = 0;
+  while(_doAction == 0){
+
+    int selisihRaw = targetHeading - sensorCompass();
+    if(selisihRaw >= 180)           selisihRaw = (selisihRaw - 180) - 180;
+    
+    int selisihTargetHeading = map(selisihRaw, 0, 180, 0, 100);
+    if(selisihTargetHeading >= 100)   selisihTargetHeading = 100;
+    if(selisihTargetHeading <= 0)     selisihTargetHeading = 0;
+    
+    float selisihPersen = (float)selisihTargetHeading / 100;
+
+    if(selisihRaw < -135){    // -135 = -180 + 45, kenapa karena untuk range si robot menghadap ke depannya, di kasih range dulu
+      pwmKanan  = 0;
+      pwmKiri   = Gspeed;
+    }else if(selisihPersen > 0.5 && selisihRaw > 0){
+      pwmKanan  = 0;
+      pwmKiri   = Gspeed * selisihPersen;
+    }else if(selisihPersen <= 0.5 && selisihRaw > 0){
+      pwmKanan  = 0;
+      pwmKiri   = Gspeed * 0.5;
+    }else if(selisihRaw <= 0 && selisihRaw >= -135){
+      pwmKanan  = 0;
+      pwmKiri   = 0;
+    }
+
+    Serial.print("Compass: ");
+    Serial.print(sensorCompass());
+    Serial.print(" targetHeading: ");
+    Serial.print(targetHeading);
+    Serial.print(" SelisihRaw: ");
+    Serial.print(selisihRaw);
+    Serial.print(" selisihTargetHeading: ");
+    Serial.print(selisihTargetHeading);
+    Serial.print(" selisihPersen: ");
+    Serial.print(selisihPersen);
+    Serial.print(" pwmKiri: ");
+    Serial.print(pwmKiri);
+    Serial.print(" pwmKanan: ");
+    Serial.print(pwmKanan);
+    Serial.println();
+
+    if(selisihRaw > -10 && selisihRaw < 10 ) _doAction = 1;
+  }
+  
+  Serial2.print("tF1BNextAction.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
 }
 
 void doAction_LiftOn(){
-  // pura pura Lift On
-  for(int i = 0; i <= 10; i++){
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(64543);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(65504);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-  }
+  Serial2.print("gF1BStatusMode.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("gF1BStatusMode.txt=");
+  Serial2.print("\"");
+  Serial2.print("Jalan  -->>");
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("tF1BNextAction.bco=");
+  Serial2.print(64543);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+
+  // ini lempar ke ke PIN X aja
+  
+  delay(5000);
+
+  
+  Serial2.print("tF1BNextAction.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
 }
 
 void doAction_LiftOff(){
-  // pura pura Lift On
-  for(int i = 0; i <= 10; i++){
+  Serial2.print("gF1BStatusMode.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("gF1BStatusMode.txt=");
+  Serial2.print("\"");
+  Serial2.print("Jalan  -->>");
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(34815);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
+
+    // ini lempar ke ke PIN X aja
+    delay(5000);
+
+    
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(65504);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
-  }
 }
 
 void doAction_BuzzerOn(){
-  // pura pura Buzzer On
-  for(int i = 0; i <= 10; i++){
+  Serial2.print("gF1BStatusMode.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("gF1BStatusMode.txt=");
+  Serial2.print("\"");
+  Serial2.print("Jalan  -->>");
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(33792);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
+
+    // Lempar ke MP3
+    delay(5000);
+
+    
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(65504);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
-  }
 }
 
 void doAction_BuzzerOff(){
-  // pura pura Buzzer Off
-  for(int i = 0; i <= 10; i++){
+  Serial2.print("gF1BStatusMode.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("gF1BStatusMode.txt=");
+  Serial2.print("\"");
+  Serial2.print("Jalan  -->>");
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(50712);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
+    
+    // Lempar ke MP3
+    delay(5000);
+    
+    
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(65504);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
-  }
 }
 
 void doAction_DO(int pinDO){
-  // pura pura Buzzer Off
-  for(int i = 0; i <= 10; i++){
+  Serial2.print("gF1BStatusMode.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("gF1BStatusMode.txt=");
+  Serial2.print("\"");
+  Serial2.print("Jalan  -->>");
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(3000 + pinDO*100);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
+    
+    // Lempar ke Digital Output
+    delay(5000);
+
+    
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(65504);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
-  }
 }
 
 void doAction_LORA(String dataDoActionLORA){
+  Serial2.print("gF1BStatusMode.bco=");
+  Serial2.print(65504);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.print("gF1BStatusMode.txt=");
+  Serial2.print("\"");
+  Serial2.print("Jalan  -->>");
+  Serial2.print("\"");
+  Serial2.write(0xff);
+  Serial2.write(0xff);
+  Serial2.write(0xff);
   if(dataDoActionLORA == "Tx_1"){
     Serial3.print(dataDoActionLORA);
+    
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(4500);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
+    delay(1000);
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(65504);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(4500);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(65504);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
   }
   else if(dataDoActionLORA == "Tx_2"){
     Serial3.print(dataDoActionLORA);
+    
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(4600);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
+    delay(1000);
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(65504);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(4500);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(65504);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
   }
   else if(dataDoActionLORA == "Tx_3"){
     Serial3.print(dataDoActionLORA);
+    
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(4700);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
+    delay(1000);
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(65504);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(4500);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(65504);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
   }
   else if(dataDoActionLORA == "Tx_4"){
     Serial3.print(dataDoActionLORA);
+    
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(4800);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
+    delay(1000);
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(65504);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(4500);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(65504);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
   }
   else if(dataDoActionLORA == "Tx_5"){
     Serial3.print(dataDoActionLORA);
+    
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(4900);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
+    delay(1000);
     Serial2.print("tF1BNextAction.bco=");
     Serial2.print(65504);
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(4500);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
-    Serial2.print("tF1BNextAction.bco=");
-    Serial2.print(65504);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    Serial2.write(0xff);
-    delay(200);
   }
-  
 }

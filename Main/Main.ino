@@ -4,6 +4,8 @@
 #include "G1_Variables.h"
 #include "G2_NextionParameters.h"
 #include "SensorLine.h"
+#include "SensorCompass.h"
+#include "PID.h"
 #include "RFID_Data.h"
 #include "E.h"
 #include "F0.h"
@@ -15,22 +17,24 @@
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(115200);
+//  Serial.begin(115200);
+  Serial.begin(19200);
   Serial.flush();
   Serial3.begin(9600);    // ini untuk komunikasi dengan serial ttgo esp32
   Serial3.flush();
   
   nexInit();
   G2_NextionParameters();
-  setupRFID_Data();
+  setup_RFID_Data();
+  setup_SensorCompass();
   
   pinMode(13, OUTPUT);
 
   Serial.println("Menu Utama");
 
-  pinMode(22, INPUT_PULLUP);
-
-  for(int i = 1; i < (sizeof(digitalInput) / sizeof(digitalInput[0])); i++)
+  pinMode(pinEmergencyStop, INPUT_PULLUP);
+  
+  for(int i = 0; i < (sizeof(digitalInput) / sizeof(digitalInput[0])); i++)
   {
     pinMode(digitalInput[i], INPUT_PULLUP);
     stateDigitalInput[i] = 0;
@@ -49,13 +53,28 @@ void setup() {
   readDataLogicSetting();
   contohData(false);
 
+  Gspeed = EEPROM.read(addressGspeed);
+  Gaccel = EEPROM.read(addressGaccel);
+  GgainP = EEPROM.read(addressGgainP);
+  GgainI = EEPROM.read(addressGgainI);
+  GgainD = EEPROM.read(addressGgainD);
+  GnoRefDist = EEPROM.read(addressGnoRefDist);
+  for(int i = 0; i < (sizeof(GminDistSens) / sizeof(GminDistSens[0])); i++){
+    GminDistSens[i]   = EEPROM.read(addressGminDistSens[i]);  
+  }
+  
   Menu = E;
 
 
-  for(int i = 0; i <= 10; i++){
+  for(int i = 0; i <= 12; i++){
     Serial.println(stringDI(i));
   }
 
+  for (int thisReadingPID = 0; thisReadingPID < numReadingsPID; thisReadingPID++) {
+    readingsPID[thisReadingPID] = 0;
+  }
+
+  CD1.stop();
 //  int len_ID, len_DT;
 //  String message = "";
 //  String id, Data;
@@ -71,7 +90,9 @@ void setup() {
 //    Serial.print(stringDI(7));   Serial.print(" ");
 //    Serial.print(stringDI(8));   Serial.print(" ");
 //    Serial.print(stringDI(9));   Serial.print(" ");
-//    Serial.print(stringDI(10));   Serial.print(" ");
+//    Serial.print(stringDI(10));  Serial.print(" ");
+//    Serial.print(stringDI(11));  Serial.print(" ");
+//    Serial.print(stringDI(12));  Serial.print(" ");
 ////    len_ID = stringDI(1).indexOf(",");
 ////    len_DT = message.indexOf("#");
 ////    id = stringDI(1).substring(3,4); // parsing id
@@ -87,6 +108,8 @@ void setup() {
 ////    Serial.print(stringDI(8).substring(3,4));   Serial.print(" ");
 ////    Serial.print(stringDI(9).substring(3,4));   Serial.print(" ");
 ////    Serial.print(stringDI(10).substring(3,4));  Serial.print(" ");
+////    Serial.print(stringDI(11).substring(3,4));  Serial.print(" ");
+////    Serial.print(stringDI(12).substring(3,4));  Serial.print(" ");
 //
 //    Serial.print(stringDI(1).substring(5,6));   Serial.print(" ");
 //    Serial.print(stringDI(2).substring(5,6));   Serial.print(" ");
@@ -98,6 +121,8 @@ void setup() {
 //    Serial.print(stringDI(8).substring(5,6));   Serial.print(" ");
 //    Serial.print(stringDI(9).substring(5,6));   Serial.print(" ");
 //    Serial.print(stringDI(10).substring(5,6));  Serial.print(" ");
+//    Serial.print(stringDI(11).substring(5,6));  Serial.print(" ");
+//    Serial.print(stringDI(12).substring(5,6));  Serial.print(" ");
 //
 //    int coba = 2;
 //    if(stringDI(1).substring(5,6) == "H"){
@@ -112,23 +137,42 @@ void setup() {
 //    Serial.print(digitalRead(digitalInput[1]));   Serial.print(" ");
 //    Serial.print(digitalRead(digitalInput[2]));   Serial.print(" ");
 //    Serial.print(digitalRead(digitalInput[3]));   Serial.print(" ");
+//    Serial.print(digitalRead(digitalInput[5]));   Serial.print(" ");
 //    Serial.print(digitalRead(digitalInput[4]));   Serial.print("n");
 //  }
 
   
-
+  pinMode(pinStop, INPUT_PULLUP);
+  pinMode(pinEmergencyStop, INPUT_PULLUP);
 }
+
 
 void loop() {
   nexLoop(nex_listen_list_F0_MainMenu);
   Usb.Task();
 
-//  String messageSerial3;
 //  while(true){
-//    if(Serial3.available()){
-//      messageSerial3 = Serial3.readStringUntil('\n');
-//      Serial.println(messageSerial3);
+//    Serial.print(digitalRead(pinStop));
+//    Serial.print(" ");
+//    Serial.println(digitalRead(pinEmergencyStop));
+
+//    Serial.print(Gspeed);
+//    Serial.print(" ");
+//    Serial.print(Gaccel);
+//    Serial.print(" ");
+//    Serial.print(GgainP);
+//    Serial.print(" ");
+//    Serial.print(GgainI);
+//    Serial.print(" ");
+//    Serial.print(GgainD);
+//    Serial.print(" ");
+//    Serial.print(GnoRefDist);
+//    Serial.print(" ");
+//    for(int i = 0; i < (sizeof(GminDistSens) / sizeof(GminDistSens[0])); i++){
+//      Serial.print(GminDistSens[i]);
+//      Serial.print(" ");
 //    }
+//    Serial.println();
 //  }
 
 //  Serial.println("Menu Utama");

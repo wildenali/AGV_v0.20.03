@@ -22,21 +22,23 @@ void F2B_LogicSet();
 // 8 > Lift Off
 // 9 > Buzzer On
 // 10 > Buzzer Off
-// 11 > DO 01,LOW
-// 12 > DO 01,HIGH
-// 13 > DO 02,LOW
-// 14 > DO 02,HIGH
-// 15 > DO 03,LOW
-// 16 > DO 03,HIGH
-// 17 > DO 04,LOW
-// 18 > DO 04,HIGH
-// 19 > DO 05,LOW
-// 20 > DO 05,HIGH
-// 21 > Tx_1
-// 22 > Tx_2
-// 23 > Tx_3
-// 24 > Tx_4
-// 25 > Tx_5
+// 11 > DO 00,LOW
+// 12 > DO 00,HIGH
+// 13 > DO 01,LOW
+// 14 > DO 01,HIGH
+// 15 > DO 02,LOW
+// 16 > DO 02,HIGH
+// 17 > DO 03,LOW
+// 18 > DO 03,HIGH
+// 19 > DO 04,LOW
+// 20 > DO 04,HIGH
+// 21 > DO 05,LOW
+// 22 > DO 05,HIGH
+// 23 > Tx_1
+// 24 > Tx_2
+// 25 > Tx_3
+// 26 > Tx_4
+// 27 > Tx_5
 
 
 void NoF2A(int noA, int noB, int noC, int noD, int noE);
@@ -53,27 +55,6 @@ void ActionF2B(int actionInt);
 
 void pilihTeks();
 void sample();
-  
-//bool LtexNo = false;
-//bool LtexMode = false;
-//bool LtexType = false;
-//bool LtexTrigger = false;
-//bool LtexAction = false;
-//
-//
-//
-//
-//int no;
-//int mode;
-//int type;
-//int trigger;
-//int action;
-//
-//int modeKe[jumlahData+1];   // kenapa ada 10, karena maksimal data nya ada 10, 1 untuk buffer aja, biar dimulainya tidak dari 0 si array nya   
-//int typeKe[jumlahData+1];
-//int triggerKe[jumlahData+1];
-//int actionKe[jumlahData+1];
-
         
 void F2A_LogicSet(){
   pageF2A.show();
@@ -228,9 +209,9 @@ void F2B_LogicSet(){
           }
           else if(type == 2)
           {
-            if(trigger >= 10)     trigger = 10;   // ini jumlah triger, kenapa ada 10 triger pada typeDI, yaitu
-                                                  // DO 01,LOW        DO 02,LOW       DO 03,LOW       DO 04,LOW       DO 05,LOW
-                                                  // DO 01,HIGH       DO 02,HIGH      DO 03,HIGH      DO 04,HIGH      DO 05,HIGH
+            if(trigger >= 12)     trigger = 12;   // ini jumlah triger, kenapa ada 10 triger pada typeDI, yaitu
+                                                  // DO 00,LOW        DO 01,LOW        DO 02,LOW       DO 03,LOW       DO 04,LOW       DO 05,LOW
+                                                  // DO 00,HIGH       DO 01,HIGH       DO 02,HIGH      DO 03,HIGH      DO 04,HIGH      DO 05,HIGH
           }
           else if(type == 3)
           {
@@ -242,7 +223,7 @@ void F2B_LogicSet(){
         }
         if(LtexAction)
         {
-          action++;    if(action >= 25) action = 25;    // kenapa ada 25, karena action nya ada 25 jenis, see on top
+          action++;    if(action >= 27) action = 27;    // kenapa ada 27, karena action nya ada 27 jenis, see on top
           actionKe[no] = action;
           ActionF2B(actionKe[no]);
         }

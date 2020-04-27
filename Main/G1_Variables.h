@@ -9,18 +9,22 @@
                                       // A8 (62), A9 (63), A10 (64), A11 (65), A12 (66), A13 (67), A14 (68), A15 (69).
                                       // Akhirnya pakai Serial2 saja, karena itu yg terbaik
 
-#define pinDigitalInput22 22
+#define pinDigitalInput00   22
+#define pinDigitalInput01   24  // Coklat // DI01
+#define pinDigitalInput02   26
+#define pinDigitalInput03   28  // Merah
+#define pinDigitalInput04   30
+#define pinDigitalInput05   32  //Orange
+#define pinDigitalOutput00  23
+#define pinDigitalOutput01  25  // Kuning
+#define pinDigitalOutput02  27
+#define pinDigitalOutput03  29
+#define pinDigitalOutput04  31 // Hijau
+#define pinDigitalOutput05  33
 
-#define pinDigitalInput01 23  // Coklat // DI01
-#define pinDigitalInput02 24
-#define pinDigitalInput03 25  // Merah
-#define pinDigitalInput04 26
-#define pinDigitalInput05 27  //Orange
-#define pinDigitalOutput01 28
-#define pinDigitalOutput02 29 // Kuning
-#define pinDigitalOutput03 30
-#define pinDigitalOutput04 31 // Hijau
-#define pinDigitalOutput05 32
+#define pinStop             34
+#define pinEmergencyStop    2   // karena ini pin INT4
+
 
                               // A1 Ungu
                               // A2 Biru
@@ -139,10 +143,10 @@ uint32_t GgainI;
 uint32_t GgainD;
 
 int32_t  GnoRefDist;
-bool stateDigitalInput[5];
-bool lastStateDigitalInput[5];
-unsigned int digitalInput[5+1] = {99, pinDigitalInput01, pinDigitalInput02, pinDigitalInput03, pinDigitalInput04, pinDigitalInput05};   // DI[5]      // 99 untuk buangaan, biar di awali dari 1 nanti pas di panggil klo butuh
-unsigned int digitalOutput[5+1] = {99, pinDigitalOutput01, pinDigitalOutput02, pinDigitalOutput03, pinDigitalOutput04, pinDigitalOutput05};   // DI[5]
+bool stateDigitalInput[6];
+bool lastStateDigitalInput[6];
+unsigned int digitalInput[6]  = {pinDigitalInput00, pinDigitalInput01, pinDigitalInput02, pinDigitalInput03, pinDigitalInput04, pinDigitalInput05};   // DI[6]
+unsigned int digitalOutput[6] = {pinDigitalOutput00, pinDigitalOutput01, pinDigitalOutput02, pinDigitalOutput03, pinDigitalOutput04, pinDigitalOutput05};   // DO[6]
 uint32_t GdistSens[20];
 uint32_t GminDistSens[20];
 

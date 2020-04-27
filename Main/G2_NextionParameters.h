@@ -346,6 +346,8 @@ void G2_DigitalInputStatusDisplay(){
       else if (stateDigitalInput[3] == LOW)     tF4DDI03.Set_background_color_bco(500);
       if      (stateDigitalInput[4] == HIGH)    tF4DDI04.Set_background_color_bco(2016);
       else if (stateDigitalInput[4] == LOW)     tF4DDI04.Set_background_color_bco(500);
+//      if      (stateDigitalInput[5] == HIGH)    tF4DDI04.Set_background_color_bco(2016);
+//      else if (stateDigitalInput[5] == LOW)     tF4DDI04.Set_background_color_bco(500);
       delay(10);
     }
     lastStateDigitalInput[i] = stateDigitalInput[i];
@@ -361,16 +363,18 @@ void readDistanceSensor(){
 
 String stringDI(int inputDI){
   if(inputDI == 0)         return "";
-  else if(inputDI == 1)    return "DI 1,HIGH";
-  else if(inputDI == 2)    return "DI 1,LOW";
-  else if(inputDI == 3)    return "DI 2,HIGH";
-  else if(inputDI == 4)    return "DI 2,LOW";
-  else if(inputDI == 5)    return "DI 3,HIGH";
-  else if(inputDI == 6)    return "DI 3,LOW";
-  else if(inputDI == 7)    return "DI 4,HIGH";
-  else if(inputDI == 8)    return "DI 4,LOW";
-  else if(inputDI == 9)    return "DI 5,HIGH";
-  else if(inputDI == 10)   return "DI 5,LOW";
+  else if(inputDI == 1)    return "DI 0,HIGH";
+  else if(inputDI == 2)    return "DI 0,LOW";
+  else if(inputDI == 3)    return "DI 1,HIGH";
+  else if(inputDI == 4)    return "DI 1,LOW";
+  else if(inputDI == 5)    return "DI 2,HIGH";
+  else if(inputDI == 6)    return "DI 2,LOW";
+  else if(inputDI == 7)    return "DI 3,HIGH";
+  else if(inputDI == 8)    return "DI 3,LOW";
+  else if(inputDI == 9)    return "DI 4,HIGH";
+  else if(inputDI == 10)   return "DI 4,LOW";
+  else if(inputDI == 11)   return "DI 5,HIGH";
+  else if(inputDI == 12)   return "DI 5,LOW";
 }
 
 String stringLORA(int inputLORA){
@@ -394,21 +398,23 @@ String stringAction(int inputAction){
   else if(inputAction == 8)    return "Lift Off";
   else if(inputAction == 9)    return "Buzzer On";
   else if(inputAction == 10)   return "Buzzer Off";
-  else if(inputAction == 11)   return "DO 01,HIGH";
-  else if(inputAction == 12)   return "DO 01,LOW";
-  else if(inputAction == 13)   return "DO 02,HIGH";
-  else if(inputAction == 14)   return "DO 02,LOW";
-  else if(inputAction == 15)   return "DO 03,HIGH";
-  else if(inputAction == 16)   return "DO 03,LOW";
-  else if(inputAction == 17)   return "DO 04,HIGH";
-  else if(inputAction == 18)   return "DO 04,LOW";
-  else if(inputAction == 19)   return "DO 05,HIGH";
-  else if(inputAction == 20)   return "DO 05,LOW"; 
-  else if(inputAction == 21)   return "Tx_1";
-  else if(inputAction == 22)   return "Tx_2";
-  else if(inputAction == 23)   return "Tx_3";
-  else if(inputAction == 24)   return "Tx_4";
-  else if(inputAction == 25)   return "Tx_5"; 
+  else if(inputAction == 11)   return "DO 00,HIGH";
+  else if(inputAction == 12)   return "DO 00,LOW";
+  else if(inputAction == 13)   return "DO 01,HIGH";
+  else if(inputAction == 14)   return "DO 01,LOW";
+  else if(inputAction == 15)   return "DO 02,HIGH";
+  else if(inputAction == 16)   return "DO 02,LOW";
+  else if(inputAction == 17)   return "DO 03,HIGH";
+  else if(inputAction == 18)   return "DO 03,LOW";
+  else if(inputAction == 19)   return "DO 04,HIGH";
+  else if(inputAction == 20)   return "DO 04,LOW";
+  else if(inputAction == 21)   return "DO 05,HIGH";
+  else if(inputAction == 22)   return "DO 05,LOW"; 
+  else if(inputAction == 23)   return "Tx_1";
+  else if(inputAction == 24)   return "Tx_2";
+  else if(inputAction == 25)   return "Tx_3";
+  else if(inputAction == 26)   return "Tx_4";
+  else if(inputAction == 27)   return "Tx_5"; 
 }
 
 void resetData(bool statusReset){
