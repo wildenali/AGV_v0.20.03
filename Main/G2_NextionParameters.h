@@ -354,12 +354,6 @@ void G2_DigitalInputStatusDisplay(){
   }
 }
 
-void readDistanceSensor(){
-  for(int i = 0; i < (sizeof(GdistSens) / sizeof(GdistSens[0])); i++){
-    GdistSens[i] = analogRead(A0);
-  }
-}
-
 
 String stringDI(int inputDI){
   if(inputDI == 0)         return "";

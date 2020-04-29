@@ -104,11 +104,6 @@ void F1A_PlayMenu(){
 }
 
 
-//String nextTarget;
-//String prevTarget = "";
-//int urutanKe;
-//int urutanLastTarget;
-
 void F1B_Go(){
   pageF1B.show();
   Serial.println("F1B_Go");
@@ -189,8 +184,8 @@ void F1B_Go(){
                                                 // Serial plot ====================================================================
                                                   Serial.print(100);
                                                   Serial.print(" ");
-                                                  Serial.print(sensorCompass());
-                                                  Serial.print(" ");
+//                                                  Serial.print(sensorCompass());
+//                                                  Serial.print(" ");
                                                   Serial.print(sensorLine());
                                                   Serial.print(" ");
                                                   Serial.print(PID_result);
@@ -203,6 +198,9 @@ void F1B_Go(){
                                                   Serial.print(" ");
                                                   Serial.println(-100);
                                                 // Serial plot ====================================================================  
+    if(digitalRead(pinStop) == LOW) Tombol = tSTOP;
+    if(digitalRead(pinEmergencyStop) == LOW) Tombol = tCANCEL;
+    
     switch(Tombol){
       case tCANCEL:
         Tombol = tIDLE;
@@ -306,6 +304,9 @@ void GOOO(){
       scanFinished = false;
       scanResult = "";
     }
+
+    if(digitalRead(pinStop) == LOW) Tombol = tSTOP;
+    if(digitalRead(pinEmergencyStop) == LOW) Tombol = tCANCEL;
     
     if(Tombol == tSTOP)    return false;
     if(Tombol == tCANCEL)   return false;
@@ -537,6 +538,11 @@ void GOOO(){
 void LetsGOOO(int responseLetsGo){
   
   PID_compute(sensorLine());
+  while(readDistanceSensor() != -1){
+    pwmKanan = 0;
+    pwmKiri = 0;
+    CD1.start(5);
+  }
   
   if(responseLetsGo == 1){
     pwmKanan = 0;
@@ -550,26 +556,10 @@ void LetsGOOO(int responseLetsGo){
     pwmKanan = Gspeed - PID_result;
     pwmKiri = Gspeed + PID_result;
   }
-  
-  Serial.print(100);
-  Serial.print(" ");
-  Serial.print(sensorCompass());
-  Serial.print(" ");
-  Serial.print(sensorLine());
-  Serial.print(" ");
-  Serial.print(PID_result);
-  Serial.print(" ");
-  Serial.print(pwmKiri);
-  Serial.print(" ");
-  Serial.print(pwmKanan);
-  Serial.print(" ");
-  Serial.print(CD1.remaining());
-  Serial.print(" ");
-  Serial.println(-100);
 
-  
-
-//  Serial.print("pwmKiri: ");    Serial.print(pwmKiri);  Serial.print("\t pwmKanan: ");   Serial.println(pwmKanan);
+    Serial.print(pwmKanan);                 Serial.print(" ");
+    Serial.print(pwmKiri);                  Serial.print(" ");
+    Serial.println(CD1.remaining());
     
 }
 
@@ -663,7 +653,20 @@ void doAction_BelokKiri(){
   
   int _doAction = 0;
   while(_doAction == 0){
-
+    
+    nexLoop(nex_listen_list_F1B_Go);
+    if(Tombol == tSTOP)    return false;
+    if(digitalRead(pinStop) == LOW) {
+      Tombol = tSTOP;
+      _doAction = 1;
+      return false;
+    }
+    if(digitalRead(pinEmergencyStop) == LOW) {
+      Tombol = tCANCEL;
+      _doAction = 1;
+      return false;
+    }
+    
     int selisihRaw = targetHeading - sensorCompass();
     if(selisihRaw <= -180)           selisihRaw = (selisihRaw + 180) + 180;
     
@@ -733,7 +736,19 @@ void doAction_BelokKanan(){
 
   int _doAction = 0;
   while(_doAction == 0){
-//    if(sensorCompass() > targetHeading - 10 && sensorCompass() < targetHeading + 10) _doAction = 1;
+    
+    nexLoop(nex_listen_list_F1B_Go);
+    if(Tombol == tSTOP)    return false;
+    if(digitalRead(pinStop) == LOW) {
+      Tombol = tSTOP;
+      _doAction = 1;
+      return false;
+    }
+    if(digitalRead(pinEmergencyStop) == LOW) {
+      Tombol = tCANCEL;
+      _doAction = 1;
+      return false;
+    }
     
     int selisihRaw = targetHeading - sensorCompass();
     if(selisihRaw >= 180)          selisihRaw = (selisihRaw - 180) - 180;
@@ -804,7 +819,20 @@ void doAction_BalikKiri(){
   
   int _doAction = 0;
   while(_doAction == 0){
-
+    
+    nexLoop(nex_listen_list_F1B_Go);
+    if(Tombol == tSTOP)    return false;
+    if(digitalRead(pinStop) == LOW) {
+      Tombol = tSTOP;
+      _doAction = 1;
+      return false;
+    }
+    if(digitalRead(pinEmergencyStop) == LOW) {
+      Tombol = tCANCEL;
+      _doAction = 1;
+      return false;
+    }
+    
     int selisihRaw = targetHeading - sensorCompass();
     if(selisihRaw <= -180)           selisihRaw = (selisihRaw + 180) + 180;
     
@@ -877,6 +905,19 @@ void doAction_BalikKanan(){
   int _doAction = 0;
   while(_doAction == 0){
 
+    nexLoop(nex_listen_list_F1B_Go);
+    if(Tombol == tSTOP)    return false;
+    if(digitalRead(pinStop) == LOW) {
+      Tombol = tSTOP;
+      _doAction = 1;
+      return false;
+    }
+    if(digitalRead(pinEmergencyStop) == LOW) {
+      Tombol = tCANCEL;
+      _doAction = 1;
+      return false;
+    }
+    
     int selisihRaw = targetHeading - sensorCompass();
     if(selisihRaw >= 180)           selisihRaw = (selisihRaw - 180) - 180;
     

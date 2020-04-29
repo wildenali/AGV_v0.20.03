@@ -318,9 +318,6 @@ void F4C_MachineSet(){
         if(GminDistSens[GnoRefDist] >= 200)   GminDistSens[GnoRefDist] = 200;   // range batas distance avoid 0 sampai 200 cm
         nF4CRefDist.setValue(GminDistSens[GnoRefDist]);
         EEPROM.write(addressGminDistSens[GnoRefDist], GminDistSens[GnoRefDist]);
-        for(int i = 0; i < (sizeof(GminDistSens) / sizeof(GminDistSens[0])); i++){
-          GminDistSens[i]   = EEPROM.read(addressGminDistSens[i]);  
-        }
         break;
       case tPLUS:
         Tombol = tIDLE;
@@ -331,9 +328,6 @@ void F4C_MachineSet(){
         if(GminDistSens[GnoRefDist] >= 200)   GminDistSens[GnoRefDist] = 200;   // range batas distance avoid 0 sampai 200 cm
         nF4CRefDist.setValue(GminDistSens[GnoRefDist]);
         EEPROM.write(addressGminDistSens, GminDistSens[GnoRefDist]);
-        for(int i = 0; i < (sizeof(GminDistSens) / sizeof(GminDistSens[0])); i++){
-          GminDistSens[i]   = EEPROM.read(addressGminDistSens[i]);  
-        }
         break;
       default:
         break;
