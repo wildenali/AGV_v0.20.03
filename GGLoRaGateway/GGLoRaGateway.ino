@@ -1,4 +1,5 @@
 // Ubah disini kan untuk fitur Lora
+// eeeh kan coba dulu
 #include <SPI.h>
 #include <LoRa.h>
 #include <Wire.h>  
