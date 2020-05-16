@@ -23,7 +23,7 @@
 #define pinDigitalOutput05  33
 
 #define pinStop             34
-#define pinEmergencyStop    2   // karena ini pin INT4
+#define pinEmergencyStop    2   // karena ini pin INT4 -> ganti kepin 18, karena pin 18 adalah pin interrupt
 
 
                               // A1 Ungu
